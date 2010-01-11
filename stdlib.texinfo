@@ -109,15 +109,20 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body changes detect_all_change::  
 * body changes detect_content::  
 * body classes if_desired::     
+* body classes if_else::        
 * body classes if_notkept::     
 * body classes if_ok::          
 * body classes if_repaired::    
 * body contain in_dir::         
 * body contain in_shell::       
+* body contain jail::           
 * body contain setuid::         
 * body contain setuid_sh::      
 * body contain silent::         
+* body contain silent_in_dir::  
 * body copy_from local_cp::     
+* body copy_from no_backup_cp::  
+* body copy_from no_backup_rcp::  
 * body copy_from remote_cp::    
 * body copy_from secure_cp::    
 * body delete tidy::            
@@ -133,6 +138,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body file_select exclude::    
 * body file_select name_age::   
 * body file_select plain::      
+* body file_select size_range::  
 * body link_from linkchildren::  
 * body link_from ln_s::         
 * body location start::         
@@ -140,6 +146,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body mount nfs_p::            
 * body mount unmount::          
 * body package_method apt::     
+* body package_method freebsd::  
 * body package_method solaris ::  
 * body package_method yum::     
 * body package_method zypper::  
@@ -151,6 +158,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body process_count check_range::  
 * body rename disable::         
 * body rename rotate::          
+* body rename to::              
 * body replace_with comment::   
 * body replace_with uncomment::  
 * body replace_with value::     
@@ -242,6 +250,9 @@ ifelapsed => "60";
 
 @verbatim
 body changes detect_all_change
+
+# This is fierce, and will cost disk cycles
+
 {
 hash           => "best";
 report_changes => "all";
@@ -256,17 +267,19 @@ update_hashes  => "yes";
 
 @verbatim
 body changes detect_content
+
+# This is a cheaper alternative
+
 {
-hash           => "best";
+hash           => "md5";
 report_changes => "content";
 update_hashes  => "yes";
 }
 
 
-
 @end verbatim
 
-@node body classes if_desired, body classes if_notkept, body changes detect_content, The Purpose Of This Handbook
+@node body classes if_desired, body classes if_else, body changes detect_content, The Purpose Of This Handbook
 @section body classes if_desired(a)
 
 @verbatim
@@ -279,13 +292,33 @@ promise_repaired => { "$(a)" };
 
 @end verbatim
 
-@node body classes if_notkept, body classes if_ok, body classes if_desired, The Purpose Of This Handbook
+@node body classes if_else, body classes if_notkept, body classes if_desired, The Purpose Of This Handbook
+@section body classes if_else(yes,no)
+
+@verbatim
+body classes if_else(yes,no)
+
+# meant to match cf2 semantics
+
+{
+promise_repaired => { "$(yes)" };
+repair_failed    => { "$(no)" };
+repair_denied    => { "$(x)" };
+repair_timeout   => { "$(x)" };
+}
+
+
+@end verbatim
+
+@node body classes if_notkept, body classes if_ok, body classes if_else, The Purpose Of This Handbook
 @section body classes if_notkept(x)
 
 @verbatim
 body classes if_notkept(x)
 {
-repair_failed => { "$(x)" };
+repair_failed   => { "$(x)" };
+repair_denied   => { "$(x)" };
+repair_timeout  => { "$(x)" };
 }
 
 
@@ -332,7 +365,7 @@ chdir => "$(s)";
 
 @end verbatim
 
-@node body contain in_shell, body contain setuid, body contain in_dir, The Purpose Of This Handbook
+@node body contain in_shell, body contain jail, body contain in_dir, The Purpose Of This Handbook
 @section body contain in_shell
 
 @verbatim
@@ -344,7 +377,23 @@ useshell => "true";
 
 @end verbatim
 
-@node body contain setuid, body contain setuid_sh, body contain in_shell, The Purpose Of This Handbook
+@node body contain jail, body contain setuid, body contain in_shell, The Purpose Of This Handbook
+@section body contain jail(owner,root,dir)
+
+@verbatim
+body contain jail(owner,root,dir)
+{
+exec_owner => "$(owner)";
+useshell => "true";
+chdir => "$(dir)";
+chroot => "$(root)";
+}
+
+
+
+@end verbatim
+
+@node body contain setuid, body contain setuid_sh, body contain jail, The Purpose Of This Handbook
 @section body contain setuid(x)
 
 @verbatim
@@ -368,11 +417,9 @@ useshell => "true";
 }
 
 
-
-
 @end verbatim
 
-@node body contain silent, body copy_from local_cp, body contain setuid_sh, The Purpose Of This Handbook
+@node body contain silent, body contain silent_in_dir, body contain setuid_sh, The Purpose Of This Handbook
 @section body contain silent
 
 @verbatim
@@ -384,7 +431,20 @@ no_output => "true";
 
 @end verbatim
 
-@node body copy_from local_cp, body copy_from remote_cp, body contain silent, The Purpose Of This Handbook
+@node body contain silent_in_dir, body copy_from local_cp, body contain silent, The Purpose Of This Handbook
+@section body contain silent_in_dir(s)
+
+@verbatim
+body contain silent_in_dir(s)
+{
+chdir => "$(s)";
+no_output => "true";
+}
+
+
+@end verbatim
+
+@node body copy_from local_cp, body copy_from no_backup_cp, body contain silent_in_dir, The Purpose Of This Handbook
 @section body copy_from local_cp(from)
 
 @verbatim
@@ -396,7 +456,35 @@ source      => "$(from)";
 
 @end verbatim
 
-@node body copy_from remote_cp, body copy_from secure_cp, body copy_from local_cp, The Purpose Of This Handbook
+@node body copy_from no_backup_cp, body copy_from no_backup_rcp, body copy_from local_cp, The Purpose Of This Handbook
+@section body copy_from no_backup_cp(from)
+
+@verbatim
+body copy_from no_backup_cp(from)
+{
+source      => "$(from)";
+copy_backup => "false";
+}
+
+
+@end verbatim
+
+@node body copy_from no_backup_rcp, body copy_from remote_cp, body copy_from no_backup_cp, The Purpose Of This Handbook
+@section body copy_from no_backup_rcp(from,server)
+
+@verbatim
+body copy_from no_backup_rcp(from,server)
+{
+servers     => { "$(server)" };
+source      => "$(from)";
+compare     => "mtime";
+copy_backup => "false";
+}
+
+
+@end verbatim
+
+@node body copy_from remote_cp, body copy_from secure_cp, body copy_from no_backup_rcp, The Purpose Of This Handbook
 @section body copy_from remote_cp(from,server)
 
 @verbatim
@@ -448,6 +536,14 @@ body depth_search recurse(d)
 
 {
 depth => "$(d)";
+xdev  => "true";
+
+cfstd_have_ignores::
+
+  exclude_dirs => { @(ignore_list) };
+
+!cfstd_have_ignores::
+
 exclude_dirs => { "\.X11", ".*kde.*", "\.svn" };
 }
 
@@ -598,7 +694,7 @@ file_result => "mtime.leaf_name";
 
 @end verbatim
 
-@node body file_select plain, body link_from linkchildren, body file_select name_age, The Purpose Of This Handbook
+@node body file_select plain, body file_select size_range, body file_select name_age, The Purpose Of This Handbook
 @section body file_select plain
 
 @verbatim
@@ -610,7 +706,20 @@ file_result => "file_types";
 
 @end verbatim
 
-@node body link_from linkchildren, body link_from ln_s, body file_select plain, The Purpose Of This Handbook
+@node body file_select size_range, body link_from linkchildren, body file_select plain, The Purpose Of This Handbook
+@section body file_select size_range(from,to)
+
+@verbatim
+body file_select size_range(from,to)
+{
+search_size => irange("$(from)","$(to)");  
+file_result => "size"; 
+}
+
+
+@end verbatim
+
+@node body link_from linkchildren, body link_from ln_s, body file_select size_range, The Purpose Of This Handbook
 @section body link_from linkchildren(tofile)
 
 @verbatim
@@ -699,7 +808,7 @@ unmount => "true";
 
 @end verbatim
 
-@node body package_method apt, body package_method solaris , body mount unmount, The Purpose Of This Handbook
+@node body package_method apt, body package_method freebsd, body mount unmount, The Purpose Of This Handbook
 @section body package_method apt
 
 @verbatim
@@ -719,7 +828,41 @@ package_update_command =>  "/usr/bin/apt-get --yes dist-upgrade";
 
 @end verbatim
 
-@node body package_method solaris , body package_method yum, body package_method apt, The Purpose Of This Handbook
+@node body package_method freebsd, body package_method solaris , body package_method apt, The Purpose Of This Handbook
+@section body package_method freebsd
+
+@verbatim
+body package_method freebsd
+{
+any::
+
+ package_changes => "individual";
+
+ # Could use rpm for this
+ package_list_command => "/usr/sbin/pkg_info";
+
+ # Remember to escape special characters like |
+
+ package_list_name_regex    => "([^-]+).*";
+ package_list_version_regex => "[^-]+-([^\s]+).*";
+
+ package_name_regex    => "([^-]+).*";
+ package_version_regex => "[^-]+-([^\s]+).*";
+
+ package_installed_regex => ".*";
+
+ package_name_convention => "$(name)-$(version)";
+
+
+package_add_command => "/usr/sbin/pkg_add -r";
+package_delete_command => "/usr/sbin/pkg_delete";
+}
+
+
+
+@end verbatim
+
+@node body package_method solaris , body package_method yum, body package_method freebsd, The Purpose Of This Handbook
 @section body package_method solaris (pkgname, spoolfile, adminfile)
 
 @verbatim
@@ -736,6 +879,7 @@ package_name_convention => "$(name)";
 package_add_command => "/usr/sbin/pkgadd -n -a /tmp/$(adminfile) -d /tmp/$(spoolfile)";
 package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 }
+
 
 
 @end verbatim
@@ -819,6 +963,8 @@ owners => { "$(user)" };
 mode   => "$(mode)";
 }
 
+#
+
 @end verbatim
 
 @node body perms mog, body perms og, body perms mo, The Purpose Of This Handbook
@@ -831,6 +977,8 @@ owners => { "$(user)" };
 groups => { "$(group)" };
 mode   => "$(mode)";
 }
+
+#
 
 @end verbatim
 
@@ -879,9 +1027,10 @@ body rename disable
 disable => "true";
 }
 
+
 @end verbatim
 
-@node body rename rotate, body replace_with comment, body rename disable, The Purpose Of This Handbook
+@node body rename rotate, body rename to, body rename disable, The Purpose Of This Handbook
 @section body rename rotate(level)
 
 @verbatim
@@ -893,7 +1042,19 @@ rotate => "$(level)";
 
 @end verbatim
 
-@node body replace_with comment, body replace_with uncomment, body rename rotate, The Purpose Of This Handbook
+@node body rename to, body replace_with comment, body rename rotate, The Purpose Of This Handbook
+@section body rename to(file)
+
+@verbatim
+body rename to(file)
+{
+newname => "$(file)";
+}
+
+
+@end verbatim
+
+@node body replace_with comment, body replace_with uncomment, body rename to, The Purpose Of This Handbook
 @section body replace_with comment(c)
 
 @verbatim
