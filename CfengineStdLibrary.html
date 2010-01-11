@@ -1,0 +1,1927 @@
+<html lang="en">
+<head>
+<title>Community Open Promise Body Library</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Community Open Promise Body Library">
+<meta name="generator" content="makeinfo 4.12">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+h1, h2, a, table.list th
+{
+    color: #1f6e6b;
+}
+
+.node
+{ 
+background: #ddd url(Logo2-small.png) right no-repeat;
+}
+
+.menu
+{  
+background: #eef url(menu.png) right no-repeat;
+}
+
+.contents
+{
+background-color: #e9f4e9; 
+}
+
+.index-cp
+{  
+background: #fff url(index-cp.png) right repeat-y;
+}
+
+.index-vr
+{  
+background: #fff url(index-vr.png) right repeat-y;
+}
+
+.index-mb
+{  
+background: #eee url(index-faq.png) right repeat-y;
+}
+
+table.border
+{ 
+  border-color: #4e8b8c;
+  border-style: solid;
+  border-width: 1px;
+}
+
+BODY {
+     font-family: Verdana, Arial, Helvetica, sans-serif;
+     font-style: normal;
+     font-size: 11pt;
+     background: #FFFFFF;
+     color: #000000;
+     }
+        
+P { 
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  }
+
+FONT.liten {font-size: 70%; }
+
+H1, H2, H3 {
+        font-weight: normal;
+        color: #2c2e70;
+        margin-bottom: 0em;
+        }
+
+TABLE { vertical-align: top; } 
+
+H1 { font-size: 140% }
+H2 { font-size: 120% }
+H3 { font-size: 110% }
+H4 { font-style: italic; }
+
+TD, TH, UL {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-style: normal;
+        }
+
+TH { background: #9999FF;
+     font-family: Verdana, Arial, Helvetica, sans-serif;
+     color: blue;
+  font-size: 10pt;
+   }
+
+TD { color: #000000;
+     font-family: Verdana, Arial, Helvetica, sans-serif;
+     font-size: 10pt;
+   }
+
+PRE { font-family: "Lucida Typewriter", "Courier", monotype;
+      font-style: normal;
+     font-size: 11pt;
+background-color: #eee;
+    }
+ 
+.tynn {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: smaller;
+        font-style: normal;
+        font-weight: lighter;
+        margin-bottom: 0em;
+     font-size: 11pt;
+        }
+
+A:link { color: #2c2e70 }
+A:visited { color: black }
+A:active { color: #600041 }
+--></style>
+</head>
+<body>
+<h1 class="settitle">Community Open Promise Body Library</h1>
+<div class="node">
+<p><hr>
+<a name="Top"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#dir">(dir)</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+
+</div>
+
+<h2 class="unnumbered">Cfengine-Open-Promise-Body-Library</h2>
+
+   <p><a href="#Contents">COMPLETE TABLE OF CONTENTS</a>
+<h2>Summary of contents</h2>
+
+<ul class="menu">
+<li><a accesskey="1" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="The-Purpose-Of-This-Handbook"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">1 The Purpose Of This Handbook</h2>
+
+<pre class="sp">
+
+</pre>
+
+Cfengine is built on promises. Promises were chosen as the model for Cfengine's
+configuration language, because they represent an expression of intention.
+
+   <p>If you are using custom scripts to manage your systems, you are using
+<i>recipes</i>. Take a look at any cookbook and you will see that all
+recipes look the same: take flour, eggs, butter, sugar ... and you
+know nothing because you can make a hundred things from these steps. 
+If you don't make clear your intention, it is very hard to know what
+the recipe is supposed to be: is it a cake, a waffle, a pastry?
+
+   <p>The same is true in system administration. Recipes are not merely
+scripts, they encapsulate knowledge and experience. Their value is
+in communicating <i>desired outcomes</i> or states.
+
+   <p>This library of standard components is like a cookbook that tells you
+only how to make basics well. It gives these basic skills names and
+therefore gives you a common vocabulary &ndash; you will put together these
+basics in creative ways to build your systems.
+
+   <pre class="sp">
+
+
+</pre>
+
+<p><table class="cartouche" summary="cartouche" border="1"><tr><td>
+
+   <p>Please contribute to this guide by helping to develop a repertoire of
+basic skills and names. This collection should be comprehensive but
+parsimonious. Basics are only basics if they are few and carefully
+thought out. This is a work in progress and your experience is welcome.
+
+   <p>This library will be moderated by Cfengine, and contributions and discussions
+ca n be made to the help-cfengine@cfengine.org mailing list.
+
+   </td></tr></table>
+
+<ul class="menu">
+<li><a accesskey="1" href="#body-action-bg">body action bg</a>
+<li><a accesskey="2" href="#body-action-if_005felapsed">body action if_elapsed</a>
+<li><a accesskey="3" href="#body-action-immediate">body action immediate</a>
+<li><a accesskey="4" href="#body-action-measure_005fperformance">body action measure_performance</a>
+<li><a accesskey="5" href="#body-action-warn_005fonly">body action warn_only</a>
+<li><a accesskey="6" href="#body-changes-detect_005fall_005fchange">body changes detect_all_change</a>
+<li><a accesskey="7" href="#body-changes-detect_005fcontent">body changes detect_content</a>
+<li><a accesskey="8" href="#body-classes-if_005fdesired">body classes if_desired</a>
+<li><a accesskey="9" href="#body-classes-if_005fnotkept">body classes if_notkept</a>
+<li><a href="#body-classes-if_005fok">body classes if_ok</a>
+<li><a href="#body-classes-if_005frepaired">body classes if_repaired</a>
+<li><a href="#body-contain-in_005fdir">body contain in_dir</a>
+<li><a href="#body-contain-in_005fshell">body contain in_shell</a>
+<li><a href="#body-contain-setuid">body contain setuid</a>
+<li><a href="#body-contain-setuid_005fsh">body contain setuid_sh</a>
+<li><a href="#body-contain-silent">body contain silent</a>
+<li><a href="#body-copy_005ffrom-local_005fcp">body copy_from local_cp</a>
+<li><a href="#body-copy_005ffrom-remote_005fcp">body copy_from remote_cp</a>
+<li><a href="#body-copy_005ffrom-secure_005fcp">body copy_from secure_cp</a>
+<li><a href="#body-delete-tidy">body delete tidy</a>
+<li><a href="#body-depth_005fsearch-recurse">body depth_search recurse</a>
+<li><a href="#body-depth_005fsearch-recurse_005fignore">body depth_search recurse_ignore</a>
+<li><a href="#body-edit_005fdefaults-empty">body edit_defaults empty</a>
+<li><a href="#body-edit_005fdefaults-std_005fdefs">body edit_defaults std_defs</a>
+<li><a href="#body-edit_005ffield-col">body edit_field col</a>
+<li><a href="#body-edit_005ffield-quoted_005fvar">body edit_field quoted_var</a>
+<li><a href="#body-file_005fselect-days_005fold">body file_select days_old</a>
+<li><a href="#body-file_005fselect-dirs">body file_select dirs</a>
+<li><a href="#body-file_005fselect-ex_005flist">body file_select ex_list</a>
+<li><a href="#body-file_005fselect-exclude">body file_select exclude</a>
+<li><a href="#body-file_005fselect-name_005fage">body file_select name_age</a>
+<li><a href="#body-file_005fselect-plain">body file_select plain</a>
+<li><a href="#body-link_005ffrom-linkchildren">body link_from linkchildren</a>
+<li><a href="#body-link_005ffrom-ln_005fs">body link_from ln_s</a>
+<li><a href="#body-location-start">body location start</a>
+<li><a href="#body-mount-nfs">body mount nfs</a>
+<li><a href="#body-mount-nfs_005fp">body mount nfs_p</a>
+<li><a href="#body-mount-unmount">body mount unmount</a>
+<li><a href="#body-package_005fmethod-apt">body package_method apt</a>
+<li><a href="#body-package_005fmethod-solaris">body package_method solaris </a>
+<li><a href="#body-package_005fmethod-yum">body package_method yum</a>
+<li><a href="#body-package_005fmethod-zypper">body package_method zypper</a>
+<li><a href="#body-perms-m">body perms m</a>
+<li><a href="#body-perms-mo">body perms mo</a>
+<li><a href="#body-perms-mog">body perms mog</a>
+<li><a href="#body-perms-og">body perms og</a>
+<li><a href="#body-perms-owner">body perms owner</a>
+<li><a href="#body-process_005fcount-check_005frange">body process_count check_range</a>
+<li><a href="#body-rename-disable">body rename disable</a>
+<li><a href="#body-rename-rotate">body rename rotate</a>
+<li><a href="#body-replace_005fwith-comment">body replace_with comment</a>
+<li><a href="#body-replace_005fwith-uncomment">body replace_with uncomment</a>
+<li><a href="#body-replace_005fwith-value">body replace_with value</a>
+<li><a href="#body-select_005fprocess-exclude_005fprocs">body select_process exclude_procs</a>
+<li><a href="#body-select_005fregion-INI_005fsection">body select_region INI_section</a>
+<li><a href="#body-volume-min_005ffree_005fspace">body volume min_free_space</a>
+<li><a href="#bundle-edit_005fline-append_005fgroups_005fstarting">bundle edit_line append_groups_starting</a>
+<li><a href="#bundle-edit_005fline-append_005fif_005fno_005fline">bundle edit_line append_if_no_line</a>
+<li><a href="#bundle-edit_005fline-append_005fif_005fno_005flines">bundle edit_line append_if_no_lines</a>
+<li><a href="#bundle-edit_005fline-append_005fuser_005ffield">bundle edit_line append_user_field</a>
+<li><a href="#bundle-edit_005fline-append_005fusers_005fstarting">bundle edit_line append_users_starting</a>
+<li><a href="#bundle-edit_005fline-comment_005flines_005fmatching">bundle edit_line comment_lines_matching</a>
+<li><a href="#bundle-edit_005fline-delete_005flines_005fmatching">bundle edit_line delete_lines_matching</a>
+<li><a href="#bundle-edit_005fline-expand_005ftemplate">bundle edit_line expand_template</a>
+<li><a href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>
+<li><a href="#bundle-edit_005fline-set_005fuser_005ffield">bundle edit_line set_user_field</a>
+<li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues">bundle edit_line set_variable_values</a>
+<li><a href="#bundle-edit_005fline-uncomment_005flines_005fmatching">bundle edit_line uncomment_lines_matching</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="body-action-bg"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-if_005felapsed">body action if_elapsed</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.1 body action bg(elapsed,expire)</h3>
+
+<pre class="verbatim">body action bg(elapsed,expire)
+{
+ifelapsed   => "$(elapsed)";    # run only every 8 hours
+expireafter => "$(expire)";
+background  => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-action-if_elapsed"></a>
+<a name="body-action-if_005felapsed"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-immediate">body action immediate</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-bg">body action bg</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.2 body action if_elapsed(x)</h3>
+
+<pre class="verbatim">body action if_elapsed(x)
+{
+ifelapsed => "$(x)"; 
+expireafter => "$(x)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-action-immediate"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-measure_005fperformance">body action measure_performance</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-if_005felapsed">body action if_elapsed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.3 body action immediate</h3>
+
+<pre class="verbatim">body action immediate
+{
+ifelapsed => "0";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-action-measure_performance"></a>
+<a name="body-action-measure_005fperformance"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-warn_005fonly">body action warn_only</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-immediate">body action immediate</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.4 body action measure_performance(x)</h3>
+
+<pre class="verbatim">body action measure_performance(x)
+{
+measurement_class => "Detect changes in $(this.promiser)";
+ifelapsed => "$(x)";
+expireafter => "$(x)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-action-warn_only"></a>
+<a name="body-action-warn_005fonly"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-changes-detect_005fall_005fchange">body changes detect_all_change</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-measure_005fperformance">body action measure_performance</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.5 body action warn_only</h3>
+
+<pre class="verbatim">body action warn_only
+{
+action_policy => "warn";
+ifelapsed => "60";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-changes-detect_all_change"></a>
+<a name="body-changes-detect_005fall_005fchange"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-changes-detect_005fcontent">body changes detect_content</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-warn_005fonly">body action warn_only</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.6 body changes detect_all_change</h3>
+
+<pre class="verbatim">body changes detect_all_change
+{
+hash           => "best";
+report_changes => "all";
+update_hashes  => "yes";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-changes-detect_content"></a>
+<a name="body-changes-detect_005fcontent"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-if_005fdesired">body classes if_desired</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-detect_005fall_005fchange">body changes detect_all_change</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.7 body changes detect_content</h3>
+
+<pre class="verbatim">body changes detect_content
+{
+hash           => "best";
+report_changes => "content";
+update_hashes  => "yes";
+}
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-classes-if_desired"></a>
+<a name="body-classes-if_005fdesired"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-if_005fnotkept">body classes if_notkept</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-detect_005fcontent">body changes detect_content</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.8 body classes if_desired(a)</h3>
+
+<pre class="verbatim">body classes if_desired(a)
+{
+promise_kept => { "$(a)" };
+promise_repaired => { "$(a)" };
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-classes-if_notkept"></a>
+<a name="body-classes-if_005fnotkept"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-if_005fok">body classes if_ok</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-if_005fdesired">body classes if_desired</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.9 body classes if_notkept(x)</h3>
+
+<pre class="verbatim">body classes if_notkept(x)
+{
+repair_failed => { "$(x)" };
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-classes-if_ok"></a>
+<a name="body-classes-if_005fok"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-if_005frepaired">body classes if_repaired</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-if_005fnotkept">body classes if_notkept</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.10 body classes if_ok(x)</h3>
+
+<pre class="verbatim">body classes if_ok(x)
+{
+promise_repaired => { "$(x)" };
+promise_kept => { "$(x)" };
+}
+
+# agent bundles
+
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-classes-if_repaired"></a>
+<a name="body-classes-if_005frepaired"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-in_005fdir">body contain in_dir</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-if_005fok">body classes if_ok</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.11 body classes if_repaired(x)</h3>
+
+<pre class="verbatim">body classes if_repaired(x)
+{
+promise_repaired => { "$(x)" };
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-contain-in_dir"></a>
+<a name="body-contain-in_005fdir"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-in_005fshell">body contain in_shell</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-if_005frepaired">body classes if_repaired</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.12 body contain in_dir(s)</h3>
+
+<pre class="verbatim">body contain in_dir(s)
+{
+chdir => "$(s)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-contain-in_shell"></a>
+<a name="body-contain-in_005fshell"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-setuid">body contain setuid</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-in_005fdir">body contain in_dir</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.13 body contain in_shell</h3>
+
+<pre class="verbatim">body contain in_shell
+{
+useshell => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-contain-setuid"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-setuid_005fsh">body contain setuid_sh</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-in_005fshell">body contain in_shell</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.14 body contain setuid(x)</h3>
+
+<pre class="verbatim">body contain setuid(x)
+{
+exec_owner => "$(x)";
+useshell => "false";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-contain-setuid_sh"></a>
+<a name="body-contain-setuid_005fsh"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-silent">body contain silent</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-setuid">body contain setuid</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.15 body contain setuid_sh(x)</h3>
+
+<pre class="verbatim">body contain setuid_sh(x)
+{
+exec_owner => "$(x)";
+useshell => "true";
+}
+
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-contain-silent"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-local_005fcp">body copy_from local_cp</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-setuid_005fsh">body contain setuid_sh</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.16 body contain silent</h3>
+
+<pre class="verbatim">body contain silent
+{
+no_output => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-copy_from-local_cp"></a>
+<a name="body-copy_005ffrom-local_005fcp"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-remote_005fcp">body copy_from remote_cp</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-silent">body contain silent</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.17 body copy_from local_cp(from)</h3>
+
+<pre class="verbatim">body copy_from local_cp(from)
+{
+source      => "$(from)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-copy_from-remote_cp"></a>
+<a name="body-copy_005ffrom-remote_005fcp"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-secure_005fcp">body copy_from secure_cp</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-local_005fcp">body copy_from local_cp</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.18 body copy_from remote_cp(from,server)</h3>
+
+<pre class="verbatim">body copy_from remote_cp(from,server)
+{
+servers     => { "$(server)" };
+source      => "$(from)";
+compare     => "mtime";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-copy_from-secure_cp"></a>
+<a name="body-copy_005ffrom-secure_005fcp"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-delete-tidy">body delete tidy</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-remote_005fcp">body copy_from remote_cp</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.19 body copy_from secure_cp(from,server)</h3>
+
+<pre class="verbatim">body copy_from secure_cp(from,server)
+{
+source      => "$(from)";
+servers     => { "$(server)" };
+compare     => "digest";
+encrypt     => "true";
+verify      => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-delete-tidy"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-depth_005fsearch-recurse">body depth_search recurse</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-secure_005fcp">body copy_from secure_cp</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.20 body delete tidy</h3>
+
+<pre class="verbatim">body delete tidy
+
+{
+dirlinks => "delete";
+rmdirs   => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-depth_search-recurse"></a>
+<a name="body-depth_005fsearch-recurse"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-depth_005fsearch-recurse_005fignore">body depth_search recurse_ignore</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-delete-tidy">body delete tidy</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.21 body depth_search recurse(d)</h3>
+
+<pre class="verbatim">body depth_search recurse(d)
+
+{
+depth => "$(d)";
+exclude_dirs => { "\.X11", ".*kde.*", "\.svn" };
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-depth_search-recurse_ignore"></a>
+<a name="body-depth_005fsearch-recurse_005fignore"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005fdefaults-empty">body edit_defaults empty</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-depth_005fsearch-recurse">body depth_search recurse</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.22 body depth_search recurse_ignore(d,list)</h3>
+
+<pre class="verbatim">body depth_search recurse_ignore(d,list)
+{
+depth => "$(d)";
+exclude_dirs => { "\.X11", ".*kde.*", "\.svn", @(list) };
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-edit_defaults-empty"></a>
+<a name="body-edit_005fdefaults-empty"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005fdefaults-std_005fdefs">body edit_defaults std_defs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-depth_005fsearch-recurse_005fignore">body depth_search recurse_ignore</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.23 body edit_defaults empty</h3>
+
+<pre class="verbatim">body edit_defaults empty
+{
+empty_file_before_editing => "true";
+edit_backup => "false";
+max_file_size => "100000";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-edit_defaults-std_defs"></a>
+<a name="body-edit_005fdefaults-std_005fdefs"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005ffield-col">body edit_field col</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005fdefaults-empty">body edit_defaults empty</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.24 body edit_defaults std_defs</h3>
+
+<pre class="verbatim">body edit_defaults std_defs
+{
+empty_file_before_editing => "false";
+edit_backup => "false";
+max_file_size => "100000";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-edit_field-col"></a>
+<a name="body-edit_005ffield-col"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005ffield-quoted_005fvar">body edit_field quoted_var</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005fdefaults-std_005fdefs">body edit_defaults std_defs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.25 body edit_field col(split,col,newval,method)</h3>
+
+<pre class="verbatim">body edit_field col(split,col,newval,method)
+{
+field_separator    => "$(split)";
+select_field       => "$(col)";
+value_separator    => ",";
+field_value        => "$(newval)";
+field_operation    => "$(method)";
+extend_fields      => "true";
+allow_blank_fields => "true";
+}
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-edit_field-quoted_var"></a>
+<a name="body-edit_005ffield-quoted_005fvar"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-days_005fold">body file_select days_old</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005ffield-col">body edit_field col</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.26 body edit_field quoted_var(newval,method)</h3>
+
+<pre class="verbatim">body edit_field quoted_var(newval,method)
+{
+field_separator => "\"";
+select_field    => "2";
+value_separator  => " ";
+field_value     => "$(newval)";
+field_operation => "$(method)";
+extend_fields => "false";
+allow_blank_fields => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-file_select-days_old"></a>
+<a name="body-file_005fselect-days_005fold"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-dirs">body file_select dirs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005ffield-quoted_005fvar">body edit_field quoted_var</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.27 body file_select days_old(days)</h3>
+
+<pre class="verbatim">body file_select days_old(days)
+{
+mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,$(days),0,0,0));  
+file_result => "mtime"; 
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-file_select-dirs"></a>
+<a name="body-file_005fselect-dirs"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-ex_005flist">body file_select ex_list</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-days_005fold">body file_select days_old</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.28 body file_select dirs</h3>
+
+<pre class="verbatim">body file_select dirs
+{
+file_types  => { "dir" };
+file_result => "file_types";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-file_select-ex_list"></a>
+<a name="body-file_005fselect-ex_005flist"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-exclude">body file_select exclude</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-dirs">body file_select dirs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.29 body file_select ex_list(names)</h3>
+
+<pre class="verbatim">body file_select ex_list(names)
+{
+leaf_name  => { @(names)};
+file_result => "!leaf_name";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-file_select-exclude"></a>
+<a name="body-file_005fselect-exclude"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-name_005fage">body file_select name_age</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-ex_005flist">body file_select ex_list</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.30 body file_select exclude(name)</h3>
+
+<pre class="verbatim">body file_select exclude(name)
+{
+leaf_name  => { "$(name)"};
+file_result => "!leaf_name";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-file_select-name_age"></a>
+<a name="body-file_005fselect-name_005fage"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-plain">body file_select plain</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-exclude">body file_select exclude</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.31 body file_select name_age(name,age)</h3>
+
+<pre class="verbatim">body file_select name_age(name,age)
+{
+leaf_name   => { "$(name)" };
+mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,$(days),0,0,0));  
+file_result => "mtime.leaf_name"; 
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-file_select-plain"></a>
+<a name="body-file_005fselect-plain"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-link_005ffrom-linkchildren">body link_from linkchildren</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-name_005fage">body file_select name_age</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.32 body file_select plain</h3>
+
+<pre class="verbatim">body file_select plain
+{
+file_types  => { "plain" };
+file_result => "file_types";
+}
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-link_from-linkchildren"></a>
+<a name="body-link_005ffrom-linkchildren"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-link_005ffrom-ln_005fs">body link_from ln_s</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-plain">body file_select plain</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.33 body link_from linkchildren(tofile)</h3>
+
+<pre class="verbatim">body link_from linkchildren(tofile)
+{
+source        => "$(tofile)";
+link_type     => "symlink";
+when_no_source  => "force";
+link_children => "true";
+when_linking_children => "if_no_such_file"; # "override_file";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-link_from-ln_s"></a>
+<a name="body-link_005ffrom-ln_005fs"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-location-start">body location start</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-link_005ffrom-linkchildren">body link_from linkchildren</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.34 body link_from ln_s(x)</h3>
+
+<pre class="verbatim">body link_from ln_s(x)
+{
+link_type => "symlink";
+source => "$(x)";
+when_no_source => "force";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-location-start"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-mount-nfs">body mount nfs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-link_005ffrom-ln_005fs">body link_from ln_s</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.35 body location start</h3>
+
+<pre class="verbatim">body location start
+{
+before_after => "before";
+}
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-mount-nfs"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-mount-nfs_005fp">body mount nfs_p</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-location-start">body location start</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.36 body mount nfs(server,source)</h3>
+
+<pre class="verbatim">body mount nfs(server,source)
+{
+mount_type => "nfs";
+mount_source => "$(source)";
+mount_server => "$(server)";
+edit_fstab => "true";
+}
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-mount-nfs_p"></a>
+<a name="body-mount-nfs_005fp"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-mount-unmount">body mount unmount</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-mount-nfs">body mount nfs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.37 body mount nfs_p(server,source,perm)</h3>
+
+<pre class="verbatim">body mount nfs_p(server,source,perm)
+{
+mount_type => "nfs";
+mount_source => "$(source)";
+mount_server => "$(server)";
+mount_options => {"$(perm)"};
+edit_fstab => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-mount-unmount"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-apt">body package_method apt</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-mount-nfs_005fp">body mount nfs_p</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.38 body mount unmount</h3>
+
+<pre class="verbatim">body mount unmount
+{
+mount_type => "nfs";
+edit_fstab => "true";
+unmount => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-package_method-apt"></a>
+<a name="body-package_005fmethod-apt"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-solaris">body package_method solaris</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-mount-unmount">body mount unmount</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.39 body package_method apt</h3>
+
+<pre class="verbatim">body package_method apt
+{
+package_changes => "bulk";
+package_list_command => "/usr/bin/dpkg -l";
+package_list_name_regex    => "ii\s+([^\s]+).*";
+package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
+package_installed_regex => ".*"; # all reported are installed
+package_name_convention => "$(name)";
+package_add_command => "/usr/bin/apt-get --yes install";
+package_delete_command => "/usr/bin/apt-get --yes remove";
+package_update_command =>  "/usr/bin/apt-get --yes dist-upgrade";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-package_method-solaris"></a>
+<a name="body-package_005fmethod-solaris"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-yum">body package_method yum</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-apt">body package_method apt</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.40 body package_method solaris (pkgname, spoolfile, adminfile)</h3>
+
+<pre class="verbatim">body package_method solaris (pkgname, spoolfile, adminfile)
+{
+package_changes => "individual";
+package_list_command => "/usr/bin/pkginfo -l";
+package_multiline_start    =>  "\s*PKGINST:\s+[^\s]+";
+package_list_name_regex    => "\s*PKGINST:\s+([^\s]+)";
+package_list_version_regex => "\s*VERSION:\s+([^\s]+)";
+package_list_arch_regex    => "\s*ARCH:\s+([^\s]+)";
+package_installed_regex => "\s*STATUS:\s*(completely|partially)\s+installed.*";
+package_name_convention => "$(name)";
+package_add_command => "/usr/sbin/pkgadd -n -a /tmp/$(adminfile) -d /tmp/$(spoolfile)";
+package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-package_method-yum"></a>
+<a name="body-package_005fmethod-yum"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-zypper">body package_method zypper</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-solaris">body package_method solaris</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.41 body package_method yum</h3>
+
+<pre class="verbatim">body package_method yum
+{
+package_changes => "bulk";
+package_list_command => "/usr/bin/yum list installed";
+
+# Remember to escape special characters like |
+
+package_list_name_regex    => "([^.]+).*";
+package_list_version_regex => "[^\s]\s+([^\s]+).*";
+package_list_arch_regex    => "[^.]+\.([^\s]+).*";
+
+package_installed_regex => ".*installed.*";
+package_name_convention => "$(name).$(arch)";
+
+package_add_command => "/usr/bin/yum -y install";
+package_delete_command => "/bin/rpm -e";
+package_verify_command => "/bin/rpm -V";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-package_method-zypper"></a>
+<a name="body-package_005fmethod-zypper"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-m">body perms m</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-yum">body package_method yum</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.42 body package_method zypper</h3>
+
+<pre class="verbatim">body package_method zypper
+
+{
+package_changes => "bulk";
+
+package_list_command => "/usr/bin/zypper packages";
+package_patch_list_command => "/usr/bin/zypper patches";
+package_installed_regex => "i.*";
+package_list_name_regex    => "[^|]+\|[^|]+\|\s+([^\s]+).*";
+package_list_version_regex => "[^|]+\|[^|]+\|[^|]+\|\s+([^\s]+).*";
+package_list_arch_regex    => "[^|]+\|[^|]+\|[^|]+\|[^|]+\|\s+([^\s]+).*";
+
+package_patch_installed_regex => ".*Installed.*|.*Not Applicable.*";
+package_patch_name_regex    => "[^|]+\|\s+([^\s]+).*";
+package_patch_version_regex => "[^|]+\|[^|]+\|\s+([^\s]+).*";
+
+package_name_convention => "$(name)";
+package_add_command => "/usr/bin/zypper -non-interactive install";
+package_delete_command => "/usr/bin/zypper -non-interactive remove --force-resolution";
+package_update_command => "/usr/bin/zypper -non-interactive update";
+
+package_patch_command => "/usr/bin/zypper -non-interactive patch$"; # $ means no args
+package_verify_command => "/usr/bin/zypper -non-interactive verify$";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-perms-m"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-mo">body perms mo</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-zypper">body package_method zypper</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.43 body perms m(mode)</h3>
+
+<pre class="verbatim">body perms m(mode)
+{
+mode   => "$(mode)";
+}
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-perms-mo"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-mog">body perms mog</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-m">body perms m</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.44 body perms mo(mode,user)</h3>
+
+<pre class="verbatim">body perms mo(mode,user)
+{
+owners => { "$(user)" };
+mode   => "$(mode)";
+}
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-perms-mog"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-og">body perms og</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-mo">body perms mo</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.45 body perms mog(mode,user,group)</h3>
+
+<pre class="verbatim">body perms mog(mode,user,group)
+{
+owners => { "$(user)" };
+groups => { "$(group)" };
+mode   => "$(mode)";
+}
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-perms-og"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-owner">body perms owner</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-mog">body perms mog</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.46 body perms og(u,g)</h3>
+
+<pre class="verbatim">body perms og(u,g) 
+{
+owners => { "${u}" };
+groups => { "${g}" };
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-perms-owner"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-process_005fcount-check_005frange">body process_count check_range</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-og">body perms og</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.47 body perms owner(user)</h3>
+
+<pre class="verbatim">body perms owner(user)
+{
+owners => { "$(user)" };
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-process_count-check_range"></a>
+<a name="body-process_005fcount-check_005frange"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-rename-disable">body rename disable</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-owner">body perms owner</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.48 body process_count check_range(name,lower,upper)</h3>
+
+<pre class="verbatim">body process_count check_range(name,lower,upper)
+{
+match_range => irange("$(lower)","$(upper)");
+out_of_range_define => { "$(name)_out_of_range" };
+}
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-rename-disable"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-rename-rotate">body rename rotate</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-process_005fcount-check_005frange">body process_count check_range</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.49 body rename disable</h3>
+
+<pre class="verbatim">body rename disable
+{
+disable => "true";
+}
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-rename-rotate"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-replace_005fwith-comment">body replace_with comment</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-rename-disable">body rename disable</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.50 body rename rotate(level)</h3>
+
+<pre class="verbatim">body rename rotate(level)
+{
+rotate => "$(level)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-replace_with-comment"></a>
+<a name="body-replace_005fwith-comment"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-replace_005fwith-uncomment">body replace_with uncomment</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-rename-rotate">body rename rotate</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.51 body replace_with comment(c)</h3>
+
+<pre class="verbatim">body replace_with comment(c)
+{
+replace_value => "$(c) $(match.1)";
+occurrences => "all";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-replace_with-uncomment"></a>
+<a name="body-replace_005fwith-uncomment"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-replace_005fwith-value">body replace_with value</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-replace_005fwith-comment">body replace_with comment</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.52 body replace_with uncomment</h3>
+
+<pre class="verbatim">body replace_with uncomment
+{
+replace_value => "$(match.1)";
+occurrences => "all";
+}
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-replace_with-value"></a>
+<a name="body-replace_005fwith-value"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-select_005fprocess-exclude_005fprocs">body select_process exclude_procs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-replace_005fwith-uncomment">body replace_with uncomment</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.53 body replace_with value(x)</h3>
+
+<pre class="verbatim">body replace_with value(x)
+{
+replace_value => "$(x)";
+occurrences => "all";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-select_process-exclude_procs"></a>
+<a name="body-select_005fprocess-exclude_005fprocs"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-select_005fregion-INI_005fsection">body select_region INI_section</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-replace_005fwith-value">body replace_with value</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.54 body select_process exclude_procs(x)</h3>
+
+<pre class="verbatim">body select_process exclude_procs(x)
+{
+command => "$(x)";
+process_result => "!command";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-select_region-INI_section"></a>
+<a name="body-select_005fregion-INI_005fsection"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-volume-min_005ffree_005fspace">body volume min_free_space</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-select_005fprocess-exclude_005fprocs">body select_process exclude_procs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.55 body select_region INI_section(x)</h3>
+
+<pre class="verbatim">body select_region INI_section(x)
+{
+select_start => "\[$(x)\]";
+select_end => "\[.*\]";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-volume-min_free_space"></a>
+<a name="body-volume-min_005ffree_005fspace"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fgroups_005fstarting">bundle edit_line append_groups_starting</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-select_005fregion-INI_005fsection">body select_region INI_section</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.56 body volume min_free_space(free)</h3>
+
+<pre class="verbatim">body volume min_free_space(free)
+{
+check_foreign  => "false";
+freespace      => "$(free)";
+sensible_size  => "10000";
+sensible_count => "2";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-append_groups_starting"></a>
+<a name="bundle-edit_005fline-append_005fgroups_005fstarting"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fif_005fno_005fline">bundle edit_line append_if_no_line</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-volume-min_005ffree_005fspace">body volume min_free_space</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.57 bundle edit_line append_groups_starting(v)</h3>
+
+<pre class="verbatim">bundle edit_line append_groups_starting(v)
+
+ # For adding groups to /etc/group, needs
+ # an array v[groupname] string => "line..."
+
+{
+vars:
+
+  "index"        slist => getindices("$(v)");
+
+classes:
+
+  "add_$(index)" not => groupexists("$(index)");
+
+insert_lines:
+
+  "$($(v)[$(index)])",
+
+      ifvarclass => "add_$(index)";
+
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-append_if_no_line"></a>
+<a name="bundle-edit_005fline-append_005fif_005fno_005fline"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fif_005fno_005flines">bundle edit_line append_if_no_lines</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fgroups_005fstarting">bundle edit_line append_groups_starting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.58 bundle edit_line append_if_no_line(str)</h3>
+
+<pre class="verbatim">bundle edit_line append_if_no_line(str)
+{
+insert_lines:
+
+ "$(str)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-append_if_no_lines"></a>
+<a name="bundle-edit_005fline-append_005fif_005fno_005flines"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fuser_005ffield">bundle edit_line append_user_field</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fif_005fno_005fline">bundle edit_line append_if_no_line</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.59 bundle edit_line append_if_no_lines(list)</h3>
+
+<pre class="verbatim">bundle edit_line append_if_no_lines(list)
+{
+insert_lines:
+
+ "$(list)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-append_user_field"></a>
+<a name="bundle-edit_005fline-append_005fuser_005ffield"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fusers_005fstarting">bundle edit_line append_users_starting</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fif_005fno_005flines">bundle edit_line append_if_no_lines</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.60 bundle edit_line append_user_field(group,field,allusers)</h3>
+
+<pre class="verbatim">bundle edit_line append_user_field(group,field,allusers)
+
+ # For adding users to to a file like /etc/group
+ # at field position "field", comma separated subfields
+
+{
+vars:
+
+  "val" slist => { @(allusers) };
+
+field_edits:
+
+ "$(group).*"
+
+    edit_field => col(":","$(field)","$(val)","alphanum");
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-append_users_starting"></a>
+<a name="bundle-edit_005fline-append_005fusers_005fstarting"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-comment_005flines_005fmatching">bundle edit_line comment_lines_matching</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fuser_005ffield">bundle edit_line append_user_field</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.61 bundle edit_line append_users_starting(v)</h3>
+
+<pre class="verbatim">bundle edit_line append_users_starting(v)
+
+ # For adding to /etc/passwd or etc/shadow, needs
+ # an array v[username] string => "line..."
+
+{
+vars:
+
+  "index"        slist => getindices("$(v)");
+
+classes:
+
+  "add_$(index)" not => userexists("$(index)");
+
+insert_lines:
+
+  "$($(v)[$(index)])",
+
+      ifvarclass => "add_$(index)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-comment_lines_matching"></a>
+<a name="bundle-edit_005fline-comment_005flines_005fmatching"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-delete_005flines_005fmatching">bundle edit_line delete_lines_matching</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fusers_005fstarting">bundle edit_line append_users_starting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.62 bundle edit_line comment_lines_matching(regex,comment)</h3>
+
+<pre class="verbatim"></pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-delete_lines_matching"></a>
+<a name="bundle-edit_005fline-delete_005flines_005fmatching"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-expand_005ftemplate">bundle edit_line expand_template</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-comment_005flines_005fmatching">bundle edit_line comment_lines_matching</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.63 bundle edit_line delete_lines_matching(regex)</h3>
+
+<pre class="verbatim">bundle edit_line delete_lines_matching(regex)
+{
+delete_lines:
+
+  "$(regex)"  action => warn_only;
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-expand_template"></a>
+<a name="bundle-edit_005fline-expand_005ftemplate"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-delete_005flines_005fmatching">bundle edit_line delete_lines_matching</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.64 bundle edit_line expand_template(templatefile)</h3>
+
+<pre class="verbatim">bundle edit_line expand_template(templatefile)
+
+ # Read in the named text file and expand $(var)
+ # inside the file
+
+{
+insert_lines:
+
+   "$(templatefile)"
+
+          insert_type => "file",
+       expand_scalars => "true";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-resolvconf"></a>
+<a name="bundle-edit_005fline-resolvconf"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fuser_005ffield">bundle edit_line set_user_field</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-expand_005ftemplate">bundle edit_line expand_template</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.65 bundle edit_line resolvconf(search,list)</h3>
+
+<pre class="verbatim">bundle edit_line resolvconf(search,list)
+
+ # search is the search domains with space
+ # list is an slist of nameserver addresses
+
+{
+delete_lines:
+
+  "search.*";
+
+insert_lines:
+
+  "search $(search)";
+  "nameserver $(list)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-set_user_field"></a>
+<a name="bundle-edit_005fline-set_005fuser_005ffield"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fvariable_005fvalues">bundle edit_line set_variable_values</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.66 bundle edit_line set_user_field(user,field,val)</h3>
+
+<pre class="verbatim">bundle edit_line set_user_field(user,field,val)
+
+ # Set the value of field number "field" in
+ # a :-field formatted file like /etc/passwd
+
+{
+field_edits:
+
+ "$(user).*"
+
+     edit_field => col(":","$(field)","$(val)","set");
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-set_variable_values"></a>
+<a name="bundle-edit_005fline-set_005fvariable_005fvalues"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-uncomment_005flines_005fmatching">bundle edit_line uncomment_lines_matching</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-set_005fuser_005ffield">bundle edit_line set_user_field</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.67 bundle edit_line set_variable_values(v)</h3>
+
+<pre class="verbatim">bundle edit_line set_variable_values(v)
+
+ # Sets the RHS of variables in the file of the form
+ #   LHS = RHS
+ # Adds a new line if non exists
+
+{
+vars:
+
+  "index" slist => getindices("$(v)");
+
+  # Be careful if the index string contains funny chars
+
+  "cindex[$(index)]" string => canonify("$(index)");
+
+field_edits:
+
+  # match a line starting like the key = something
+
+  "$(index)\s*=.*"
+
+     edit_field => col("=","2","$($(v)[$(index)])","set"),
+        classes => if_ok("not_$(cindex[$(index)])");
+
+insert_lines:
+
+  "$(index)=$($(v)[$(index)])",
+
+      ifvarclass => "!not_$(cindex[$(index)])";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-uncomment_lines_matching"></a>
+<a name="bundle-edit_005fline-uncomment_005flines_005fmatching"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-set_005fvariable_005fvalues">bundle edit_line set_variable_values</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.68 bundle edit_line uncomment_lines_matching(regex,comment)</h3>
+
+<pre class="verbatim">bundle edit_line uncomment_lines_matching(regex,comment)
+
+ # Uncomment lines of a file where the regex matches
+ # the text after the comment string
+
+{
+replace_patterns:
+
+ "$(comment)($(regex))$" replace_with => uncomment;
+}
+
+
+</pre>
+
+<p><a name="Contents">
+
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="#Top">Cfengine-Open-Promise-Body-Library</a>
+<li><a name="toc_The-Purpose-Of-This-Handbook" href="#The-Purpose-Of-This-Handbook">1 The Purpose Of This Handbook</a>
+<ul>
+<li><a href="#body-action-bg">1.1 body action bg(elapsed,expire)</a>
+<li><a href="#body-action-if_005felapsed">1.2 body action if_elapsed(x)</a>
+<li><a href="#body-action-immediate">1.3 body action immediate</a>
+<li><a href="#body-action-measure_005fperformance">1.4 body action measure_performance(x)</a>
+<li><a href="#body-action-warn_005fonly">1.5 body action warn_only</a>
+<li><a href="#body-changes-detect_005fall_005fchange">1.6 body changes detect_all_change</a>
+<li><a href="#body-changes-detect_005fcontent">1.7 body changes detect_content</a>
+<li><a href="#body-classes-if_005fdesired">1.8 body classes if_desired(a)</a>
+<li><a href="#body-classes-if_005fnotkept">1.9 body classes if_notkept(x)</a>
+<li><a href="#body-classes-if_005fok">1.10 body classes if_ok(x)</a>
+<li><a href="#body-classes-if_005frepaired">1.11 body classes if_repaired(x)</a>
+<li><a href="#body-contain-in_005fdir">1.12 body contain in_dir(s)</a>
+<li><a href="#body-contain-in_005fshell">1.13 body contain in_shell</a>
+<li><a href="#body-contain-setuid">1.14 body contain setuid(x)</a>
+<li><a href="#body-contain-setuid_005fsh">1.15 body contain setuid_sh(x)</a>
+<li><a href="#body-contain-silent">1.16 body contain silent</a>
+<li><a href="#body-copy_005ffrom-local_005fcp">1.17 body copy_from local_cp(from)</a>
+<li><a href="#body-copy_005ffrom-remote_005fcp">1.18 body copy_from remote_cp(from,server)</a>
+<li><a href="#body-copy_005ffrom-secure_005fcp">1.19 body copy_from secure_cp(from,server)</a>
+<li><a href="#body-delete-tidy">1.20 body delete tidy</a>
+<li><a href="#body-depth_005fsearch-recurse">1.21 body depth_search recurse(d)</a>
+<li><a href="#body-depth_005fsearch-recurse_005fignore">1.22 body depth_search recurse_ignore(d,list)</a>
+<li><a href="#body-edit_005fdefaults-empty">1.23 body edit_defaults empty</a>
+<li><a href="#body-edit_005fdefaults-std_005fdefs">1.24 body edit_defaults std_defs</a>
+<li><a href="#body-edit_005ffield-col">1.25 body edit_field col(split,col,newval,method)</a>
+<li><a href="#body-edit_005ffield-quoted_005fvar">1.26 body edit_field quoted_var(newval,method)</a>
+<li><a href="#body-file_005fselect-days_005fold">1.27 body file_select days_old(days)</a>
+<li><a href="#body-file_005fselect-dirs">1.28 body file_select dirs</a>
+<li><a href="#body-file_005fselect-ex_005flist">1.29 body file_select ex_list(names)</a>
+<li><a href="#body-file_005fselect-exclude">1.30 body file_select exclude(name)</a>
+<li><a href="#body-file_005fselect-name_005fage">1.31 body file_select name_age(name,age)</a>
+<li><a href="#body-file_005fselect-plain">1.32 body file_select plain</a>
+<li><a href="#body-link_005ffrom-linkchildren">1.33 body link_from linkchildren(tofile)</a>
+<li><a href="#body-link_005ffrom-ln_005fs">1.34 body link_from ln_s(x)</a>
+<li><a href="#body-location-start">1.35 body location start</a>
+<li><a href="#body-mount-nfs">1.36 body mount nfs(server,source)</a>
+<li><a href="#body-mount-nfs_005fp">1.37 body mount nfs_p(server,source,perm)</a>
+<li><a href="#body-mount-unmount">1.38 body mount unmount</a>
+<li><a href="#body-package_005fmethod-apt">1.39 body package_method apt</a>
+<li><a href="#body-package_005fmethod-solaris">1.40 body package_method solaris (pkgname, spoolfile, adminfile)</a>
+<li><a href="#body-package_005fmethod-yum">1.41 body package_method yum</a>
+<li><a href="#body-package_005fmethod-zypper">1.42 body package_method zypper</a>
+<li><a href="#body-perms-m">1.43 body perms m(mode)</a>
+<li><a href="#body-perms-mo">1.44 body perms mo(mode,user)</a>
+<li><a href="#body-perms-mog">1.45 body perms mog(mode,user,group)</a>
+<li><a href="#body-perms-og">1.46 body perms og(u,g)</a>
+<li><a href="#body-perms-owner">1.47 body perms owner(user)</a>
+<li><a href="#body-process_005fcount-check_005frange">1.48 body process_count check_range(name,lower,upper)</a>
+<li><a href="#body-rename-disable">1.49 body rename disable</a>
+<li><a href="#body-rename-rotate">1.50 body rename rotate(level)</a>
+<li><a href="#body-replace_005fwith-comment">1.51 body replace_with comment(c)</a>
+<li><a href="#body-replace_005fwith-uncomment">1.52 body replace_with uncomment</a>
+<li><a href="#body-replace_005fwith-value">1.53 body replace_with value(x)</a>
+<li><a href="#body-select_005fprocess-exclude_005fprocs">1.54 body select_process exclude_procs(x)</a>
+<li><a href="#body-select_005fregion-INI_005fsection">1.55 body select_region INI_section(x)</a>
+<li><a href="#body-volume-min_005ffree_005fspace">1.56 body volume min_free_space(free)</a>
+<li><a href="#bundle-edit_005fline-append_005fgroups_005fstarting">1.57 bundle edit_line append_groups_starting(v)</a>
+<li><a href="#bundle-edit_005fline-append_005fif_005fno_005fline">1.58 bundle edit_line append_if_no_line(str)</a>
+<li><a href="#bundle-edit_005fline-append_005fif_005fno_005flines">1.59 bundle edit_line append_if_no_lines(list)</a>
+<li><a href="#bundle-edit_005fline-append_005fuser_005ffield">1.60 bundle edit_line append_user_field(group,field,allusers)</a>
+<li><a href="#bundle-edit_005fline-append_005fusers_005fstarting">1.61 bundle edit_line append_users_starting(v)</a>
+<li><a href="#bundle-edit_005fline-comment_005flines_005fmatching">1.62 bundle edit_line comment_lines_matching(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-delete_005flines_005fmatching">1.63 bundle edit_line delete_lines_matching(regex)</a>
+<li><a href="#bundle-edit_005fline-expand_005ftemplate">1.64 bundle edit_line expand_template(templatefile)</a>
+<li><a href="#bundle-edit_005fline-resolvconf">1.65 bundle edit_line resolvconf(search,list)</a>
+<li><a href="#bundle-edit_005fline-set_005fuser_005ffield">1.66 bundle edit_line set_user_field(user,field,val)</a>
+<li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues">1.67 bundle edit_line set_variable_values(v)</a>
+<li><a href="#bundle-edit_005fline-uncomment_005flines_005fmatching">1.68 bundle edit_line uncomment_lines_matching(regex,comment)</a>
+</li></ul>
+</li></ul>
+</div>
+
+</body></html>
+
