@@ -303,8 +303,8 @@ body classes if_else(yes,no)
 {
 promise_repaired => { "$(yes)" };
 repair_failed    => { "$(no)" };
-repair_denied    => { "$(x)" };
-repair_timeout   => { "$(x)" };
+repair_denied    => { "$(no)" };
+repair_timeout   => { "$(no)" };
 }
 
 
