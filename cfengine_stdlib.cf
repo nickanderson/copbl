@@ -517,6 +517,15 @@ source      => "$(from)";
 
 ##
 
+body copy_from sync_cp(from,server)
+{
+servers     => { "$(server)" };
+source      => "$(from)";
+purge       => "true";
+}
+
+##
+
 body copy_from no_backup_cp(from)
 {
 source      => "$(from)";
