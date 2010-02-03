@@ -113,6 +113,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body classes if_notkept::     
 * body classes if_ok::          
 * body classes if_repaired::    
+* body classes state_repaired::  
 * body contain in_dir::         
 * body contain in_shell::       
 * body contain jail::           
@@ -125,6 +126,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body copy_from no_backup_rcp::  
 * body copy_from remote_cp::    
 * body copy_from secure_cp::    
+* body copy_from sync_cp::      
 * body delete tidy::            
 * body depth_search recurse::   
 * body depth_search recurse_ignore::  
@@ -334,14 +336,10 @@ promise_repaired => { "$(x)" };
 promise_kept => { "$(x)" };
 }
 
-# agent bundles
-
-
-
 
 @end verbatim
 
-@node body classes if_repaired, body contain in_dir, body classes if_ok, The Purpose Of This Handbook
+@node body classes if_repaired, body classes state_repaired, body classes if_ok, The Purpose Of This Handbook
 @section body classes if_repaired(x)
 
 @verbatim
@@ -353,7 +351,24 @@ promise_repaired => { "$(x)" };
 
 @end verbatim
 
-@node body contain in_dir, body contain in_shell, body classes if_repaired, The Purpose Of This Handbook
+@node body classes state_repaired, body contain in_dir, body classes if_repaired, The Purpose Of This Handbook
+@section body classes state_repaired(x)
+
+@verbatim
+body classes state_repaired(x)
+{
+promise_repaired => { "$(x)" };
+persist_time => "10";
+}
+
+# agent bundles
+
+
+
+
+@end verbatim
+
+@node body contain in_dir, body contain in_shell, body classes state_repaired, The Purpose Of This Handbook
 @section body contain in_dir(s)
 
 @verbatim
@@ -498,7 +513,7 @@ compare     => "mtime";
 
 @end verbatim
 
-@node body copy_from secure_cp, body delete tidy, body copy_from remote_cp, The Purpose Of This Handbook
+@node body copy_from secure_cp, body copy_from sync_cp, body copy_from remote_cp, The Purpose Of This Handbook
 @section body copy_from secure_cp(from,server)
 
 @verbatim
@@ -514,7 +529,22 @@ verify      => "true";
 
 @end verbatim
 
-@node body delete tidy, body depth_search recurse, body copy_from secure_cp, The Purpose Of This Handbook
+@node body copy_from sync_cp, body delete tidy, body copy_from secure_cp, The Purpose Of This Handbook
+@section body copy_from sync_cp(from,server)
+
+@verbatim
+body copy_from sync_cp(from,server)
+{
+servers     => { "$(server)" };
+source      => "$(from)";
+purge       => "true";
+preserve    => "true";
+}
+
+
+@end verbatim
+
+@node body delete tidy, body depth_search recurse, body copy_from sync_cp, The Purpose Of This Handbook
 @section body delete tidy
 
 @verbatim
@@ -681,10 +711,10 @@ file_result => "!leaf_name";
 @end verbatim
 
 @node body file_select name_age, body file_select plain, body file_select exclude, The Purpose Of This Handbook
-@section body file_select name_age(name,age)
+@section body file_select name_age(name,days)
 
 @verbatim
-body file_select name_age(name,age)
+body file_select name_age(name,days)
 {
 leaf_name   => { "$(name)" };
 mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,$(days),0,0,0));  

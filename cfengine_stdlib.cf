@@ -477,6 +477,16 @@ promise_repaired => { "$(x)" };
 promise_kept => { "$(x)" };
 }
 
+##
+## Persistent classes
+##
+
+body classes state_repaired(x)
+{
+promise_repaired => { "$(x)" };
+persist_time => "10";
+}
+
 ###################################################
 # agent bundles
 ###################################################
