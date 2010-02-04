@@ -748,6 +748,14 @@ file_result => "file_types";
 body file_select by_name(names)
 {
 leaf_name  => { @(names)};
+file_result => "leaf_name";
+}
+
+##
+
+body file_select ex_list(names)
+{
+leaf_name  => { @(names)};
 file_result => "!leaf_name";
 }
 
