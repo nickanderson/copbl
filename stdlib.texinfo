@@ -138,6 +138,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body file_select by_name::    
 * body file_select days_old::   
 * body file_select dirs::       
+* body file_select ex_list::    
 * body file_select exclude::    
 * body file_select name_age::   
 * body file_select plain::      
@@ -682,7 +683,7 @@ allow_blank_fields => "true";
 body file_select by_name(names)
 {
 leaf_name  => { @(names)};
-file_result => "!leaf_name";
+file_result => "leaf_name";
 }
 
 
@@ -701,7 +702,7 @@ file_result => "mtime";
 
 @end verbatim
 
-@node body file_select dirs, body file_select exclude, body file_select days_old, The Purpose Of This Handbook
+@node body file_select dirs, body file_select ex_list, body file_select days_old, The Purpose Of This Handbook
 @section body file_select dirs
 
 @verbatim
@@ -714,7 +715,20 @@ file_result => "file_types";
 
 @end verbatim
 
-@node body file_select exclude, body file_select name_age, body file_select dirs, The Purpose Of This Handbook
+@node body file_select ex_list, body file_select exclude, body file_select dirs, The Purpose Of This Handbook
+@section body file_select ex_list(names)
+
+@verbatim
+body file_select ex_list(names)
+{
+leaf_name  => { @(names)};
+file_result => "!leaf_name";
+}
+
+
+@end verbatim
+
+@node body file_select exclude, body file_select name_age, body file_select ex_list, The Purpose Of This Handbook
 @section body file_select exclude(name)
 
 @verbatim
