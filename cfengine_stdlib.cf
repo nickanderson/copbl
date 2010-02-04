@@ -62,6 +62,15 @@ bundle edit_line delete_lines_matching(regex)
 {
 delete_lines:
 
+  "$(regex)";
+}
+
+##
+
+bundle edit_line warn_lines_matching(regex)
+{
+delete_lines:
+
   "$(regex)"  action => warn_only;
 }
 
@@ -831,6 +840,9 @@ package_verify_command => "/bin/rpm -V";
 }
 
 ##
+
+# The solaris package system is messed up, with too many different
+# names to track. See the example in tests/units/unit_package_solaris.cf
 
 body package_method solaris (pkgname, spoolfile, adminfile)
 {
