@@ -536,6 +536,16 @@ source      => "$(from)";
 
 ##
 
+# Copy only if the file does not already exist, i.e. seed the placement
+
+body copy_from seed_cp(from)
+{
+source      => "$(from)";
+compare     => "exists";
+}
+
+##
+
 body copy_from sync_cp(from,server)
 {
 servers     => { "$(server)" };
@@ -735,7 +745,7 @@ file_result => "file_types";
 
 ##
 
-body file_select ex_list(names)
+body file_select by_name(names)
 {
 leaf_name  => { @(names)};
 file_result => "!leaf_name";

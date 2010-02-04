@@ -126,6 +126,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body copy_from no_backup_rcp::  
 * body copy_from remote_cp::    
 * body copy_from secure_cp::    
+* body copy_from seed_cp::      
 * body copy_from sync_cp::      
 * body delete tidy::            
 * body depth_search recurse::   
@@ -134,9 +135,9 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body edit_defaults std_defs::  
 * body edit_field col::         
 * body edit_field quoted_var::  
+* body file_select by_name::    
 * body file_select days_old::   
 * body file_select dirs::       
-* body file_select ex_list::    
 * body file_select exclude::    
 * body file_select name_age::   
 * body file_select plain::      
@@ -179,6 +180,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * bundle edit_line set_user_field::  
 * bundle edit_line set_variable_values::  
 * bundle edit_line uncomment_lines_matching::  
+* bundle edit_line warn_lines_matching::  
 @end menu
 
 @node body action bg, body action if_elapsed, The Purpose Of This Handbook, The Purpose Of This Handbook
@@ -469,6 +471,8 @@ source      => "$(from)";
 }
 
 
+# Copy only if the file does not already exist, i.e. seed the placement
+
 @end verbatim
 
 @node body copy_from no_backup_cp, body copy_from no_backup_rcp, body copy_from local_cp, The Purpose Of This Handbook
@@ -513,7 +517,7 @@ compare     => "mtime";
 
 @end verbatim
 
-@node body copy_from secure_cp, body copy_from sync_cp, body copy_from remote_cp, The Purpose Of This Handbook
+@node body copy_from secure_cp, body copy_from seed_cp, body copy_from remote_cp, The Purpose Of This Handbook
 @section body copy_from secure_cp(from,server)
 
 @verbatim
@@ -529,7 +533,20 @@ verify      => "true";
 
 @end verbatim
 
-@node body copy_from sync_cp, body delete tidy, body copy_from secure_cp, The Purpose Of This Handbook
+@node body copy_from seed_cp, body copy_from sync_cp, body copy_from secure_cp, The Purpose Of This Handbook
+@section body copy_from seed_cp(from)
+
+@verbatim
+body copy_from seed_cp(from)
+{
+source      => "$(from)";
+compare     => "exists";
+}
+
+
+@end verbatim
+
+@node body copy_from sync_cp, body delete tidy, body copy_from seed_cp, The Purpose Of This Handbook
 @section body copy_from sync_cp(from,server)
 
 @verbatim
@@ -640,7 +657,7 @@ allow_blank_fields => "true";
 
 @end verbatim
 
-@node body edit_field quoted_var, body file_select days_old, body edit_field col, The Purpose Of This Handbook
+@node body edit_field quoted_var, body file_select by_name, body edit_field col, The Purpose Of This Handbook
 @section body edit_field quoted_var(newval,method)
 
 @verbatim
@@ -658,7 +675,20 @@ allow_blank_fields => "true";
 
 @end verbatim
 
-@node body file_select days_old, body file_select dirs, body edit_field quoted_var, The Purpose Of This Handbook
+@node body file_select by_name, body file_select days_old, body edit_field quoted_var, The Purpose Of This Handbook
+@section body file_select by_name(names)
+
+@verbatim
+body file_select by_name(names)
+{
+leaf_name  => { @(names)};
+file_result => "!leaf_name";
+}
+
+
+@end verbatim
+
+@node body file_select days_old, body file_select dirs, body file_select by_name, The Purpose Of This Handbook
 @section body file_select days_old(days)
 
 @verbatim
@@ -671,7 +701,7 @@ file_result => "mtime";
 
 @end verbatim
 
-@node body file_select dirs, body file_select ex_list, body file_select days_old, The Purpose Of This Handbook
+@node body file_select dirs, body file_select exclude, body file_select days_old, The Purpose Of This Handbook
 @section body file_select dirs
 
 @verbatim
@@ -684,20 +714,7 @@ file_result => "file_types";
 
 @end verbatim
 
-@node body file_select ex_list, body file_select exclude, body file_select dirs, The Purpose Of This Handbook
-@section body file_select ex_list(names)
-
-@verbatim
-body file_select ex_list(names)
-{
-leaf_name  => { @(names)};
-file_result => "!leaf_name";
-}
-
-
-@end verbatim
-
-@node body file_select exclude, body file_select name_age, body file_select ex_list, The Purpose Of This Handbook
+@node body file_select exclude, body file_select name_age, body file_select dirs, The Purpose Of This Handbook
 @section body file_select exclude(name)
 
 @verbatim
@@ -944,6 +961,9 @@ package_delete_command => "/bin/rpm -e";
 package_verify_command => "/bin/rpm -V";
 }
 
+
+# The solaris package system is messed up, with too many different
+# names to track. See the example in tests/units/unit_package_solaris.cf
 
 @end verbatim
 
@@ -1295,7 +1315,7 @@ bundle edit_line delete_lines_matching(regex)
 {
 delete_lines:
 
-  "$(regex)"  action => warn_only;
+  "$(regex)";
 }
 
 
@@ -1403,7 +1423,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line uncomment_lines_matching,  , bundle edit_line set_variable_values, The Purpose Of This Handbook
+@node bundle edit_line uncomment_lines_matching, bundle edit_line warn_lines_matching, bundle edit_line set_variable_values, The Purpose Of This Handbook
 @section bundle edit_line uncomment_lines_matching(regex,comment)
 
 @verbatim
@@ -1416,6 +1436,20 @@ bundle edit_line uncomment_lines_matching(regex,comment)
 replace_patterns:
 
  "$(comment)($(regex))$" replace_with => uncomment;
+}
+
+
+@end verbatim
+
+@node bundle edit_line warn_lines_matching,  , bundle edit_line uncomment_lines_matching, The Purpose Of This Handbook
+@section bundle edit_line warn_lines_matching(regex)
+
+@verbatim
+bundle edit_line warn_lines_matching(regex)
+{
+delete_lines:
+
+  "$(regex)"  action => warn_only;
 }
 
 
