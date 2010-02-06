@@ -1,5 +1,7 @@
 all: CfengineStdLibrary.html build_library
 
+# test
+
 CfengineStdLibrary.html: stdlib.texinfo
 	echo You need to run ESC x texinfo-every-node-update, texinfo_all_menus_update
 	xemacs stdlib.texinfo
