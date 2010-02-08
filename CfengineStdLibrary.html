@@ -953,7 +953,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 {
 empty_file_before_editing => "true";
 edit_backup => "false";
-max_file_size => "100000";
+max_file_size => "300000";
 }
 
 
@@ -975,7 +975,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 {
 empty_file_before_editing => "false";
 edit_backup => "false";
-max_file_size => "100000";
+max_file_size => "300000";
 }
 
 
@@ -2114,7 +2114,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
  # Sets the RHS of variables in the file of the form
  #   LHS = RHS
- # Adds a new line if non exists
+ # Adds a new line if no LHS exists, repairs RHS values if one does exist
+ #
+ # To use:
+ #   1) Define an array, where the keys are the LHS and the values are the RHS
+ #        "stuff[lhs-1]" string => "rhs1";
+ #        "stuff[lhs-2]" string => "rhs2";
+ #   2) The parameter passed to the edit_line promise is the fully qualified
+ #      name of the array (i.e., "bundlename.stuff") WITHOUT any "$" or "@"
 
 {
 vars:
@@ -2129,16 +2136,16 @@ field_edits:
 
   # match a line starting like the key = something
 
-  "$(index)\s*=.*"
+  "\s*$(index)\s*=.*"
 
      edit_field => col("=","2","$($(v)[$(index)])","set"),
-        classes => if_ok("not_$(cindex[$(index)])");
+        classes => if_ok("$(cindex[$(index)])_in_file");
 
 insert_lines:
 
   "$(index)=$($(v)[$(index)])",
 
-      ifvarclass => "!not_$(cindex[$(index)])";
+      ifvarclass => "!$(cindex[$(index)])_in_file";
 }
 
 
