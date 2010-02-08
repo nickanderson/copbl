@@ -376,6 +376,15 @@ background  => "true";
 
 ##
 
+body action ifwin_bg
+{
+windows::
+background => "true";
+}
+
+
+##
+
 body action immediate
 {
 ifelapsed => "0";
@@ -603,13 +612,15 @@ body perms m(mode)
 mode   => "$(mode)";
 }
 
+##
+
 body perms mo(mode,user)
 {
 owners => { "$(user)" };
 mode   => "$(mode)";
 }
 
-#
+##
 
 body perms mog(mode,user,group)
 {
@@ -618,7 +629,7 @@ groups => { "$(group)" };
 mode   => "$(mode)";
 }
 
-#
+##
 
 body perms og(u,g) 
 {
