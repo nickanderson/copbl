@@ -446,6 +446,15 @@ useshell => "true";
 
 ##
 
+body contain setuidgid_sh(owner,group)
+{
+exec_owner => "$(owner)";
+exec_group => "$(group)";
+useshell => "true";
+}
+
+##
+
 body contain jail(owner,root,dir)
 {
 exec_owner => "$(owner)";
