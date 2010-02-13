@@ -468,13 +468,6 @@ chroot => "$(root)";
 ## classes
 ##
 
-body classes if_desired(a)
-{
-promise_kept => { "$(a)" };
-promise_repaired => { "$(a)" };
-}
-
-##
 
 body classes if_repaired(x)
 {

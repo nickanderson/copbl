@@ -103,12 +103,12 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 @menu
 * body action bg::              
 * body action if_elapsed::      
+* body action ifwin_bg::        
 * body action immediate::       
 * body action measure_performance::  
 * body action warn_only::       
 * body changes detect_all_change::  
 * body changes detect_content::  
-* body classes if_desired::     
 * body classes if_else::        
 * body classes if_notkept::     
 * body classes if_ok::          
@@ -119,6 +119,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body contain jail::           
 * body contain setuid::         
 * body contain setuid_sh::      
+* body contain setuidgid_sh::   
 * body contain silent::         
 * body contain silent_in_dir::  
 * body copy_from local_cp::     
@@ -198,7 +199,7 @@ background  => "true";
 
 @end verbatim
 
-@node body action if_elapsed, body action immediate, body action bg, The Purpose Of This Handbook
+@node body action if_elapsed, body action ifwin_bg, body action bg, The Purpose Of This Handbook
 @section body action if_elapsed(x)
 
 @verbatim
@@ -211,7 +212,21 @@ expireafter => "$(x)";
 
 @end verbatim
 
-@node body action immediate, body action measure_performance, body action if_elapsed, The Purpose Of This Handbook
+@node body action ifwin_bg, body action immediate, body action if_elapsed, The Purpose Of This Handbook
+@section body action ifwin_bg
+
+@verbatim
+body action ifwin_bg
+{
+windows::
+background => "true";
+}
+
+
+
+@end verbatim
+
+@node body action immediate, body action measure_performance, body action ifwin_bg, The Purpose Of This Handbook
 @section body action immediate
 
 @verbatim
@@ -267,7 +282,7 @@ update_hashes  => "yes";
 
 @end verbatim
 
-@node body changes detect_content, body classes if_desired, body changes detect_all_change, The Purpose Of This Handbook
+@node body changes detect_content, body classes if_else, body changes detect_all_change, The Purpose Of This Handbook
 @section body changes detect_content
 
 @verbatim
@@ -284,20 +299,7 @@ update_hashes  => "yes";
 
 @end verbatim
 
-@node body classes if_desired, body classes if_else, body changes detect_content, The Purpose Of This Handbook
-@section body classes if_desired(a)
-
-@verbatim
-body classes if_desired(a)
-{
-promise_kept => { "$(a)" };
-promise_repaired => { "$(a)" };
-}
-
-
-@end verbatim
-
-@node body classes if_else, body classes if_notkept, body classes if_desired, The Purpose Of This Handbook
+@node body classes if_else, body classes if_notkept, body changes detect_content, The Purpose Of This Handbook
 @section body classes if_else(yes,no)
 
 @verbatim
@@ -409,6 +411,7 @@ chroot => "$(root)";
 
 
 
+
 @end verbatim
 
 @node body contain setuid, body contain setuid_sh, body contain jail, The Purpose Of This Handbook
@@ -424,7 +427,7 @@ useshell => "false";
 
 @end verbatim
 
-@node body contain setuid_sh, body contain silent, body contain setuid, The Purpose Of This Handbook
+@node body contain setuid_sh, body contain setuidgid_sh, body contain setuid, The Purpose Of This Handbook
 @section body contain setuid_sh(x)
 
 @verbatim
@@ -437,7 +440,21 @@ useshell => "true";
 
 @end verbatim
 
-@node body contain silent, body contain silent_in_dir, body contain setuid_sh, The Purpose Of This Handbook
+@node body contain setuidgid_sh, body contain silent, body contain setuid_sh, The Purpose Of This Handbook
+@section body contain setuidgid_sh(owner,group)
+
+@verbatim
+body contain setuidgid_sh(owner,group)
+{
+exec_owner => "$(owner)";
+exec_group => "$(group)";
+useshell => "true";
+}
+
+
+@end verbatim
+
+@node body contain silent, body contain silent_in_dir, body contain setuidgid_sh, The Purpose Of This Handbook
 @section body contain silent
 
 @verbatim
@@ -1022,6 +1039,7 @@ body perms m(mode)
 mode   => "$(mode)";
 }
 
+
 @end verbatim
 
 @node body perms mo, body perms mog, body perms m, The Purpose Of This Handbook
@@ -1034,7 +1052,6 @@ owners => { "$(user)" };
 mode   => "$(mode)";
 }
 
-#
 
 @end verbatim
 
@@ -1049,7 +1066,6 @@ groups => { "$(group)" };
 mode   => "$(mode)";
 }
 
-#
 
 @end verbatim
 
