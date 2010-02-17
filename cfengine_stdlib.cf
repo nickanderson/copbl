@@ -930,11 +930,8 @@ package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 
 ##
 
-
 body package_method freebsd
 {
-any::
-
  package_changes => "individual";
 
  # Could use rpm for this
@@ -957,6 +954,54 @@ package_add_command => "/usr/sbin/pkg_add -r";
 package_delete_command => "/usr/sbin/pkg_delete";
 }
 
+##
+
+ # Single bundle for all the similar managers simplifies promises
+
+body package_method generic
+{
+SuSE::
+ package_changes => "bulk";
+ package_list_command => "/usr/bin/zypper packages";
+ package_patch_list_command => "/usr/bin/zypper patches";
+ package_installed_regex => "i.*";
+ package_list_name_regex    => "[^|]+\|[^|]+\|\s+([^\s]+).*";
+ package_list_version_regex => "[^|]+\|[^|]+\|[^|]+\|\s+([^\s]+).*";
+ package_list_arch_regex    => "[^|]+\|[^|]+\|[^|]+\|[^|]+\|\s+([^\s]+).*";
+ package_patch_installed_regex => ".*Installed.*|.*Not Applicable.*";
+ package_patch_name_regex    => "[^|]+\|\s+([^\s]+).*";
+ package_patch_version_regex => "[^|]+\|[^|]+\|\s+([^\s]+).*";
+ package_name_convention => "$(name)";
+ package_add_command => "/usr/bin/zypper -non-interactive install";
+ package_delete_command => "/usr/bin/zypper -non-interactive remove --force-resolution";
+ package_update_command => "/usr/bin/zypper -non-interactive update";
+ package_patch_command => "/usr/bin/zypper -non-interactive patch$"; # $ means no args
+ package_verify_command => "/usr/bin/zypper -non-interactive verify$";
+
+redhat::
+ package_changes => "bulk";
+ package_list_command => "/usr/bin/yum list installed";
+ package_list_name_regex    => "([^.]+).*";
+ package_list_version_regex => "[^\s]\s+([^\s]+).*";
+ package_list_arch_regex    => "[^.]+\.([^\s]+).*";
+ package_installed_regex => ".*installed.*";
+ package_name_convention => "$(name).$(arch)";
+ package_add_command => "/usr/bin/yum -y install";
+ package_delete_command => "/bin/rpm -e";
+ package_verify_command => "/bin/rpm -V";
+
+freebsd::
+ package_changes => "individual";
+ package_list_command => "/usr/sbin/pkg_info";
+ package_list_name_regex    => "([^-]+).*";
+ package_list_version_regex => "[^-]+-([^\s]+).*";
+ package_name_regex    => "([^-]+).*";
+ package_version_regex => "[^-]+-([^\s]+).*";
+ package_installed_regex => ".*";
+ package_name_convention => "$(name)-$(version)";
+ package_add_command => "/usr/sbin/pkg_add -r";
+ package_delete_command => "/usr/sbin/pkg_delete";
+}
 
 ##-------------------------------------------------------
 ## storage promises
