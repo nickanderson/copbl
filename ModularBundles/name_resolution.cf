@@ -1,6 +1,5 @@
 
 bundle agent name_resolution
-
 {
 files:
 
