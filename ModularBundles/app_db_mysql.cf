@@ -1,0 +1,59 @@
+
+
+bundle agent app_db_mysql
+{
+vars:
+
+  SuSE::
+
+    "match_package" slist => { 
+                             "apache2", 
+                             "apache2-mod_php5",
+                             "apache2-prefork",
+                             "mysql",
+                             };
+  redhat::
+
+    "match_package" slist => {
+                             "httpd",
+                             "mod_ssl",
+                             "mysql",
+                             "mysql-server",
+                             };
+  debian::
+ 
+   "match_package" slist => {
+                            "apache2",
+                            "mysql-server",
+                            };
+
+packages:
+
+   "$(match_pachage)"
+
+         package_policy => "add",
+         package_method => generic;
+
+processes:
+
+  "mysqld" -> "start_mysql",
+
+       restart_class => "start_mysql",
+             comment => "Make sure the back-end database is running";
+
+commands:
+
+ start_mysql::
+
+   "/etc/init.d/mysql restart",
+
+       handle => "start_mysql",
+      comment => "Start the mysqld service";
+
+    "/usr/bin/mysqldump --all-databases > /var/cfengine/reports/mysql_dump.xml"
+
+         comment => "Dump all MYSQL databases to xml for backup purposes",
+         contain => in_shell,
+          action => if_elapsed("8460");
+}
+

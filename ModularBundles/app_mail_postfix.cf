@@ -3,6 +3,8 @@ bundle agent app_mail_postfix
 {
 vars:
 
+ SuSE::
+
   "package" slist => {
                      "postfix",
                      "postfix-mysql",

@@ -1,9 +1,20 @@
 
 bundle agent app_mail_mailman
 {
+vars:
 
-   mailman
+ SuSE::
 
+  "package" slist => {
+                     "mailman"
+                     };
+
+packages:
+
+   "$(package)"
+
+      package_policy => "add",
+      package_method => generic;
 
 processes:
 

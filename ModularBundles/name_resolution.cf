@@ -1,6 +1,3 @@
-#######################################################
-# Name resolution
-#######################################################
 
 bundle agent name_resolution
 
@@ -9,7 +6,7 @@ files:
 
   "$(sys.resolv)"  # test on "/tmp/resolv.conf" #
 
-     comment       => "Add lines to the resolver configuration",
+     comment       => "Add appropriate configuration to the resolver (DNS)",
      create        => "true",
      edit_line     => resolver,
      edit_defaults => std_edits;
@@ -23,6 +20,8 @@ bundle edit_line resolver
 {
 delete_lines:
 
+  # Clean up old junk, if you like
+
   "search.*";
   "nameserver 80.65.58.31";
   "nameserver 80.65.58.32";
@@ -33,12 +32,27 @@ delete_lines:
 
 insert_lines:
 
-  "search cfengine.com" location => start;
+ any::
 
- eternity::
+  "search cfengine.com" 
+
+      comment => "Add the search domains separated by spaces",
+     location => start;
+
+  #
+  # Now add the nameservers for different classes of host
+  # Best to keep this special bundle for doing this, rather
+  # than try to abstract away, as this just *is* messy
+  #
+
+ west_wing::
 
   "nameserver 128.39.89.8";
   "nameserver 128.39.74.66";
+
+ nameservers::
+
+  "nameserver 127.0.0.1";
 
  any::
 
