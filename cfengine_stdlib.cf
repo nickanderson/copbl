@@ -3,7 +3,7 @@
 # Cfengine Community Open Promise-Body Library
 #
 # This initiative started by Cfengine promotes a
-# standardized set of names and promise specifications 
+# standardized set of names and promise specifications
 # for template functionality within Cfengine 3.
 #
 # The aim is to promote an industry standard for
@@ -14,8 +14,8 @@
 # minimal to assist readability and comprehensibility.
 #
 
-# Contributions to this file are voluntarily given to 
-# the cfengine community, and are moderated by Cfengine.  
+# Contributions to this file are voluntarily given to
+# the cfengine community, and are moderated by Cfengine.
 # No liability or warranty for misuse is implied.
 #
 # If you add to this file, please try to make the
@@ -376,7 +376,7 @@ occurrences => "all";
 
 body action if_elapsed(x)
 {
-ifelapsed => "$(x)"; 
+ifelapsed => "$(x)";
 expireafter => "$(x)";
 }
 
@@ -677,7 +677,7 @@ mode   => "$(mode)";
 
 ##
 
-body perms og(u,g) 
+body perms og(u,g)
 {
 owners => { "${u}" };
 groups => { "${g}" };
@@ -760,16 +760,16 @@ file_result => "mtime.leaf_name";
 
 body file_select days_old(days)
 {
-mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,$(days),0,0,0));  
-file_result => "mtime"; 
+mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,$(days),0,0,0));
+file_result => "mtime";
 }
 
 ##
 
 body file_select size_range(from,to)
 {
-search_size => irange("$(from)","$(to)");  
-file_result => "size"; 
+search_size => irange("$(from)","$(to)");
+file_result => "size";
 }
 
 ##
