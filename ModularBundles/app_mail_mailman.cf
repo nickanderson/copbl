@@ -1,0 +1,26 @@
+
+bundle agent app_mail_mailman
+{
+
+   mailman
+
+
+processes:
+
+  # mail server
+
+  "mailman"
+
+         depends_on => { "ref_postfix", "ref_apache" },
+            comment => "Mailman is the mailing list processor",
+      restart_class => "restart_mailman";
+
+commands:
+
+ restart_mailman::
+
+   "/etc/init.d/mailman restart"
+
+     comment => "Start the mailing list processor";
+}
+

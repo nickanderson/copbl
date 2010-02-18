@@ -1,0 +1,50 @@
+#######################################################
+# Name resolution
+#######################################################
+
+bundle agent name_resolution
+
+{
+files:
+
+  "$(sys.resolv)"  # test on "/tmp/resolv.conf" #
+
+     comment       => "Add lines to the resolver configuration",
+     create        => "true",
+     edit_line     => resolver,
+     edit_defaults => std_edits;
+
+}
+
+#######################################################
+
+bundle edit_line resolver
+
+{
+delete_lines:
+
+  "search.*";
+  "nameserver 80.65.58.31";
+  "nameserver 80.65.58.32";
+  "nameserver 82.103.128.146";
+  "nameserver 78.24.145.4";
+  "nameserver 78.24.145.5";
+  "nameserver 128.39.89.10";
+
+insert_lines:
+
+  "search cfengine.com" location => start;
+
+ eternity::
+
+  "nameserver 128.39.89.8";
+  "nameserver 128.39.74.66";
+
+ any::
+
+  "nameserver 212.112.166.18";
+  "nameserver 212.112.166.22";
+}
+
+
+

@@ -1,0 +1,145 @@
+#####################################################
+#
+# Email configuration
+#
+# TOC: app_mail_postfix
+#      app_mail_imap
+#      app_mail_mailman
+#      
+#####################################################
+
+bundle agent app_mail_postfix
+{
+vars:
+
+  "daemons" slist => {
+                     "postfix",
+                     "amavisd",
+                     "clamd",
+                     "clamav-milter",
+                     "freshclam",
+                     "saslauthd",
+                     "spamd"
+                   #  "smtpd" does not get restarted separately
+                     };
+
+  "service_used_by[postfix]"       string => "app_mail_postfix";
+  "service_used_by[saslauthd]"     string => "ref_postfix";
+  "service_used_by[freshclam]"     string => "ref_clamd";
+  "service_used_by[clamd]"         string => "ref_postfix";
+  "service_used_by[clamav-milter]" string => "ref_clamd";
+  "service_used_by[spamd]"         string => "ref_postfix";
+  "service_used_by[amavisd]"       string => "ref_postfix";
+  "service_used_by[smtpd]"         string => "ref_postfix";
+
+  "intent[postfix]"       string => "The mail delivery service";
+  "intent[saslauthd]"     string => "Authentication module for the mail delivery service";
+  "intent[freshclam]"     string => "Gets updates for the clam virus scanner";
+  "intent[clamd]"         string => "A mail anti-virus content scanner";
+  "intent[clamav-milter]" string => "Mail virus scanner interface for clamd";
+  "intent[spamd]"         string => "A mail spam scanner, Spam Assassin service";
+  "intent[amavisd]"       string => "Yet another virus/spam scanner";
+  "intent[smtpd]"         string => "SMTP server used by postfix";
+
+processes:
+
+  "$(daemons)" -> { "app_mail_postfix" },
+
+            handle => "restart_app_services",
+     restart_class => canonify("start_$(daemons)");
+
+   # What happens here????
+   # Currently they are authenticated by being on the same network
+
+
+commands:
+
+   "/etc/init.d/$(daemons) restart" -> canonify("$(service_used_by[$(daemons)])"),
+ 
+           handle => canonify("ref_$(daemons)"),
+          comment => "$(intent[$(daemons]))",
+       ifvarclass => canonify("start_$(daemons)");
+
+files:
+ 
+   "/etc",
+
+        comment => "Saved images of hand-edited files are sourced from the subversion repository",
+   depth_search => recurse("inf"),
+      copy_from => local_cp("/cfengine/cf002lin/CompanyDocuments/trunk/SiteFiles/cf002lin/etc");
+
+}
+
+#####################################################
+
+bundle agent app_mail_imap
+
+{
+vars:
+
+  "daemons" slist => {
+                     "couriertls",
+                     "authdaemond",
+                     "pop3d"
+                     };
+
+  "service_used_by[couriertls]"  string  => "app_mail_imap";
+  "service_used_by[authdaemond]" string  => "ref_couriertls";
+  "service_used_by[pop3d]"       string  => "ref_couriertls";
+
+  "intent[authdaemond]" string => "courier imap's authentication service";
+  "intent[couriertls]"  string => "Courier IMAP mail user access service";
+  "intent[pop3d]"       string => "Courier POP3 mail user access service";
+
+processes:
+
+ cf002lin::
+
+  "$(daemons)" -> { "app_mail_imap" },
+
+     restart_class => canonify("start_$(daemons)");
+
+commands:
+
+ cf002lin::
+
+   "/etc/init.d/$(daemons) restart" -> canonify("$(service_used_by[$(daemons)])"),
+ 
+           handle => canonify("ref_$(daemons)"),
+          comment => "$(intent_$(daemons))",
+       ifvarclass => canonify("start_$(daemons)");
+
+}
+
+#####################################################
+
+bundle agent app_mail_mailman
+{
+processes:
+
+ cf002lin::
+
+  # mail server
+
+  "mailman"
+
+         depends_on => { "ref_postfix", "ref_apache" },
+            comment => "Mailman is the mailing list processor",
+      restart_class => "restart_mailman";
+
+commands:
+
+ restart_mailman::
+
+   "/etc/init.d/mailman restart"
+
+     comment => "Start the mailing list processor";
+
+files:
+
+
+ #   "/etc" copyfrom => SiteFiles/cf002lin/etc
+
+
+}
+

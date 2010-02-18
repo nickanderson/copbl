@@ -1,0 +1,55 @@
+
+bundle agent app_mail_imap
+
+{
+vars:
+
+  "package" slist => {
+                     "courier-authlib",
+                     "courier-authlib-ldap",
+                     "courier-authlib-mysql",
+                     "courier-authlib-pgsql",
+                     "courier-authlib-pipe",
+                     "courier-authlib-userdb",
+                     "courier-imap",
+                     "imap-lib",
+                     "php5-imap",
+                     };
+
+  "daemons" slist => {
+                     "couriertls",
+                     "authdaemond",
+                     "pop3d"
+                     };
+
+  "service_used_by[couriertls]"  string  => "app_mail_imap";
+  "service_used_by[authdaemond]" string  => "ref_couriertls";
+  "service_used_by[pop3d]"       string  => "ref_couriertls";
+
+  "intent[authdaemond]" string => "courier imap's authentication service";
+  "intent[couriertls]"  string => "Courier IMAP mail user access service";
+  "intent[pop3d]"       string => "Courier POP3 mail user access service";
+
+packages:
+
+   "$(package)"
+
+      package_policy => "add",
+      package_method => generic;
+
+processes:
+
+  "$(daemons)" -> { "app_mail_imap" },
+
+     restart_class => canonify("start_$(daemons)");
+
+commands:
+
+   "/etc/init.d/$(daemons) restart" -> canonify("$(service_used_by[$(daemons)])"),
+ 
+           handle => canonify("ref_$(daemons)"),
+          comment => "$(intent_$(daemons))",
+       ifvarclass => canonify("start_$(daemons)");
+
+}
+

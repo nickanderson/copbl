@@ -1,0 +1,93 @@
+
+bundle agent app_web_apache
+{
+vars:
+
+  SuSE::
+
+    "match_package" slist => { 
+                             "apache2", 
+                             "apache2-mod_php5",
+                             "apache2-prefork",
+                             "mysql",
+                             "php5" 
+                             };
+
+  redhat::
+
+    "match_package" slist => {
+                             "httpd",
+                             "mod_ssl",
+                             "mysql",
+                             "mysql-server",
+                             "php"
+                             };
+
+  debian::
+
+   "match_package" slist => {
+                            "apache2",
+                            "mysql-server",
+                            "php5"
+                            };
+
+packages:
+
+   "$(match_package)"
+
+      package_policy => "add",
+      package_method => generic;
+
+processes:
+
+    "httpd" -> "start_apache",
+
+       restart_class => "start_webserver",
+             comment => "Make sure the webserver is running";
+
+commands:
+
+ start_webserver::
+
+   "/etc/init.d/apache2 startssl",
+
+              handle => "start_apache",
+             comment => "Activate the webserver";
+
+
+files:
+
+#
+#  To edit in some special include file
+#
+# SuSE::
+#
+#   "/etc/sysconfig/apache2" -> "start_apache",
+#
+#           comment => "Main web-site virtual host information and access config is here",
+#         edit_line => append_if_no_line("APACHE_CONF_INCLUDE_FILES=\"/my-masterfiles/my-httpd.conf\""),
+#     edit_defaults => std_edits;
+
+
+  #
+  # SSL setup for web server, see
+  #
+
+ "/etc/apache2/ssl.key/server.key"
+
+     comment => "The SSL server key for https service certificate generation",
+     copy_from => local_cp("$(masterfiles)/server.key");
+
+ "/etc/apache2/ssl.csr/server.csr"
+
+     copy_from => local_cp("$(masterfiles)/server.csr");
+
+ "/etc/apache2/ssl.crt/server.crt"
+
+     copy_from => local_cp("$(masterfiles)/cert.cer");
+
+ "/etc/apache2/ssl.crt/intermediate.crt"
+
+     copy_from => local_cp("$(masterfiles)/intermediate.crt");
+}
+

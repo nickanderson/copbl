@@ -1,0 +1,93 @@
+
+bundle agent app_mail_postfix
+{
+vars:
+
+  "package" slist => {
+                     "postfix",
+                     "postfix-mysql",
+                     "clamav",
+                     "clamav-db",
+                     "cyrus-sasl",        
+                     "cyrus-sasl-crammd5",
+                     "cyrus-sasl-digestmd5",
+                     "cyrus-sasl-gssapi",
+                     "cyrus-sasl-gssapi", 
+                     "cyrus-sasl-ntlm",
+                     "cyrus-sasl-otp",  
+                     "cyrus-sasl-plain",    
+                     "cyrus-sasl-saslauthd",
+                     "cyrus-sasl-sqlauxprop",
+                     "amavisd-new",
+                     "procmail",
+                     };
+
+  "daemons" slist => {
+                     "postfix",
+                     "amavisd",
+                     "clamd",
+                     "clamav-milter",
+                     "freshclam",
+                     "saslauthd",
+                     "spamd"
+                  #  "smtpd" does not get restarted separately
+                     };
+
+  #
+  # Some documentation, compressed into an array
+  #
+
+  "service_used_by[postfix]"       string => "app_mail_postfix";
+  "service_used_by[saslauthd]"     string => "ref_postfix";
+  "service_used_by[freshclam]"     string => "ref_clamd";
+  "service_used_by[clamd]"         string => "ref_postfix";
+  "service_used_by[clamav-milter]" string => "ref_clamd";
+  "service_used_by[spamd]"         string => "ref_postfix";
+  "service_used_by[amavisd]"       string => "ref_postfix";
+  "service_used_by[smtpd]"         string => "ref_postfix";
+
+  "intent[postfix]"       string => "The mail delivery service";
+  "intent[saslauthd]"     string => "Authentication module for the mail delivery service";
+  "intent[freshclam]"     string => "Gets updates for the clam virus scanner";
+  "intent[clamd]"         string => "A mail anti-virus content scanner";
+  "intent[clamav-milter]" string => "Mail virus scanner interface for clamd";
+  "intent[spamd]"         string => "A mail spam scanner, Spam Assassin service";
+  "intent[amavisd]"       string => "Yet another virus/spam scanner";
+  "intent[smtpd]"         string => "SMTP server used by postfix";
+
+
+packages:
+
+   "$(package)"
+
+      package_policy => "add",
+      package_method => generic;
+
+processes:
+
+  "$(daemons)" -> { "app_mail_postfix" },
+
+            handle => "restart_app_services",
+           comment => "Start the postfix services",
+     restart_class => canonify("start_$(daemons)");
+
+   # authentication?
+
+commands:
+
+   "/etc/init.d/$(daemons) restart" -> canonify("$(service_used_by[$(daemons)])"),
+ 
+           handle => canonify("ref_$(daemons)"),
+          comment => "$(intent[$(daemons]))",
+       ifvarclass => canonify("start_$(daemons)");
+
+files:
+ 
+   "/etc",
+
+        comment => "Saved images of hand-edited files are sourced from the subversion repository",
+   depth_search => recurse("inf"),
+      copy_from => local_cp("/cfengine/cf002lin/CompanyDocuments/trunk/SiteFiles/cf002lin/etc");
+
+}
+
