@@ -1,0 +1,43 @@
+bundle agent programming_env_python
+{
+############################################################
+ vars::
+
+  SuSE::
+
+   "match_package" slist => { 
+                             "python",
+                             "python-devel",
+                             "python-doc"
+                            };
+  redhat::
+
+   "match_package" slist => {
+                             "python",
+                             "python-devel",
+                             "python-docs"
+                            };
+
+  debian::
+
+  "match_package" slist => {
+                            "python2.5",
+                            "python2.5-dev",
+                            "python2.5-doc"
+                           };
+
+############################################################
+ packages:
+ 
+   "$(match_package)"
+ 
+      package_policy => "add",
+      package_method => generic,
+      classes => if_ok("package_ok");
+
+############################################################
+ reports:
+
+  package_ok::
+     "--> Python software has been installed.";
+}

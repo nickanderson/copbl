@@ -1,0 +1,137 @@
+bundle agent varnish_method
+{
+############################################################
+ vars:
+
+  SuSE::
+
+   "varnish_package"  slist => {
+                                "libvarnish1",
+                                "varnish"
+                               };
+
+  redhat::
+
+   "varnish_package"  slist => {
+                                "varnish-libs",
+                                "varnish"
+                               };
+
+  debian::
+
+   "varnish_package"  slist => {
+                                "libvarnish0",
+                                "varnish"
+                               };
+
+############################################################
+ method:
+
+  SuSE|redhat::
+
+   "any"  usebundle => varnish_suse("$(varnish_package)");
+
+############################################################
+ packages:
+ 
+  debian::
+
+   "$(vanish_package)"
+
+      package_policy => "add",
+      package_method => apt;
+      classes => if_ok("package_ok");
+
+############################################################
+ reports:
+
+  package_ok::
+
+     "--> Vanish has been installed.";
+   
+}
+
+#
+#
+#
+
+bundle agent varnish_suse(name)
+{
+############################################################
+ vars:
+
+  suse_11_0::
+
+   "arch"        string => "i586";
+   "distro_ver"  string => "11.0";
+   "varnish_ver" string => "2.0.5-2.1";
+   "url"         string => "http://download.opensuse.org/repositories/server:/http/openSUSE_$(distro_ver)/$(arch)";
+   "check"      string => execresult("/bin/rpm -q $(name)", "useshell");
+
+  suse_11_1::
+
+   "arch"        string => "x86_64";
+   "distro_ver"  string => "11.1";
+   "varnish_ver" string => "2.0.5-2.1";
+   "url"         string => "http://download.opensuse.org/repositories/server:/http/openSUSE_$(distro_ver)/$(arch)";
+   "check"      string => execresult("/bin/rpm -q $(name)", "useshell");
+
+  suse_11_2::
+
+   "arch"        string => "i586";
+   "distro_ver"  string => "11.2";
+   "varnish_ver" string => "2.0.5-2.1";
+   "url"         string => "http://download.opensuse.org/repositories/server:/http/openSUSE_$(distro_ver)/$(arch)";
+   "check"      string => execresult("/bin/rpm -q $(name)", "useshell");
+
+  redhat_4::
+
+   "arch"        string => "i386";
+   "distro_ver"  string => "el4";
+   "varnish_ver" string => "2.0.6-2";
+   "url"         string => "http://download.fedora.redhat.com/pub/epel/4/$(arch)";
+   "check"      string => execresult("/bin/rpm -q $(name)", "useshell");
+
+  redhat_5::
+
+   "arch"        string => "x86_64";
+   "distro_ver"  string => "el5";
+   "varnish_ver" string => "2.0.6-2";
+   "url"         string => "http://download.fedora.redhat.com/pub/epel/5/$(arch)";
+   "check"      string => execresult("/bin/rpm -q $(name)", "useshell");
+
+############################################################
+ classes:
+
+   "not_install" expression => regcmp("^package.*installed$","$(check)");
+
+############################################################
+ commands:
+
+  SuSE.not_install::
+
+   "/bin/rpm -i $(url)/$(name)-$(varnish_ver).$(arch).rpm",
+      classes => if_repaired("package_installed");
+
+  redhat.not_install::
+
+   "/bin/rpm -i $(url)/$(name)-$(varnish_ver).$(distro_ver).$(arch).rpm",
+      classes => if_repaired("package_installed");
+
+  start_varnish::
+
+   "/etc/init.d/varnish start";
+
+############################################################
+ reports:
+
+  package_installed::
+
+   "---> installing $(name)-$(varnish_ver).$(arch)";
+
+ processes:
+
+  files_ok::
+
+   ".*varnish.*"  restart_class => "start_varnish";
+}

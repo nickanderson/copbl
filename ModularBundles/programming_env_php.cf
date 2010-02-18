@@ -1,0 +1,44 @@
+bundle agent programming_env_php
+{
+############################################################
+ vars::
+
+  SuSE::
+
+   "match_package" slist => { 
+                             "php",
+                             "php-devel",
+                             "php-doc",
+                             "selfphp"
+                            };
+  redhat::
+
+   "match_package" slist => {
+                             "php",
+                             "php-devel",
+                             "php-cli",
+                             "php-common"
+                            };
+
+  debian::
+
+  "match_package" slist => {
+                            "php5",
+                            "php5-devel"
+                           };
+
+############################################################
+ packages:
+ 
+   "$(match_package)"
+ 
+      package_policy => "add",
+      package_method => generic,
+      classes => if_ok("package_ok");
+
+############################################################
+ reports:
+
+  package_ok::
+     "--> PHP software has been installed.";
+}

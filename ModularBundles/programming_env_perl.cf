@@ -1,0 +1,40 @@
+bundle agent programming_env_perl
+{
+############################################################
+ vars::
+
+  SuSE::
+
+   "match_package" slist => { 
+                             "perl",
+                             "perl-doc",
+                             "perlref"
+                            };
+  redhat::
+
+   "match_package" slist => {
+                             "perl"
+                            };
+
+  debian::
+
+  "match_package" slist => {
+                            "perl5",
+                            "perl-doc"
+                           };
+
+############################################################
+ packages:
+ 
+   "$(match_package)"
+ 
+      package_policy => "add",
+      package_method => generic,
+      classes => if_ok("package_ok");
+
+############################################################
+ reports:
+
+  package_ok::
+     "--> PERL software has been installed.";
+}

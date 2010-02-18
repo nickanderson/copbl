@@ -1,0 +1,41 @@
+bundle agent programming_env_java
+{
+############################################################
+ vars::
+
+  SuSE::
+
+   "match_package" slist => { 
+                             "java-1_6_0-sun",
+                             "java-1_6_0-sun-devel"
+                            };
+
+  redhat::
+
+   "match_package" slist => {
+                             "java-1.6.0-openjdk",
+                             "java-1.6.0-openjdk-devel"
+                            };
+
+  debian::
+
+  "match_package" slist => {
+                            "java6-runtime",
+                            "java6-sdk"
+                           };
+
+############################################################
+ packages:
+ 
+   "$(match_package)"
+ 
+      package_policy => "add",
+      package_method => generic,
+      classes => if_ok("package_ok");
+
+############################################################
+ reports:
+
+  package_ok::
+     "--> Java software has been installed.";	
+}
