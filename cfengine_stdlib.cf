@@ -414,12 +414,21 @@ windows::
 background => "true";
 }
 
-
 ##
 
 body action immediate
 {
 ifelapsed => "0";
+}
+
+##
+
+# Log a message to log=[/file|stdout]
+
+body action log_repaired(log,message)
+{
+log_string => "$(sys.date), $(message)";
+log_repaired => "$(log)";
 }
 
 ##
@@ -989,6 +998,25 @@ redhat::
  package_add_command => "/usr/bin/yum -y install";
  package_delete_command => "/bin/rpm -e";
  package_verify_command => "/bin/rpm -V";
+
+debian::
+ package_changes => "bulk";
+ package_list_command => "/usr/bin/dpkg -l";
+ package_list_name_regex    => "ii\s+([^\s]+).*";
+ package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
+ package_installed_regex => ".*"; # all reported are installed
+ package_name_convention => "$(name)";
+
+have_aptitude::
+   package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_delete_command => "/usr/bin/aptitude --assume-yes remove";
+   package_update_command =>  "/usr/bin/aptitude --assume-yes install";
+
+!have_aptitude::
+   package_add_command => "/usr/bin/apt-get --yes install";
+   package_delete_command => "/usr/bin/apt-get --yes remove";
+   package_update_command =>  "/usr/bin/apt-get --yes install";
+
 
 freebsd::
  package_changes => "individual";

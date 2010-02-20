@@ -1,5 +1,5 @@
 body {
-	font-family: Verdana, Geneva, sans-serif;
+	font-family: Verdana, DejaVu, Vera, Geneva, sans-serif;
 	padding: 10px;
 }
 .node
@@ -82,7 +82,6 @@ FONT.liten {font-size: 70%; }
 .verbatim {
 	font-family: "Lucida Console", Monaco, monospace;
 	color: #000;
-	width: 600px;
 	padding-top: 30px;
 	padding-right: 30px;
 	padding-bottom: 3px;
@@ -99,7 +98,7 @@ FONT.liten {font-size: 70%; }
 .example {
 	font-family: "Lucida Console", Monaco, monospace;
 	color: #000;
-	width: 600px;
+	width: 100%;
 	padding-top: 30px;
 	padding-right: 30px;
 	padding-bottom: 3px;
@@ -116,7 +115,7 @@ FONT.liten {font-size: 70%; }
 .smallexample {
 	font-family: "Lucida Console", Monaco, monospace;
 	color: #000;
-	width: 600px;
+	width: 100%;
 	padding-top: 30px;
 	padding-right: 30px;
 	padding-bottom: 3px;
