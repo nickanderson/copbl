@@ -1,0 +1,44 @@
+
+bundle agent app_db_postgres
+{
+vars:
+
+  SuSE|redhat::
+
+    "match_package" slist => { 
+                             "postgresql",
+                             "postgresql-devel",
+                             "postgresql-libs",
+                             "postgresql-server"
+                             };
+  debian::
+ 
+   "match_package" slist => {
+                            "postgresql",
+                            };
+
+packages:
+
+   "$(match_package)"
+
+         package_policy => "add",
+         package_method => generic;
+
+processes:
+
+  "postgres" -> "start_postgres",
+
+       restart_class => "start_postgres",
+             comment => "Make sure the back-end postgres database is running";
+
+commands:
+
+ start_postgres::
+
+   "/etc/init.d/postgresql restart",
+
+       handle => "start_postgres",
+      comment => "Start the postgres service";
+
+}
+

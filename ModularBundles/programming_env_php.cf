@@ -1,44 +1,39 @@
 bundle agent programming_env_php
 {
-############################################################
- vars::
+vars:
 
   SuSE::
 
-   "match_package" slist => { 
-                             "php",
-                             "php-devel",
-                             "php-doc",
-                             "selfphp"
-                            };
+   "package" slist => { 
+                      "php",
+                      "php-devel",
+                      "php-doc",
+                      "selfphp"
+                      };
   redhat::
 
-   "match_package" slist => {
-                             "php",
-                             "php-devel",
-                             "php-cli",
-                             "php-common"
-                            };
+   "package" slist => {
+                      "php",
+                      "php-devel",
+                      "php-cli",
+                      "php-common"
+                      };
 
   debian::
 
-  "match_package" slist => {
-                            "php5",
-                            "php5-devel"
+  "package" slist => {
+                           "php5",
+                           "php5-devel"
                            };
 
 ############################################################
- packages:
+
+packages:
  
-   "$(match_package)"
- 
+   "$(package)"
+
+             comment => "Install the PHP programming environment", 
       package_policy => "add",
       package_method => generic,
-      classes => if_ok("package_ok");
-
-############################################################
- reports:
-
-  package_ok::
-     "--> PHP software has been installed.";
+              action => log_repaired("stdout","PHP installed");
 }

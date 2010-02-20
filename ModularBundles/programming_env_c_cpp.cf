@@ -1,44 +1,29 @@
 bundle agent programming_env_c_cpp
 {
-############################################################
- vars:
+vars:
 
-  SuSE::
+  SuSE|redhat::
 
-   "match_package" slist => { 
-                             "gcc",
-                             "gcc-c++",
-                             "bison",
-                             "flex"
-                            };
-
-  redhat::
-
-   "match_package" slist => {
-                             "gcc",
-                             "gcc-c++",
-                             "bison",
-                             "flex"
-                            };
-
+   "package" slist => { 
+                      "gcc",
+                      "gcc-c++",
+                      "bison",
+                      "flex"
+                      };
   debian::
 
-  "match_package" slist => {
-                            "build-essential"
-                           };
+  "package" slist => {
+                     "build-essential"
+                     };
 
 ############################################################
- packages:
+
+packages:
  
-   "$(match_package)"
- 
+   "$(package)"
+
+             comment => "Install the C programming environment", 
       package_policy => "add",
       package_method => generic,
-      classes => if_ok("package_ok");
-
-############################################################
- reports:
-
-  package_ok::
-     "--> C/C++ software has been installed.";
+              action => log_repaired("stdout","C/C++ were installed");
 }

@@ -7,29 +7,23 @@ vars:
   SuSE::
 
     "match_package" slist => { 
-                             "apache2", 
-                             "apache2-mod_php5",
-                             "apache2-prefork",
                              "mysql",
                              };
   redhat::
 
     "match_package" slist => {
-                             "httpd",
-                             "mod_ssl",
                              "mysql",
                              "mysql-server",
                              };
   debian::
  
    "match_package" slist => {
-                            "apache2",
                             "mysql-server",
                             };
 
 packages:
 
-   "$(match_pachage)"
+   "$(match_package)"
 
          package_policy => "add",
          package_method => generic;
@@ -39,7 +33,7 @@ processes:
   "mysqld" -> "start_mysql",
 
        restart_class => "start_mysql",
-             comment => "Make sure the back-end database is running";
+             comment => "Make sure the back-end mySQL database is running";
 
 commands:
 

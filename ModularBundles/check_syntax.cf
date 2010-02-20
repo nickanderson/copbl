@@ -1,0 +1,26 @@
+
+body common control
+{
+bundlesequence => {
+                  "app_sys_sudo",
+                  "app_db_postgres",
+                  "app_db_mysql",
+                  "programming_env_python",
+                  "programming_env_java",
+                  "programming_env_c_cpp",
+                  "programming_env_php",
+                  "varnish_method",
+                  };
+
+        inputs => {
+                  "app_sys_sudo.cf",
+                  "app_db_postgres.cf",
+                  "app_db_mysql.cf",
+                  "programming_env_python.cf",
+                  "programming_env_java.cf",
+                  "programming_env_c_cpp.cf",
+                  "programming_env_php.cf",
+                  "varnish_method.cf",
+                  "../cfengine_stdlib.cf"
+                  };
+}
