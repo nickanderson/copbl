@@ -35,5 +35,5 @@ packages:
              comment => "Install the PHP programming environment", 
       package_policy => "add",
       package_method => generic,
-              action => log_repaired("stdout","PHP installed");
+              action => log_repaired("stdout","PHP was installed");
 }

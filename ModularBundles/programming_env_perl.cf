@@ -36,5 +36,5 @@ bundle agent programming_env_perl
  reports:
 
   package_ok::
-     "--> PERL software has been installed.";
+     "--> PERL was installed.";
 }

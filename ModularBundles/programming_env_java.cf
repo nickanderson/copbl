@@ -38,5 +38,5 @@ packages:
 reports:
 
   package_ok::
-     "--> Java software has been installed.";	
+     "--> Java was installed.";	
 }
