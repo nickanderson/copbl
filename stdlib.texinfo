@@ -1009,6 +1009,15 @@ package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 
 @end verbatim
 
+
+
+
+
+
+
+
+
+
 @node body package_method yum, body package_method zypper, body package_method solaris , The Purpose Of This Handbook
 @section body package_method yum
 

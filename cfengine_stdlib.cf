@@ -898,6 +898,47 @@ have_aptitude::
 
 ##
 
+body package_method rpm_version(repo)
+{
+package_changes => "individual";
+
+package_list_command => "/bin/rpm -qa --queryformat \"i | repos | %{name} | %{version} | %{arch}\n\"";
+
+package_list_name_regex    => "[^|]+\|[^|]+\|\s+([^\s|]+).*";
+package_list_version_regex => "[^|]+\|[^|]+\|[^|]+\|\s+([^\s|]+).*";
+package_list_arch_regex    => "[^|]+\|[^|]+\|[^|]+\|[^|]+\|\s+([^\s]+).*";
+
+package_installed_regex => "i.*";
+ 
+package_file_repositories => { "$(repo)" };
+
+package_name_convention => "$(name)-$(version)-$(arch).rpm";
+
+package_add_command => "/bin/rpm -ivh ";
+package_delete_command => "/bin/rpm -e --nodeps";
+package_verify_command => "/bin/rpm -V";
+package_update_command => "/bin/rpm -Uvh ";
+package_noverify_regex => ".*[^\s].*";
+}
+
+##
+
+body package_method msi_version(repo)
+{
+package_changes => "individual";
+package_file_repositories => { "$(repo)" };
+
+package_installed_regex => ".*";
+ 
+package_name_convention => "$(name)-$(version)-$(arch).msi";
+
+package_add_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_update_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
+}
+
+##
+
 body package_method yum
 {
 package_changes => "bulk";
