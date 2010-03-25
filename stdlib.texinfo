@@ -105,6 +105,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body action if_elapsed::      
 * body action ifwin_bg::        
 * body action immediate::       
+* body action log_repaired::    
 * body action measure_performance::  
 * body action sample_rate::     
 * body action warn_only::       
@@ -155,6 +156,9 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body mount unmount::          
 * body package_method apt::     
 * body package_method freebsd::  
+* body package_method generic::  
+* body package_method msi_version::  
+* body package_method rpm_version::  
 * body package_method solaris ::  
 * body package_method yum::     
 * body package_method zypper::  
@@ -210,7 +214,7 @@ background  => "true";
 @verbatim
 body action if_elapsed(x)
 {
-ifelapsed => "$(x)"; 
+ifelapsed => "$(x)";
 expireafter => "$(x)";
 }
 
@@ -228,10 +232,9 @@ background => "true";
 }
 
 
-
 @end verbatim
 
-@node body action immediate, body action measure_performance, body action ifwin_bg, The Purpose Of This Handbook
+@node body action immediate, body action log_repaired, body action ifwin_bg, The Purpose Of This Handbook
 @section body action immediate
 
 @verbatim
@@ -241,9 +244,24 @@ ifelapsed => "0";
 }
 
 
+# Log a message to log=[/file|stdout]
+
 @end verbatim
 
-@node body action measure_performance, body action sample_rate, body action immediate, The Purpose Of This Handbook
+@node body action log_repaired, body action measure_performance, body action immediate, The Purpose Of This Handbook
+@section body action log_repaired(log,message)
+
+@verbatim
+body action log_repaired(log,message)
+{
+log_string => "$(sys.date), $(message)";
+log_repaired => "$(log)";
+}
+
+
+@end verbatim
+
+@node body action measure_performance, body action sample_rate, body action log_repaired, The Purpose Of This Handbook
 @section body action measure_performance(x)
 
 @verbatim
@@ -739,8 +757,8 @@ file_result => "leaf_name";
 @verbatim
 body file_select days_old(days)
 {
-mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,$(days),0,0,0));  
-file_result => "mtime"; 
+mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,$(days),0,0,0));
+file_result => "mtime";
 }
 
 
@@ -817,8 +835,8 @@ file_result => "file_types";
 @verbatim
 body file_select size_range(from,to)
 {
-search_size => irange("$(from)","$(to)");  
-file_result => "size"; 
+search_size => irange("$(from)","$(to)");
+file_result => "size";
 }
 
 
@@ -953,14 +971,12 @@ have_aptitude::
 
 @end verbatim
 
-@node body package_method freebsd, body package_method solaris , body package_method apt, The Purpose Of This Handbook
+@node body package_method freebsd, body package_method generic, body package_method apt, The Purpose Of This Handbook
 @section body package_method freebsd
 
 @verbatim
 body package_method freebsd
 {
-any::
-
  package_changes => "individual";
 
  # Could use rpm for this
@@ -984,10 +1000,133 @@ package_delete_command => "/usr/sbin/pkg_delete";
 }
 
 
+ # Single bundle for all the similar managers simplifies promises
 
 @end verbatim
 
-@node body package_method solaris , body package_method yum, body package_method freebsd, The Purpose Of This Handbook
+@node body package_method generic, body package_method msi_version, body package_method freebsd, The Purpose Of This Handbook
+@section body package_method generic
+
+@verbatim
+body package_method generic
+{
+SuSE::
+ package_changes => "bulk";
+ package_list_command => "/usr/bin/zypper packages";
+ package_patch_list_command => "/usr/bin/zypper patches";
+ package_installed_regex => "i.*";
+ package_list_name_regex    => "[^|]+\|[^|]+\|\s+([^\s]+).*";
+ package_list_version_regex => "[^|]+\|[^|]+\|[^|]+\|\s+([^\s]+).*";
+ package_list_arch_regex    => "[^|]+\|[^|]+\|[^|]+\|[^|]+\|\s+([^\s]+).*";
+ package_patch_installed_regex => ".*Installed.*|.*Not Applicable.*";
+ package_patch_name_regex    => "[^|]+\|\s+([^\s]+).*";
+ package_patch_version_regex => "[^|]+\|[^|]+\|\s+([^\s]+).*";
+ package_name_convention => "$(name)";
+ package_add_command => "/usr/bin/zypper -non-interactive install";
+ package_delete_command => "/usr/bin/zypper -non-interactive remove --force-resolution";
+ package_update_command => "/usr/bin/zypper -non-interactive update";
+ package_patch_command => "/usr/bin/zypper -non-interactive patch$"; # $ means no args
+ package_verify_command => "/usr/bin/zypper -non-interactive verify$";
+
+redhat::
+ package_changes => "bulk";
+ package_list_command => "/usr/bin/yum list installed";
+ package_list_name_regex    => "([^.]+).*";
+ package_list_version_regex => "[^\s]\s+([^\s]+).*";
+ package_list_arch_regex    => "[^.]+\.([^\s]+).*";
+ package_installed_regex => ".*installed.*";
+ package_name_convention => "$(name).$(arch)";
+ package_add_command => "/usr/bin/yum -y install";
+ package_delete_command => "/bin/rpm -e";
+ package_verify_command => "/bin/rpm -V";
+
+debian::
+ package_changes => "bulk";
+ package_list_command => "/usr/bin/dpkg -l";
+ package_list_name_regex    => "ii\s+([^\s]+).*";
+ package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
+ package_installed_regex => ".*"; # all reported are installed
+ package_name_convention => "$(name)";
+
+have_aptitude::
+   package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_delete_command => "/usr/bin/aptitude --assume-yes remove";
+   package_update_command =>  "/usr/bin/aptitude --assume-yes install";
+
+!have_aptitude::
+   package_add_command => "/usr/bin/apt-get --yes install";
+   package_delete_command => "/usr/bin/apt-get --yes remove";
+   package_update_command =>  "/usr/bin/apt-get --yes install";
+
+
+freebsd::
+ package_changes => "individual";
+ package_list_command => "/usr/sbin/pkg_info";
+ package_list_name_regex    => "([^-]+).*";
+ package_list_version_regex => "[^-]+-([^\s]+).*";
+ package_name_regex    => "([^-]+).*";
+ package_version_regex => "[^-]+-([^\s]+).*";
+ package_installed_regex => ".*";
+ package_name_convention => "$(name)-$(version)";
+ package_add_command => "/usr/sbin/pkg_add -r";
+ package_delete_command => "/usr/sbin/pkg_delete";
+}
+
+
+@end verbatim
+
+@node body package_method msi_version, body package_method rpm_version, body package_method generic, The Purpose Of This Handbook
+@section body package_method msi_version(repo)
+
+@verbatim
+body package_method msi_version(repo)
+{
+package_changes => "individual";
+package_file_repositories => { "$(repo)" };
+
+package_installed_regex => ".*";
+ 
+package_name_convention => "$(name)-$(version)-$(arch).msi";
+
+package_add_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_update_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
+}
+
+
+@end verbatim
+
+@node body package_method rpm_version, body package_method solaris , body package_method msi_version, The Purpose Of This Handbook
+@section body package_method rpm_version(repo)
+
+@verbatim
+body package_method rpm_version(repo)
+{
+package_changes => "individual";
+
+package_list_command => "/bin/rpm -qa --queryformat \"i | repos | %{name} | %{version} | %{arch}\n\"";
+
+package_list_name_regex    => "[^|]+\|[^|]+\|\s+([^\s|]+).*";
+package_list_version_regex => "[^|]+\|[^|]+\|[^|]+\|\s+([^\s|]+).*";
+package_list_arch_regex    => "[^|]+\|[^|]+\|[^|]+\|[^|]+\|\s+([^\s]+).*";
+
+package_installed_regex => "i.*";
+ 
+package_file_repositories => { "$(repo)" };
+
+package_name_convention => "$(name)-$(version)-$(arch).rpm";
+
+package_add_command => "/bin/rpm -ivh ";
+package_delete_command => "/bin/rpm -e --nodeps";
+package_verify_command => "/bin/rpm -V";
+package_update_command => "/bin/rpm -Uvh ";
+package_noverify_regex => ".*[^\s].*";
+}
+
+
+@end verbatim
+
+@node body package_method solaris , body package_method yum, body package_method rpm_version, The Purpose Of This Handbook
 @section body package_method solaris (pkgname, spoolfile, adminfile)
 
 @verbatim
@@ -1006,17 +1145,7 @@ package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 }
 
 
-
 @end verbatim
-
-
-
-
-
-
-
-
-
 
 @node body package_method yum, body package_method zypper, body package_method solaris , The Purpose Of This Handbook
 @section body package_method yum
@@ -1120,10 +1249,10 @@ mode   => "$(mode)";
 @end verbatim
 
 @node body perms og, body perms owner, body perms mog, The Purpose Of This Handbook
-@section body perms og(u,g) 
+@section body perms og(u,g)
 
 @verbatim
-body perms og(u,g) 
+body perms og(u,g)
 {
 owners => { "${u}" };
 groups => { "${g}" };
@@ -1455,6 +1584,7 @@ bundle edit_line resolvconf(search,list)
 delete_lines:
 
   "search.*";
+  "nameserver.*";
 
 insert_lines:
 

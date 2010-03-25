@@ -128,6 +128,7 @@ bundle edit_line resolvconf(search,list)
 delete_lines:
 
   "search.*";
+  "nameserver.*";
 
 insert_lines:
 
