@@ -348,6 +348,14 @@ before_after => "before";
 }
 
 ##
+
+body location after(str)
+{
+before_after => "after";
+select_line_matching => "$(str)";
+}
+
+##
 ## replace_with
 ##
 

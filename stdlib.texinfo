@@ -149,6 +149,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body file_select size_range::  
 * body link_from linkchildren::  
 * body link_from ln_s::         
+* body location after::         
 * body location start::         
 * body match_value scan_log::   
 * body mount nfs::              
@@ -858,7 +859,7 @@ when_linking_children => "if_no_such_file"; # "override_file";
 
 @end verbatim
 
-@node body link_from ln_s, body location start, body link_from linkchildren, The Purpose Of This Handbook
+@node body link_from ln_s, body location after, body link_from linkchildren, The Purpose Of This Handbook
 @section body link_from ln_s(x)
 
 @verbatim
@@ -872,7 +873,21 @@ when_no_source => "force";
 
 @end verbatim
 
-@node body location start, body match_value scan_log, body link_from ln_s, The Purpose Of This Handbook
+@node body location after, body location start, body link_from ln_s, The Purpose Of This Handbook
+@section body location after(str)
+
+@verbatim
+body location after(str)
+{
+before_after => "after";
+select_line_matching => "$(str)";
+}
+
+
+
+@end verbatim
+
+@node body location start, body match_value scan_log, body location after, The Purpose Of This Handbook
 @section body location start
 
 @verbatim
@@ -880,7 +895,6 @@ body location start
 {
 before_after => "before";
 }
-
 
 
 @end verbatim

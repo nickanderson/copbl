@@ -281,6 +281,7 @@ ca n be made to the help-cfengine@cfengine.org mailing list.
 <li><a href="#body-file_005fselect-size_005frange">body file_select size_range</a>
 <li><a href="#body-link_005ffrom-linkchildren">body link_from linkchildren</a>
 <li><a href="#body-link_005ffrom-ln_005fs">body link_from ln_s</a>
+<li><a href="#body-location-after">body location after</a>
 <li><a href="#body-location-start">body location start</a>
 <li><a href="#body-match_005fvalue-scan_005flog">body match_value scan_log</a>
 <li><a href="#body-mount-nfs">body mount nfs</a>
@@ -1364,7 +1365,7 @@ when_linking_children => "if_no_such_file"; # "override_file";
 <p><hr>
 <a name="body-link_from-ln_s"></a>
 <a name="body-link_005ffrom-ln_005fs"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#body-location-start">body location start</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-location-after">body location after</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-link_005ffrom-linkchildren">body link_from linkchildren</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
@@ -1384,20 +1385,40 @@ when_no_source => "force";
 
 <div class="node">
 <p><hr>
-<a name="body-location-start"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#body-match_005fvalue-scan_005flog">body match_value scan_log</a>,
+<a name="body-location-after"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-location-start">body location start</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-link_005ffrom-ln_005fs">body link_from ln_s</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
 </div>
 
-<h3 class="section">1.49 body location start</h3>
+<h3 class="section">1.49 body location after(str)</h3>
+
+<pre class="verbatim">body location after(str)
+{
+before_after => "after";
+select_line_matching => "$(str)";
+}
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-location-start"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-match_005fvalue-scan_005flog">body match_value scan_log</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-location-after">body location after</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.50 body location start</h3>
 
 <pre class="verbatim">body location start
 {
 before_after => "before";
 }
-
 
 
 </pre>
@@ -1412,7 +1433,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.50 body match_value scan_log(line)</h3>
+<h3 class="section">1.51 body match_value scan_log(line)</h3>
 
 <pre class="verbatim">body match_value scan_log(line)
 {
@@ -1432,7 +1453,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.51 body mount nfs(server,source)</h3>
+<h3 class="section">1.52 body mount nfs(server,source)</h3>
 
 <pre class="verbatim">body mount nfs(server,source)
 {
@@ -1456,7 +1477,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.52 body mount nfs_p(server,source,perm)</h3>
+<h3 class="section">1.53 body mount nfs_p(server,source,perm)</h3>
 
 <pre class="verbatim">body mount nfs_p(server,source,perm)
 {
@@ -1479,7 +1500,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.53 body mount unmount</h3>
+<h3 class="section">1.54 body mount unmount</h3>
 
 <pre class="verbatim">body mount unmount
 {
@@ -1501,7 +1522,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.54 body package_method apt</h3>
+<h3 class="section">1.55 body package_method apt</h3>
 
 <pre class="verbatim">body package_method apt
 {
@@ -1536,7 +1557,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.55 body package_method freebsd</h3>
+<h3 class="section">1.56 body package_method freebsd</h3>
 
 <pre class="verbatim">body package_method freebsd
 {
@@ -1577,7 +1598,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.56 body package_method generic</h3>
+<h3 class="section">1.57 body package_method generic</h3>
 
 <pre class="verbatim">body package_method generic
 {
@@ -1656,7 +1677,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.57 body package_method msi_version(repo)</h3>
+<h3 class="section">1.58 body package_method msi_version(repo)</h3>
 
 <pre class="verbatim">body package_method msi_version(repo)
 {
@@ -1685,7 +1706,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.58 body package_method rpm_version(repo)</h3>
+<h3 class="section">1.59 body package_method rpm_version(repo)</h3>
 
 <pre class="verbatim">body package_method rpm_version(repo)
 {
@@ -1723,7 +1744,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.59 body package_method solaris (pkgname, spoolfile, adminfile)</h3>
+<h3 class="section">1.60 body package_method solaris (pkgname, spoolfile, adminfile)</h3>
 
 <pre class="verbatim">body package_method solaris (pkgname, spoolfile, adminfile)
 {
@@ -1752,7 +1773,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.60 body package_method yum</h3>
+<h3 class="section">1.61 body package_method yum</h3>
 
 <pre class="verbatim">body package_method yum
 {
@@ -1790,7 +1811,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.61 body package_method zypper</h3>
+<h3 class="section">1.62 body package_method zypper</h3>
 
 <pre class="verbatim">body package_method zypper
 
@@ -1829,7 +1850,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.62 body perms m(mode)</h3>
+<h3 class="section">1.63 body perms m(mode)</h3>
 
 <pre class="verbatim">body perms m(mode)
 {
@@ -1848,7 +1869,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.63 body perms mo(mode,user)</h3>
+<h3 class="section">1.64 body perms mo(mode,user)</h3>
 
 <pre class="verbatim">body perms mo(mode,user)
 {
@@ -1868,7 +1889,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.64 body perms mog(mode,user,group)</h3>
+<h3 class="section">1.65 body perms mog(mode,user,group)</h3>
 
 <pre class="verbatim">body perms mog(mode,user,group)
 {
@@ -1889,7 +1910,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.65 body perms og(u,g)</h3>
+<h3 class="section">1.66 body perms og(u,g)</h3>
 
 <pre class="verbatim">body perms og(u,g)
 {
@@ -1909,7 +1930,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.66 body perms owner(user)</h3>
+<h3 class="section">1.67 body perms owner(user)</h3>
 
 <pre class="verbatim">body perms owner(user)
 {
@@ -1929,7 +1950,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.67 body process_count check_range(name,lower,upper)</h3>
+<h3 class="section">1.68 body process_count check_range(name,lower,upper)</h3>
 
 <pre class="verbatim">body process_count check_range(name,lower,upper)
 {
@@ -1950,7 +1971,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.68 body rename disable</h3>
+<h3 class="section">1.69 body rename disable</h3>
 
 <pre class="verbatim">body rename disable
 {
@@ -1969,7 +1990,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.69 body rename rotate(level)</h3>
+<h3 class="section">1.70 body rename rotate(level)</h3>
 
 <pre class="verbatim">body rename rotate(level)
 {
@@ -1988,7 +2009,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.70 body rename to(file)</h3>
+<h3 class="section">1.71 body rename to(file)</h3>
 
 <pre class="verbatim">body rename to(file)
 {
@@ -2008,7 +2029,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.71 body replace_with comment(c)</h3>
+<h3 class="section">1.72 body replace_with comment(c)</h3>
 
 <pre class="verbatim">body replace_with comment(c)
 {
@@ -2029,7 +2050,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.72 body replace_with uncomment</h3>
+<h3 class="section">1.73 body replace_with uncomment</h3>
 
 <pre class="verbatim">body replace_with uncomment
 {
@@ -2051,7 +2072,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.73 body replace_with value(x)</h3>
+<h3 class="section">1.74 body replace_with value(x)</h3>
 
 <pre class="verbatim">body replace_with value(x)
 {
@@ -2072,7 +2093,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.74 body select_process exclude_procs(x)</h3>
+<h3 class="section">1.75 body select_process exclude_procs(x)</h3>
 
 <pre class="verbatim">body select_process exclude_procs(x)
 {
@@ -2093,7 +2114,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.75 body select_region INI_section(x)</h3>
+<h3 class="section">1.76 body select_region INI_section(x)</h3>
 
 <pre class="verbatim">body select_region INI_section(x)
 {
@@ -2114,7 +2135,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.76 body volume min_free_space(free)</h3>
+<h3 class="section">1.77 body volume min_free_space(free)</h3>
 
 <pre class="verbatim">body volume min_free_space(free)
 {
@@ -2137,7 +2158,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.77 bundle edit_line append_groups_starting(v)</h3>
+<h3 class="section">1.78 bundle edit_line append_groups_starting(v)</h3>
 
 <pre class="verbatim">bundle edit_line append_groups_starting(v)
 
@@ -2174,7 +2195,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.78 bundle edit_line append_if_no_line(str)</h3>
+<h3 class="section">1.79 bundle edit_line append_if_no_line(str)</h3>
 
 <pre class="verbatim">bundle edit_line append_if_no_line(str)
 {
@@ -2196,7 +2217,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.79 bundle edit_line append_if_no_lines(list)</h3>
+<h3 class="section">1.80 bundle edit_line append_if_no_lines(list)</h3>
 
 <pre class="verbatim">bundle edit_line append_if_no_lines(list)
 {
@@ -2218,7 +2239,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.80 bundle edit_line append_user_field(group,field,allusers)</h3>
+<h3 class="section">1.81 bundle edit_line append_user_field(group,field,allusers)</h3>
 
 <pre class="verbatim">bundle edit_line append_user_field(group,field,allusers)
 
@@ -2250,7 +2271,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.81 bundle edit_line append_users_starting(v)</h3>
+<h3 class="section">1.82 bundle edit_line append_users_starting(v)</h3>
 
 <pre class="verbatim">bundle edit_line append_users_starting(v)
 
@@ -2286,7 +2307,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.82 bundle edit_line comment_lines_containing(regex,comment)</h3>
+<h3 class="section">1.83 bundle edit_line comment_lines_containing(regex,comment)</h3>
 
 <pre class="verbatim">bundle edit_line comment_lines_containing(regex,comment)
 
@@ -2311,7 +2332,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.83 bundle edit_line comment_lines_matching(regex,comment)</h3>
+<h3 class="section">1.84 bundle edit_line comment_lines_matching(regex,comment)</h3>
 
 <pre class="verbatim"></pre>
 
@@ -2325,7 +2346,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.84 bundle edit_line delete_lines_matching(regex)</h3>
+<h3 class="section">1.85 bundle edit_line delete_lines_matching(regex)</h3>
 
 <pre class="verbatim">bundle edit_line delete_lines_matching(regex)
 {
@@ -2347,7 +2368,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.85 bundle edit_line expand_template(templatefile)</h3>
+<h3 class="section">1.86 bundle edit_line expand_template(templatefile)</h3>
 
 <pre class="verbatim">bundle edit_line expand_template(templatefile)
 
@@ -2376,7 +2397,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.86 bundle edit_line resolvconf(search,list)</h3>
+<h3 class="section">1.87 bundle edit_line resolvconf(search,list)</h3>
 
 <pre class="verbatim">bundle edit_line resolvconf(search,list)
 
@@ -2408,7 +2429,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.87 bundle edit_line set_user_field(user,field,val)</h3>
+<h3 class="section">1.88 bundle edit_line set_user_field(user,field,val)</h3>
 
 <pre class="verbatim">bundle edit_line set_user_field(user,field,val)
 
@@ -2436,7 +2457,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.88 bundle edit_line set_variable_values(v)</h3>
+<h3 class="section">1.89 bundle edit_line set_variable_values(v)</h3>
 
 <pre class="verbatim">bundle edit_line set_variable_values(v)
 
@@ -2489,7 +2510,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.89 bundle edit_line uncomment_lines_containing(regex,comment)</h3>
+<h3 class="section">1.90 bundle edit_line uncomment_lines_containing(regex,comment)</h3>
 
 <pre class="verbatim">bundle edit_line uncomment_lines_containing(regex,comment)
 	 
@@ -2515,7 +2536,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.90 bundle edit_line uncomment_lines_matching(regex,comment)</h3>
+<h3 class="section">1.91 bundle edit_line uncomment_lines_matching(regex,comment)</h3>
 
 <pre class="verbatim">bundle edit_line uncomment_lines_matching(regex,comment)
 	 
@@ -2540,7 +2561,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.91 bundle edit_line warn_lines_matching(regex)</h3>
+<h3 class="section">1.92 bundle edit_line warn_lines_matching(regex)</h3>
 
 <pre class="verbatim">bundle edit_line warn_lines_matching(regex)
 {
@@ -2608,49 +2629,50 @@ delete_lines:
 <li><a href="#body-file_005fselect-size_005frange">1.46 body file_select size_range(from,to)</a>
 <li><a href="#body-link_005ffrom-linkchildren">1.47 body link_from linkchildren(tofile)</a>
 <li><a href="#body-link_005ffrom-ln_005fs">1.48 body link_from ln_s(x)</a>
-<li><a href="#body-location-start">1.49 body location start</a>
-<li><a href="#body-match_005fvalue-scan_005flog">1.50 body match_value scan_log(line)</a>
-<li><a href="#body-mount-nfs">1.51 body mount nfs(server,source)</a>
-<li><a href="#body-mount-nfs_005fp">1.52 body mount nfs_p(server,source,perm)</a>
-<li><a href="#body-mount-unmount">1.53 body mount unmount</a>
-<li><a href="#body-package_005fmethod-apt">1.54 body package_method apt</a>
-<li><a href="#body-package_005fmethod-freebsd">1.55 body package_method freebsd</a>
-<li><a href="#body-package_005fmethod-generic">1.56 body package_method generic</a>
-<li><a href="#body-package_005fmethod-msi_005fversion">1.57 body package_method msi_version(repo)</a>
-<li><a href="#body-package_005fmethod-rpm_005fversion">1.58 body package_method rpm_version(repo)</a>
-<li><a href="#body-package_005fmethod-solaris">1.59 body package_method solaris (pkgname, spoolfile, adminfile)</a>
-<li><a href="#body-package_005fmethod-yum">1.60 body package_method yum</a>
-<li><a href="#body-package_005fmethod-zypper">1.61 body package_method zypper</a>
-<li><a href="#body-perms-m">1.62 body perms m(mode)</a>
-<li><a href="#body-perms-mo">1.63 body perms mo(mode,user)</a>
-<li><a href="#body-perms-mog">1.64 body perms mog(mode,user,group)</a>
-<li><a href="#body-perms-og">1.65 body perms og(u,g)</a>
-<li><a href="#body-perms-owner">1.66 body perms owner(user)</a>
-<li><a href="#body-process_005fcount-check_005frange">1.67 body process_count check_range(name,lower,upper)</a>
-<li><a href="#body-rename-disable">1.68 body rename disable</a>
-<li><a href="#body-rename-rotate">1.69 body rename rotate(level)</a>
-<li><a href="#body-rename-to">1.70 body rename to(file)</a>
-<li><a href="#body-replace_005fwith-comment">1.71 body replace_with comment(c)</a>
-<li><a href="#body-replace_005fwith-uncomment">1.72 body replace_with uncomment</a>
-<li><a href="#body-replace_005fwith-value">1.73 body replace_with value(x)</a>
-<li><a href="#body-select_005fprocess-exclude_005fprocs">1.74 body select_process exclude_procs(x)</a>
-<li><a href="#body-select_005fregion-INI_005fsection">1.75 body select_region INI_section(x)</a>
-<li><a href="#body-volume-min_005ffree_005fspace">1.76 body volume min_free_space(free)</a>
-<li><a href="#bundle-edit_005fline-append_005fgroups_005fstarting">1.77 bundle edit_line append_groups_starting(v)</a>
-<li><a href="#bundle-edit_005fline-append_005fif_005fno_005fline">1.78 bundle edit_line append_if_no_line(str)</a>
-<li><a href="#bundle-edit_005fline-append_005fif_005fno_005flines">1.79 bundle edit_line append_if_no_lines(list)</a>
-<li><a href="#bundle-edit_005fline-append_005fuser_005ffield">1.80 bundle edit_line append_user_field(group,field,allusers)</a>
-<li><a href="#bundle-edit_005fline-append_005fusers_005fstarting">1.81 bundle edit_line append_users_starting(v)</a>
-<li><a href="#bundle-edit_005fline-comment_005flines_005fcontaining">1.82 bundle edit_line comment_lines_containing(regex,comment)</a>
-<li><a href="#bundle-edit_005fline-comment_005flines_005fmatching">1.83 bundle edit_line comment_lines_matching(regex,comment)</a>
-<li><a href="#bundle-edit_005fline-delete_005flines_005fmatching">1.84 bundle edit_line delete_lines_matching(regex)</a>
-<li><a href="#bundle-edit_005fline-expand_005ftemplate">1.85 bundle edit_line expand_template(templatefile)</a>
-<li><a href="#bundle-edit_005fline-resolvconf">1.86 bundle edit_line resolvconf(search,list)</a>
-<li><a href="#bundle-edit_005fline-set_005fuser_005ffield">1.87 bundle edit_line set_user_field(user,field,val)</a>
-<li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues">1.88 bundle edit_line set_variable_values(v)</a>
-<li><a href="#bundle-edit_005fline-uncomment_005flines_005fcontaining">1.89 bundle edit_line uncomment_lines_containing(regex,comment)</a>
-<li><a href="#bundle-edit_005fline-uncomment_005flines_005fmatching">1.90 bundle edit_line uncomment_lines_matching(regex,comment)</a>
-<li><a href="#bundle-edit_005fline-warn_005flines_005fmatching">1.91 bundle edit_line warn_lines_matching(regex)</a>
+<li><a href="#body-location-after">1.49 body location after(str)</a>
+<li><a href="#body-location-start">1.50 body location start</a>
+<li><a href="#body-match_005fvalue-scan_005flog">1.51 body match_value scan_log(line)</a>
+<li><a href="#body-mount-nfs">1.52 body mount nfs(server,source)</a>
+<li><a href="#body-mount-nfs_005fp">1.53 body mount nfs_p(server,source,perm)</a>
+<li><a href="#body-mount-unmount">1.54 body mount unmount</a>
+<li><a href="#body-package_005fmethod-apt">1.55 body package_method apt</a>
+<li><a href="#body-package_005fmethod-freebsd">1.56 body package_method freebsd</a>
+<li><a href="#body-package_005fmethod-generic">1.57 body package_method generic</a>
+<li><a href="#body-package_005fmethod-msi_005fversion">1.58 body package_method msi_version(repo)</a>
+<li><a href="#body-package_005fmethod-rpm_005fversion">1.59 body package_method rpm_version(repo)</a>
+<li><a href="#body-package_005fmethod-solaris">1.60 body package_method solaris (pkgname, spoolfile, adminfile)</a>
+<li><a href="#body-package_005fmethod-yum">1.61 body package_method yum</a>
+<li><a href="#body-package_005fmethod-zypper">1.62 body package_method zypper</a>
+<li><a href="#body-perms-m">1.63 body perms m(mode)</a>
+<li><a href="#body-perms-mo">1.64 body perms mo(mode,user)</a>
+<li><a href="#body-perms-mog">1.65 body perms mog(mode,user,group)</a>
+<li><a href="#body-perms-og">1.66 body perms og(u,g)</a>
+<li><a href="#body-perms-owner">1.67 body perms owner(user)</a>
+<li><a href="#body-process_005fcount-check_005frange">1.68 body process_count check_range(name,lower,upper)</a>
+<li><a href="#body-rename-disable">1.69 body rename disable</a>
+<li><a href="#body-rename-rotate">1.70 body rename rotate(level)</a>
+<li><a href="#body-rename-to">1.71 body rename to(file)</a>
+<li><a href="#body-replace_005fwith-comment">1.72 body replace_with comment(c)</a>
+<li><a href="#body-replace_005fwith-uncomment">1.73 body replace_with uncomment</a>
+<li><a href="#body-replace_005fwith-value">1.74 body replace_with value(x)</a>
+<li><a href="#body-select_005fprocess-exclude_005fprocs">1.75 body select_process exclude_procs(x)</a>
+<li><a href="#body-select_005fregion-INI_005fsection">1.76 body select_region INI_section(x)</a>
+<li><a href="#body-volume-min_005ffree_005fspace">1.77 body volume min_free_space(free)</a>
+<li><a href="#bundle-edit_005fline-append_005fgroups_005fstarting">1.78 bundle edit_line append_groups_starting(v)</a>
+<li><a href="#bundle-edit_005fline-append_005fif_005fno_005fline">1.79 bundle edit_line append_if_no_line(str)</a>
+<li><a href="#bundle-edit_005fline-append_005fif_005fno_005flines">1.80 bundle edit_line append_if_no_lines(list)</a>
+<li><a href="#bundle-edit_005fline-append_005fuser_005ffield">1.81 bundle edit_line append_user_field(group,field,allusers)</a>
+<li><a href="#bundle-edit_005fline-append_005fusers_005fstarting">1.82 bundle edit_line append_users_starting(v)</a>
+<li><a href="#bundle-edit_005fline-comment_005flines_005fcontaining">1.83 bundle edit_line comment_lines_containing(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-comment_005flines_005fmatching">1.84 bundle edit_line comment_lines_matching(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-delete_005flines_005fmatching">1.85 bundle edit_line delete_lines_matching(regex)</a>
+<li><a href="#bundle-edit_005fline-expand_005ftemplate">1.86 bundle edit_line expand_template(templatefile)</a>
+<li><a href="#bundle-edit_005fline-resolvconf">1.87 bundle edit_line resolvconf(search,list)</a>
+<li><a href="#bundle-edit_005fline-set_005fuser_005ffield">1.88 bundle edit_line set_user_field(user,field,val)</a>
+<li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues">1.89 bundle edit_line set_variable_values(v)</a>
+<li><a href="#bundle-edit_005fline-uncomment_005flines_005fcontaining">1.90 bundle edit_line uncomment_lines_containing(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-uncomment_005flines_005fmatching">1.91 bundle edit_line uncomment_lines_matching(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-warn_005flines_005fmatching">1.92 bundle edit_line warn_lines_matching(regex)</a>
 </li></ul>
 </li></ul>
 </div>
