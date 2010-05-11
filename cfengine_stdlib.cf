@@ -40,7 +40,10 @@ bundle edit_line comment_lines_matching(regex,comment)
 {
 replace_patterns:
 	 
- "^($(regex))$" replace_with => comment("$(comment)");
+ "^($(regex))$" 
+
+     replace_with => comment("$(comment)"),
+          comment => "Search and replace string";
 }
 	 
 ##
@@ -53,7 +56,10 @@ bundle edit_line uncomment_lines_matching(regex,comment)
 {
 replace_patterns:
  
- "^$(comment)\s?($(regex))$" replace_with => uncomment;
+ "^$(comment)\s?($(regex))$" 
+
+       replace_with => uncomment,
+            comment => "Uncomment lines matching a regular expression";
 }
 	 
 ##
@@ -65,7 +71,10 @@ bundle edit_line comment_lines_containing(regex,comment)
 {
 replace_patterns:
  
- "^(.*$(regex).*)$" replace_with => comment("$(comment)");
+ "^(.*$(regex).*)$" 
+
+     replace_with => comment("$(comment)"),
+          comment => "Comment out lines in a file";
 }
 	 
 ##
@@ -78,7 +87,10 @@ bundle edit_line uncomment_lines_containing(regex,comment)
 {
 replace_patterns:
  
- "^$(comment)\s?(.*$(regex).*)$" replace_with => uncomment;
+ "^$(comment)\s?(.*$(regex).*)$" 
+
+    replace_with => uncomment,
+         comment => "Uncomment a line containing a fragment";
 }
 
 ##
@@ -87,7 +99,9 @@ bundle edit_line delete_lines_matching(regex)
 {
 delete_lines:
 
-  "$(regex)";
+  "$(regex)"
+
+     comment => "Delete lines matching regular expressions";
 }
 
 ##
@@ -96,7 +110,10 @@ bundle edit_line warn_lines_matching(regex)
 {
 delete_lines:
 
-  "$(regex)"  action => warn_only;
+  "$(regex)"  
+
+   comment => "Warn about lines in a file",
+    action => warn_only;
 }
 
 ##
@@ -105,7 +122,9 @@ bundle edit_line append_if_no_line(str)
 {
 insert_lines:
 
- "$(str)";
+ "$(str)"
+
+     comment => "Append a line to the file if it doesn't already exist";
 }
 
 ##
@@ -114,7 +133,9 @@ bundle edit_line append_if_no_lines(list)
 {
 insert_lines:
 
- "$(list)";
+ "$(list)"
+
+   comment => "Append lines to the file if they don't already exist";
 }
 
 ##
@@ -127,13 +148,13 @@ bundle edit_line resolvconf(search,list)
 {
 delete_lines:
 
-  "search.*";
-  "nameserver.*";
+  "search.*"     comment => "Reset search lines from resolver";
+  "nameserver.*" comment => "Reset nameservers in resolver";
 
 insert_lines:
 
-  "search $(search)";
-  "nameserver $(list)";
+  "search $(search)"    comment => "Add search domains to resolver";
+  "nameserver $(list)"  comment => "Add name servers to resolver";
 }
 
 ##
@@ -167,12 +188,14 @@ field_edits:
   "\s*$(index)\s*=.*"
 
      edit_field => col("=","2","$($(v)[$(index)])","set"),
-        classes => if_ok("$(cindex[$(index)])_in_file");
+        classes => if_ok("$(cindex[$(index)])_in_file"),
+        comment => "Match a line starting like key = something";
 
 insert_lines:
 
   "$(index)=$($(v)[$(index)])",
 
+         comment => "Insert a variable definition",
       ifvarclass => "!$(cindex[$(index)])_in_file";
 }
 
@@ -196,6 +219,7 @@ insert_lines:
 
   "$($(v)[$(index)])",
 
+         comment => "Append users into a password file format",
       ifvarclass => "add_$(index)";
 }
 
@@ -219,6 +243,7 @@ insert_lines:
 
   "$($(v)[$(index)])",
 
+         comment => "Append users into a group file format",
       ifvarclass => "add_$(index)";
 
 }
@@ -235,6 +260,7 @@ field_edits:
 
  "$(user).*"
 
+        comment => "Edit a user attribute in the password file",
      edit_field => col(":","$(field)","$(val)","set");
 }
 
@@ -254,6 +280,7 @@ field_edits:
 
  "$(group).*"
 
+       comment => "Append users into a password file format",
     edit_field => col(":","$(field)","$(val)","alphanum");
 }
 
@@ -269,8 +296,9 @@ insert_lines:
 
    "$(templatefile)"
 
-          insert_type => "file",
-       expand_scalars => "true";
+        insert_type => "file",
+            comment => "Expand variables in the template file",
+     expand_scalars => "true";
 }
 
 ##
