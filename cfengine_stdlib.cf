@@ -961,6 +961,7 @@ package_noverify_regex => ".*[^\s].*";
 ##
 
 body package_method msi_version(repo)
+# use software name as promiser, e.g. "7-Zip" - finds newest version
 {
 package_changes => "individual";
 package_file_repositories => { "$(repo)" };
@@ -968,6 +969,23 @@ package_file_repositories => { "$(repo)" };
 package_installed_regex => ".*";
  
 package_name_convention => "$(name)-$(version)-$(arch).msi";
+
+package_add_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_update_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
+}
+
+##
+
+body package_method msi_name(repo)
+# use file name as promiser, e.g. "7-Zip-4.50-x86_64.msi"
+{
+package_changes => "individual";
+package_file_repositories => { "$(repo)" };
+
+package_installed_regex => ".*";
+ 
+package_name_convention => "$(name)";
 
 package_add_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
 package_update_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
