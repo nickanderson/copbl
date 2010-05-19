@@ -960,8 +960,9 @@ package_noverify_regex => ".*[^\s].*";
 
 ##
 
-body package_method msi(repo)
-# use software name as promiser, e.g. "7-Zip" - finds newest version
+body package_method msi_implicit(repo)
+# Use whole file name as promiser, e.g. "7-Zip-4.50-x86_64.msi",
+# the name, version and arch is then deduced from the promiser
 {
 package_changes => "individual";
 package_file_repositories => { "$(repo)" };
@@ -969,6 +970,30 @@ package_file_repositories => { "$(repo)" };
 package_installed_regex => ".*";
  
 package_name_convention => "$(name)-$(version)-$(arch).msi";
+package_delete_convention => "$(firstrepo)$(name)-$(version)-$(arch).msi";
+
+package_name_regex => "^(\S+)-(\d+\.?)+";
+package_version_regex => "^\S+-((\d+\.?)+)";
+package_arch_regex => "^\S+-[\d\.]+-(.*).msi";
+
+package_add_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_update_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
+}
+
+##
+
+body package_method msi_explicit(repo)
+# use software name as promiser, e.g. "7-Zip", and explicitly
+# specify any package_version and package_arch
+{
+package_changes => "individual";
+package_file_repositories => { "$(repo)" };
+
+package_installed_regex => ".*";
+ 
+package_name_convention => "$(name)-$(version)-$(arch).msi";
+package_delete_convention => "$(firstrepo)$(name)-$(version)-$(arch).msi";
 
 package_add_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
 package_update_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
