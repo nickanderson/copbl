@@ -33,6 +33,15 @@
 # edit_line bundles
 ###################################################
 
+bundle edit_line insert_lines(lines)
+{
+insert_lines:
+
+  "$(lines)";
+}
+
+##
+
 bundle edit_line comment_lines_matching(regex,comment)
 
  # Comment lines of a file matching a regex
@@ -737,6 +746,22 @@ owners => { "$(user)" };
 }
 
 ##
+## ACLS (extended Unix perms)
+##
+
+body acl strict
+# NOTE: May need to take ownership of file/dir
+# to be sure no-one else is allowed access
+{
+acl_method => "overwrite";
+
+windows::
+aces => { "user:Administrator:rwx" };
+!windows::
+aces => { "user:root:rwx" };
+}
+
+##
 ## depth_search
 ##
 
@@ -1194,6 +1219,18 @@ body process_count check_range(name,lower,upper)
 {
 match_range => irange("$(lower)","$(upper)");
 out_of_range_define => { "$(name)_out_of_range" };
+}
+
+##
+## service promises
+##
+
+body service_method bootstart
+{
+  service_autostart_policy => "boot_time";
+  service_dependence_chain => "start_parent_services";
+windows::
+  service_type => "windows";
 }
 
 
