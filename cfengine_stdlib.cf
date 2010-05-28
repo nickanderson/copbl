@@ -1233,6 +1233,14 @@ windows::
   service_type => "windows";
 }
 
+##
+
+body service_method force_deps
+{
+  service_dependence_chain => "all_related";
+windows::
+  service_type => "windows";
+}
 
 ####################################################
 ## monitor bodyparts
