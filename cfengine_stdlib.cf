@@ -734,8 +734,8 @@ mode   => "$(mode)";
 
 body perms og(u,g)
 {
-owners => { "${u}" };
-groups => { "${g}" };
+owners => { "$(u)" };
+groups => { "$(g)" };
 }
 
 ##
