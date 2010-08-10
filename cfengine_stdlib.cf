@@ -770,8 +770,6 @@ body depth_search recurse(d)
 {
 depth => "$(d)";
 xdev  => "true";
-
-exclude_dirs => { "\.X11", ".*kde.*", "\.svn" };
 }
 
 ##
