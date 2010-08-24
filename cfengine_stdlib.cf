@@ -606,6 +606,21 @@ promise_repaired => { "$(x)" };
 persist_time => "10";
 }
 
+##
+
+body classes enumerate(x)
+
+#
+# This is used by commercial editions to count 
+# instances of jobs in a cluster
+#
+
+{
+promise_repaired => { "mXC_$(x)" };
+promise_kept => { "mXC_$(x)" };
+persist_time => "15";
+}
+
 ###################################################
 # agent bundles
 ###################################################

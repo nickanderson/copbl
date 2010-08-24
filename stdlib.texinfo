@@ -101,6 +101,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 
 
 @menu
+* body acl strict::             
 * body action bg::              
 * body action if_elapsed::      
 * body action ifwin_bg::        
@@ -112,6 +113,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body changes detect_all_change::  
 * body changes detect_content::  
 * body classes cf2_if_else::    
+* body classes enumerate::      
 * body classes if_else::        
 * body classes if_notkept::     
 * body classes if_ok::          
@@ -158,7 +160,8 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body package_method apt::     
 * body package_method freebsd::  
 * body package_method generic::  
-* body package_method msi_version::  
+* body package_method msi_explicit::  
+* body package_method msi_implicit::  
 * body package_method rpm_version::  
 * body package_method solaris ::  
 * body package_method yum::     
@@ -177,6 +180,8 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body replace_with value::     
 * body select_process exclude_procs::  
 * body select_region INI_section::  
+* body service_method bootstart::  
+* body service_method force_deps::  
 * body volume min_free_space::  
 * bundle edit_line append_groups_starting::  
 * bundle edit_line append_if_no_line::  
@@ -187,6 +192,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * bundle edit_line comment_lines_matching::  
 * bundle edit_line delete_lines_matching::  
 * bundle edit_line expand_template::  
+* bundle edit_line insert_lines::  
 * bundle edit_line resolvconf::  
 * bundle edit_line set_user_field::  
 * bundle edit_line set_variable_values::  
@@ -195,7 +201,26 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * bundle edit_line warn_lines_matching::  
 @end menu
 
-@node body action bg, body action if_elapsed, The Purpose Of This Handbook, The Purpose Of This Handbook
+@node body acl strict, body action bg, The Purpose Of This Handbook, The Purpose Of This Handbook
+@section body acl strict
+
+@verbatim
+body acl strict
+# NOTE: May need to take ownership of file/dir
+# to be sure no-one else is allowed access
+{
+acl_method => "overwrite";
+
+windows::
+aces => { "user:Administrator:rwx" };
+!windows::
+aces => { "user:root:rwx" };
+}
+
+
+@end verbatim
+
+@node body action bg, body action if_elapsed, body acl strict, The Purpose Of This Handbook
 @section body action bg(elapsed,expire)
 
 @verbatim
@@ -334,7 +359,7 @@ update_hashes  => "yes";
 
 @end verbatim
 
-@node body classes cf2_if_else, body classes if_else, body changes detect_content, The Purpose Of This Handbook
+@node body classes cf2_if_else, body classes enumerate, body changes detect_content, The Purpose Of This Handbook
 @section body classes cf2_if_else(yes,no)
 
 @verbatim
@@ -352,7 +377,31 @@ repair_timeout   => { "$(no)" };
 
 @end verbatim
 
-@node body classes if_else, body classes if_notkept, body classes cf2_if_else, The Purpose Of This Handbook
+@node body classes enumerate, body classes if_else, body classes cf2_if_else, The Purpose Of This Handbook
+@section body classes enumerate(x)
+
+@verbatim
+body classes enumerate(x)
+
+#
+# This is used by commercial editions to count 
+# instances of jobs in a cluster
+#
+
+{
+promise_repaired => { "mXC_$(x)" };
+promise_kept => { "mXC_$(x)" };
+persist_time => "15";
+}
+
+# agent bundles
+
+
+
+
+@end verbatim
+
+@node body classes if_else, body classes if_notkept, body classes enumerate, The Purpose Of This Handbook
 @section body classes if_else(yes,no)
 
 @verbatim
@@ -417,10 +466,6 @@ body classes state_repaired(x)
 promise_repaired => { "$(x)" };
 persist_time => "10";
 }
-
-# agent bundles
-
-
 
 
 @end verbatim
@@ -654,8 +699,6 @@ body depth_search recurse(d)
 {
 depth => "$(d)";
 xdev  => "true";
-
-exclude_dirs => { "\.X11", ".*kde.*", "\.svn" };
 }
 
 
@@ -758,7 +801,7 @@ file_result => "leaf_name";
 @verbatim
 body file_select days_old(days)
 {
-mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,$(days),0,0,0));
+mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,"$(days)",0,0,0));
 file_result => "mtime";
 }
 
@@ -811,7 +854,7 @@ file_result => "!leaf_name";
 body file_select name_age(name,days)
 {
 leaf_name   => { "$(name)" };
-mtime       => irange(0,ago(0,0,$(days),0,0,0));  
+mtime       => irange(0,ago(0,0,"$(days)",0,0,0));  
 file_result => "mtime.leaf_name"; 
 }
 
@@ -1018,7 +1061,7 @@ package_delete_command => "/usr/sbin/pkg_delete";
 
 @end verbatim
 
-@node body package_method generic, body package_method msi_version, body package_method freebsd, The Purpose Of This Handbook
+@node body package_method generic, body package_method msi_explicit, body package_method freebsd, The Purpose Of This Handbook
 @section body package_method generic
 
 @verbatim
@@ -1089,11 +1132,13 @@ freebsd::
 
 @end verbatim
 
-@node body package_method msi_version, body package_method rpm_version, body package_method generic, The Purpose Of This Handbook
-@section body package_method msi_version(repo)
+@node body package_method msi_explicit, body package_method msi_implicit, body package_method generic, The Purpose Of This Handbook
+@section body package_method msi_explicit(repo)
 
 @verbatim
-body package_method msi_version(repo)
+body package_method msi_explicit(repo)
+# use software name as promiser, e.g. "7-Zip", and explicitly
+# specify any package_version and package_arch
 {
 package_changes => "individual";
 package_file_repositories => { "$(repo)" };
@@ -1101,6 +1146,7 @@ package_file_repositories => { "$(repo)" };
 package_installed_regex => ".*";
  
 package_name_convention => "$(name)-$(version)-$(arch).msi";
+package_delete_convention => "$(firstrepo)$(name)-$(version)-$(arch).msi";
 
 package_add_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
 package_update_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
@@ -1110,7 +1156,35 @@ package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
 
 @end verbatim
 
-@node body package_method rpm_version, body package_method solaris , body package_method msi_version, The Purpose Of This Handbook
+@node body package_method msi_implicit, body package_method rpm_version, body package_method msi_explicit, The Purpose Of This Handbook
+@section body package_method msi_implicit(repo)
+
+@verbatim
+body package_method msi_implicit(repo)
+# Use whole file name as promiser, e.g. "7-Zip-4.50-x86_64.msi",
+# the name, version and arch is then deduced from the promiser
+{
+package_changes => "individual";
+package_file_repositories => { "$(repo)" };
+
+package_installed_regex => ".*";
+ 
+package_name_convention => "$(name)-$(version)-$(arch).msi";
+package_delete_convention => "$(firstrepo)$(name)-$(version)-$(arch).msi";
+
+package_name_regex => "^(\S+)-(\d+\.?)+";
+package_version_regex => "^\S+-((\d+\.?)+)";
+package_arch_regex => "^\S+-[\d\.]+-(.*).msi";
+
+package_add_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_update_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /i";
+package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
+}
+
+
+@end verbatim
+
+@node body package_method rpm_version, body package_method solaris , body package_method msi_implicit, The Purpose Of This Handbook
 @section body package_method rpm_version(repo)
 
 @verbatim
@@ -1268,8 +1342,8 @@ mode   => "$(mode)";
 @verbatim
 body perms og(u,g)
 {
-owners => { "${u}" };
-groups => { "${g}" };
+owners => { "$(u)" };
+groups => { "$(g)" };
 }
 
 
@@ -1296,7 +1370,6 @@ body process_count check_range(name,lower,upper)
 match_range => irange("$(lower)","$(upper)");
 out_of_range_define => { "$(name)_out_of_range" };
 }
-
 
 
 @end verbatim
@@ -1390,7 +1463,7 @@ process_result => "!command";
 
 @end verbatim
 
-@node body select_region INI_section, body volume min_free_space, body select_process exclude_procs, The Purpose Of This Handbook
+@node body select_region INI_section, body service_method bootstart, body select_process exclude_procs, The Purpose Of This Handbook
 @section body select_region INI_section(x)
 
 @verbatim
@@ -1403,7 +1476,36 @@ select_end => "\[.*\]\s*";
 
 @end verbatim
 
-@node body volume min_free_space, bundle edit_line append_groups_starting, body select_region INI_section, The Purpose Of This Handbook
+@node body service_method bootstart, body service_method force_deps, body select_region INI_section, The Purpose Of This Handbook
+@section body service_method bootstart
+
+@verbatim
+body service_method bootstart
+{
+  service_autostart_policy => "boot_time";
+  service_dependence_chain => "start_parent_services";
+windows::
+  service_type => "windows";
+}
+
+
+@end verbatim
+
+@node body service_method force_deps, body volume min_free_space, body service_method bootstart, The Purpose Of This Handbook
+@section body service_method force_deps
+
+@verbatim
+body service_method force_deps
+{
+  service_dependence_chain => "all_related";
+windows::
+  service_type => "windows";
+}
+
+
+@end verbatim
+
+@node body volume min_free_space, bundle edit_line append_groups_starting, body service_method force_deps, The Purpose Of This Handbook
 @section body volume min_free_space(free)
 
 @verbatim
@@ -1558,6 +1660,20 @@ replace_patterns:
 @section bundle edit_line comment_lines_matching(regex,comment)
 
 @verbatim
+bundle edit_line comment_lines_matching(regex,comment)
+
+ # Comment lines of a file matching a regex
+
+{
+replace_patterns:
+	 
+ "^($(regex))$" 
+
+     replace_with => comment("$(comment)"),
+          comment => "Search and replace string";
+}
+	 
+	 
 @end verbatim
 
 @node bundle edit_line delete_lines_matching, bundle edit_line expand_template, bundle edit_line comment_lines_matching, The Purpose Of This Handbook
@@ -1576,7 +1692,7 @@ delete_lines:
 
 @end verbatim
 
-@node bundle edit_line expand_template, bundle edit_line resolvconf, bundle edit_line delete_lines_matching, The Purpose Of This Handbook
+@node bundle edit_line expand_template, bundle edit_line insert_lines, bundle edit_line delete_lines_matching, The Purpose Of This Handbook
 @section bundle edit_line expand_template(templatefile)
 
 @verbatim
@@ -1598,7 +1714,13 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line resolvconf, bundle edit_line set_user_field, bundle edit_line expand_template, The Purpose Of This Handbook
+@node bundle edit_line insert_lines, bundle edit_line resolvconf, bundle edit_line expand_template, The Purpose Of This Handbook
+@section bundle edit_line insert_lines(lines)
+
+@verbatim
+@end verbatim
+
+@node bundle edit_line resolvconf, bundle edit_line set_user_field, bundle edit_line insert_lines, The Purpose Of This Handbook
 @section bundle edit_line resolvconf(search,list)
 
 @verbatim
