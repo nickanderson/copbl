@@ -929,10 +929,10 @@ update_hashes  => "yes";
 
 ##
 
-body changes fast_noupdate
-# Use on files that should never change
+body changes noupdate
+# Use on (small) files that should never change
 {
-hash           => "md5";
+hash           => "sha256";
 report_changes => "content";
 update_hashes  => "no";
 }
