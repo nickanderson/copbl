@@ -469,6 +469,13 @@ ifelapsed => "0";
 
 ##
 
+body action policy(p)
+{
+action_policy => "$(p)";
+}
+
+##
+
 # Log a message to log=[/file|stdout]
 
 body action log_repaired(log,message)
@@ -918,6 +925,16 @@ body changes detect_content
 hash           => "md5";
 report_changes => "content";
 update_hashes  => "yes";
+}
+
+##
+
+body changes fast_noupdate
+# Use on files that should never change
+{
+hash           => "md5";
+report_changes => "content";
+update_hashes  => "no";
 }
 
 ##--------------------------------------------------------------
