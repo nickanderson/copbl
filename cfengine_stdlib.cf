@@ -937,6 +937,17 @@ report_changes => "content";
 update_hashes  => "no";
 }
 
+##
+
+body changes diff
+# Generates diff report (Nova and above)
+{
+hash           => "sha256";
+report_changes => "content";
+report_diffs   => "true";
+update_hashes  => "yes";
+}
+
 ##--------------------------------------------------------------
 ## Packages promises
 ##--------------------------------------------------------------
