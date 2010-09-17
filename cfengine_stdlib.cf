@@ -267,7 +267,7 @@ bundle edit_line set_user_field(user,field,val)
 {
 field_edits:
 
- "$(user).*"
+ "$(user):.*"
 
         comment => "Edit a user attribute in the password file",
      edit_field => col(":","$(field)","$(val)","set");
@@ -287,7 +287,7 @@ vars:
 
 field_edits:
 
- "$(group).*"
+ "$(group):.*"
 
        comment => "Append users into a password file format",
     edit_field => col(":","$(field)","$(val)","alphanum");
@@ -1186,7 +1186,6 @@ debian.!have_aptitude::
    package_add_command => "/usr/bin/apt-get --yes install";
    package_delete_command => "/usr/bin/apt-get --yes remove";
    package_update_command =>  "/usr/bin/apt-get --yes install";
-
 
 freebsd::
  package_changes => "individual";

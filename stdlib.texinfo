@@ -108,10 +108,13 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body action immediate::       
 * body action log_repaired::    
 * body action measure_performance::  
+* body action policy::          
 * body action sample_rate::     
 * body action warn_only::       
 * body changes detect_all_change::  
 * body changes detect_content::  
+* body changes diff::           
+* body changes noupdate::       
 * body classes cf2_if_else::    
 * body classes enumerate::      
 * body classes if_else::        
@@ -270,8 +273,6 @@ ifelapsed => "0";
 }
 
 
-# Log a message to log=[/file|stdout]
-
 @end verbatim
 
 @node body action log_repaired, body action measure_performance, body action immediate, The Purpose Of This Handbook
@@ -287,7 +288,7 @@ log_repaired => "$(log)";
 
 @end verbatim
 
-@node body action measure_performance, body action sample_rate, body action log_repaired, The Purpose Of This Handbook
+@node body action measure_performance, body action policy, body action log_repaired, The Purpose Of This Handbook
 @section body action measure_performance(x)
 
 @verbatim
@@ -301,7 +302,21 @@ expireafter => "$(x)";
 
 @end verbatim
 
-@node body action sample_rate, body action warn_only, body action measure_performance, The Purpose Of This Handbook
+@node body action policy, body action sample_rate, body action measure_performance, The Purpose Of This Handbook
+@section body action policy(p)
+
+@verbatim
+body action policy(p)
+{
+action_policy => "$(p)";
+}
+
+
+# Log a message to log=[/file|stdout]
+
+@end verbatim
+
+@node body action sample_rate, body action warn_only, body action policy, The Purpose Of This Handbook
 @section body action sample_rate(x)
 
 @verbatim
@@ -342,7 +357,7 @@ update_hashes  => "yes";
 
 @end verbatim
 
-@node body changes detect_content, body classes cf2_if_else, body changes detect_all_change, The Purpose Of This Handbook
+@node body changes detect_content, body changes diff, body changes detect_all_change, The Purpose Of This Handbook
 @section body changes detect_content
 
 @verbatim
@@ -359,7 +374,38 @@ update_hashes  => "yes";
 
 @end verbatim
 
-@node body classes cf2_if_else, body classes enumerate, body changes detect_content, The Purpose Of This Handbook
+@node body changes diff, body changes noupdate, body changes detect_content, The Purpose Of This Handbook
+@section body changes diff
+
+@verbatim
+body changes diff
+# Generates diff report (Nova and above)
+{
+hash           => "sha256";
+report_changes => "content";
+report_diffs   => "true";
+update_hashes  => "yes";
+}
+
+
+@end verbatim
+
+@node body changes noupdate, body classes cf2_if_else, body changes diff, The Purpose Of This Handbook
+@section body changes noupdate
+
+@verbatim
+body changes noupdate
+# Use on (small) files that should never change
+{
+hash           => "sha256";
+report_changes => "content";
+update_hashes  => "no";
+}
+
+
+@end verbatim
+
+@node body classes cf2_if_else, body classes enumerate, body changes noupdate, The Purpose Of This Handbook
 @section body classes cf2_if_else(yes,no)
 
 @verbatim
@@ -1115,7 +1161,6 @@ debian.!have_aptitude::
    package_delete_command => "/usr/bin/apt-get --yes remove";
    package_update_command =>  "/usr/bin/apt-get --yes install";
 
-
 freebsd::
  package_changes => "individual";
  package_list_command => "/usr/sbin/pkg_info";
@@ -1598,7 +1643,7 @@ vars:
 
 field_edits:
 
- "$(group).*"
+ "$(group):.*"
 
        comment => "Append users into a password file format",
     edit_field => col(":","$(field)","$(val)","alphanum");
@@ -1756,7 +1801,7 @@ bundle edit_line set_user_field(user,field,val)
 {
 field_edits:
 
- "$(user).*"
+ "$(user):.*"
 
         comment => "Edit a user attribute in the password file",
      edit_field => col(":","$(field)","$(val)","set");
