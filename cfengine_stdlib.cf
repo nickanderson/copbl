@@ -771,6 +771,16 @@ owners => { "$(user)" };
 ## ACLS (extended Unix perms)
 ##
 
+body acl access_generic(acl)
+# default/inherited ACLs are left unchanged,
+# applicable for both files and directory on all platforms
+{
+acl_method => "overwrite";
+aces => { "@(acl)" };
+}
+
+##
+
 body acl strict
 # NOTE: May need to take ownership of file/dir
 # to be sure no-one else is allowed access
@@ -1085,6 +1095,33 @@ package_name_convention => "$(name).$(arch)";
 package_add_command => "/usr/bin/yum -y install";
 package_delete_command => "/bin/rpm -e";
 package_verify_command => "/bin/rpm -V";
+}
+
+##
+
+body package_method yum_rpm
+# Contributed by Trond Hasle Amundsen
+
+# More efficient package method for RedHat - uses rpm to list instead of yum
+# Notes:
+# - using $(name).$(arch) instead of $(name) for package_name_convention
+#   causes uninstallation to fail.
+# - using allmatches to remove for all architectures
+#
+{
+  package_changes => "bulk";
+  package_list_command => "/bin/rpm -qa --qf '%{name} %{version}-%{release} %{arch}\n'";
+
+  package_list_name_regex    => "^(\S+?)\s\S+?\s\S+$";
+  package_list_version_regex => "^\S+?\s(\S+?)\s\S+$";
+  package_list_arch_regex    => "^\S+?\s\S+?\s(\S+)$";
+
+  package_installed_regex => ".*";
+  package_name_convention => "$(name)";
+
+  package_add_command    => "/usr/bin/yum -y install";
+  package_delete_command => "/bin/rpm -e --allmatches";
+  package_verify_command => "/bin/rpm -V";
 }
 
 ##
