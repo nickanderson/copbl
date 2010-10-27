@@ -861,7 +861,7 @@ file_result => "mtime.leaf_name";
 
 body file_select days_old(days)
 {
-mtime       => irange(ago(1,0,0,0,0,0),ago(0,0,"$(days)",0,0,0));
+mtime       => irange(0,ago(0,0,"$(days)",0,0,0));
 file_result => "mtime";
 }
 
