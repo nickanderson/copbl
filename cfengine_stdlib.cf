@@ -997,6 +997,7 @@ package_list_name_regex    => "ii\s+([^\s]+).*";
 package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
 package_installed_regex => ".*"; # all reported are installed
 package_name_convention => "$(name)";
+package_list_update_ifelapsed => "240";		# 4 hours
 
 have_aptitude::
    package_add_command => "/usr/bin/aptitude --assume-yes install";
@@ -1213,6 +1214,7 @@ debian::
  package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
  package_installed_regex => ".*"; # all reported are installed
  package_name_convention => "$(name)";
+ package_list_update_ifelapsed => "240";		# 4 hours
 
 debian.have_aptitude::
    package_add_command => "/usr/bin/aptitude --assume-yes install";
