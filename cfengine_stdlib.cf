@@ -686,6 +686,14 @@ source      => "$(from)";
 
 ##
 
+body copy_from perms_cp(from)
+{
+source      => "$(from)";
+preserve    => "true";
+}
+
+##
+
 # Copy only if the file does not already exist, i.e. seed the placement
 
 body copy_from seed_cp(from)
