@@ -1027,11 +1027,13 @@ package_list_update_ifelapsed => "240";		# 4 hours
 
 have_aptitude::
    package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_list_update_command => "/usr/bin/aptitude update";
    package_delete_command => "/usr/bin/aptitude --assume-yes remove";
    package_update_command =>  "/usr/bin/aptitude --assume-yes install";
 
 !have_aptitude::
    package_add_command => "/usr/bin/apt-get --yes install";
+   package_list_update_command => "/usr/bin/apt-get update";
    package_delete_command => "/usr/bin/apt-get --yes remove";
    package_update_command =>  "/usr/bin/apt-get --yes install";
 }
@@ -1245,11 +1247,13 @@ debian::
 
 debian.have_aptitude::
    package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_list_update_command => "/usr/bin/aptitude update";
    package_delete_command => "/usr/bin/aptitude --assume-yes remove";
    package_update_command =>  "/usr/bin/aptitude --assume-yes install";
 
 debian.!have_aptitude::
    package_add_command => "/usr/bin/apt-get --yes install";
+   package_list_update_command => "/usr/bin/apt-get update";
    package_delete_command => "/usr/bin/apt-get --yes remove";
    package_update_command =>  "/usr/bin/apt-get --yes install";
 
