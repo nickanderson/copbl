@@ -4,6 +4,7 @@
 @selectaltfont{cmbright}
 @setlogo{CfengineLogo}
 
+
 @c *********************************************************************
 @c
 @c  This is a TEXINFO file. It generates both TEX documentation and
