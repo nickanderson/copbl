@@ -55,7 +55,8 @@ bundle edit_line insert_lines(lines)
 {
 insert_lines:
 
-  "$(lines)";
+  "$(lines)"
+    comment => "Append lines if they don't exist";
 }
 
 ##
