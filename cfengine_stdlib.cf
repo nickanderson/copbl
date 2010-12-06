@@ -1318,7 +1318,7 @@ unmount => "true";
 ## process promises
 ##-------------------------------------------------------
 
-body select_process exclude_procs(x)
+body process_select exclude_procs(x)
 {
 command => "$(x)";
 process_result => "!command";
