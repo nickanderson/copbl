@@ -4,7 +4,6 @@
 @selectaltfont{cmbright}
 @setlogo{CfengineLogo}
 
-
 @c *********************************************************************
 @c
 @c  This is a TEXINFO file. It generates both TEX documentation and
@@ -135,6 +134,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body copy_from local_cp::     
 * body copy_from no_backup_cp::  
 * body copy_from no_backup_rcp::  
+* body copy_from perms_cp::     
 * body copy_from remote_cp::    
 * body copy_from secure_cp::    
 * body copy_from seed_cp::      
@@ -178,13 +178,13 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body perms og::               
 * body perms owner::            
 * body process_count check_range::  
+* body process_select exclude_procs::  
 * body rename disable::         
 * body rename rotate::          
 * body rename to::              
 * body replace_with comment::   
 * body replace_with uncomment::  
 * body replace_with value::     
-* body select_process exclude_procs::  
 * body select_region INI_section::  
 * body service_method bootstart::  
 * body service_method force_deps::  
@@ -650,8 +650,6 @@ source      => "$(from)";
 }
 
 
-# Copy only if the file does not already exist, i.e. seed the placement
-
 @end verbatim
 
 @node body copy_from no_backup_cp, body copy_from no_backup_rcp, body copy_from local_cp, The Purpose Of This Handbook
@@ -667,7 +665,7 @@ copy_backup => "false";
 
 @end verbatim
 
-@node body copy_from no_backup_rcp, body copy_from remote_cp, body copy_from no_backup_cp, The Purpose Of This Handbook
+@node body copy_from no_backup_rcp, body copy_from perms_cp, body copy_from no_backup_cp, The Purpose Of This Handbook
 @section body copy_from no_backup_rcp(from,server)
 
 @verbatim
@@ -682,7 +680,22 @@ copy_backup => "false";
 
 @end verbatim
 
-@node body copy_from remote_cp, body copy_from secure_cp, body copy_from no_backup_rcp, The Purpose Of This Handbook
+@node body copy_from perms_cp, body copy_from remote_cp, body copy_from no_backup_rcp, The Purpose Of This Handbook
+@section body copy_from perms_cp(from)
+
+@verbatim
+body copy_from perms_cp(from)
+{
+source      => "$(from)";
+preserve    => "true";
+}
+
+
+# Copy only if the file does not already exist, i.e. seed the placement
+
+@end verbatim
+
+@node body copy_from remote_cp, body copy_from secure_cp, body copy_from perms_cp, The Purpose Of This Handbook
 @section body copy_from remote_cp(from,server)
 
 @verbatim
@@ -1081,11 +1094,13 @@ package_list_update_ifelapsed => "240";		# 4 hours
 
 have_aptitude::
    package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_list_update_command => "/usr/bin/aptitude update";
    package_delete_command => "/usr/bin/aptitude --assume-yes remove";
    package_update_command =>  "/usr/bin/aptitude --assume-yes install";
 
 !have_aptitude::
    package_add_command => "/usr/bin/apt-get --yes install";
+   package_list_update_command => "/usr/bin/apt-get update";
    package_delete_command => "/usr/bin/apt-get --yes remove";
    package_update_command =>  "/usr/bin/apt-get --yes install";
 }
@@ -1173,11 +1188,13 @@ debian::
 
 debian.have_aptitude::
    package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_list_update_command => "/usr/bin/aptitude update";
    package_delete_command => "/usr/bin/aptitude --assume-yes remove";
    package_update_command =>  "/usr/bin/aptitude --assume-yes install";
 
 debian.!have_aptitude::
    package_add_command => "/usr/bin/apt-get --yes install";
+   package_list_update_command => "/usr/bin/apt-get update";
    package_delete_command => "/usr/bin/apt-get --yes remove";
    package_update_command =>  "/usr/bin/apt-get --yes install";
 
@@ -1351,6 +1368,7 @@ body package_method yum_rpm
   package_name_convention => "$(name)";
 
   package_add_command    => "/usr/bin/yum -y install";
+  package_update_command => "/usr/bin/yum -y update";
   package_delete_command => "/bin/rpm -e --allmatches";
   package_verify_command => "/bin/rpm -V";
 }
@@ -1458,7 +1476,7 @@ owners => { "$(user)" };
 
 @end verbatim
 
-@node body process_count check_range, body rename disable, body perms owner, The Purpose Of This Handbook
+@node body process_count check_range, body process_select exclude_procs, body perms owner, The Purpose Of This Handbook
 @section body process_count check_range(name,lower,upper)
 
 @verbatim
@@ -1471,7 +1489,20 @@ out_of_range_define => { "$(name)_out_of_range" };
 
 @end verbatim
 
-@node body rename disable, body rename rotate, body process_count check_range, The Purpose Of This Handbook
+@node body process_select exclude_procs, body rename disable, body process_count check_range, The Purpose Of This Handbook
+@section body process_select exclude_procs(x)
+
+@verbatim
+body process_select exclude_procs(x)
+{
+command => "$(x)";
+process_result => "!command";
+}
+
+
+@end verbatim
+
+@node body rename disable, body rename rotate, body process_select exclude_procs, The Purpose Of This Handbook
 @section body rename disable
 
 @verbatim
@@ -1534,7 +1565,7 @@ occurrences => "all";
 
 @end verbatim
 
-@node body replace_with value, body select_process exclude_procs, body replace_with uncomment, The Purpose Of This Handbook
+@node body replace_with value, body select_region INI_section, body replace_with uncomment, The Purpose Of This Handbook
 @section body replace_with value(x)
 
 @verbatim
@@ -1547,20 +1578,7 @@ occurrences => "all";
 
 @end verbatim
 
-@node body select_process exclude_procs, body select_region INI_section, body replace_with value, The Purpose Of This Handbook
-@section body select_process exclude_procs(x)
-
-@verbatim
-body select_process exclude_procs(x)
-{
-command => "$(x)";
-process_result => "!command";
-}
-
-
-@end verbatim
-
-@node body select_region INI_section, body service_method bootstart, body select_process exclude_procs, The Purpose Of This Handbook
+@node body select_region INI_section, body service_method bootstart, body replace_with value, The Purpose Of This Handbook
 @section body select_region INI_section(x)
 
 @verbatim
