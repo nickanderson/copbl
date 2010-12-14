@@ -521,6 +521,14 @@ chdir => "$(s)";
 
 ##
 
+body contain in_dir_shell(s)
+{
+chdir => "$(s)";
+useshell => "true";
+}
+
+##
+
 body contain silent_in_dir(s)
 {
 chdir => "$(s)";
