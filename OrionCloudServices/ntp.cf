@@ -153,7 +153,7 @@ bundle agent system_time_ntp
             comment => "Build $(this.promiser) cache file for NTP server",
              create => "true",
       edit_defaults => empty,
-          edit_line => restore_ntp_master("ntp_network","ntp_mask");
+          edit_line => restore_ntp_master("$(ntp_network)","$(ntp_mask)");
 
   centos.ntp_hosts::
 
@@ -178,7 +178,7 @@ bundle agent system_time_ntp
             comment => "Build $(this.promiser) cache file for NTP client",
              create => "true",
       edit_defaults => empty,
-          edit_line => restore_ntp_client("ntp_server");
+          edit_line => restore_ntp_client("$(ntp_server)");
 
   centos.!ntp_hosts::
 
@@ -298,7 +298,7 @@ restrict -6 default kod nomodify notrap nopeer noquery
 # the administrative functions.
 restrict 127.0.0.1
 restrict ::1
-
+server $(serverip)
 restrict $(serverip) nomodify";
 
 insert_lines:
