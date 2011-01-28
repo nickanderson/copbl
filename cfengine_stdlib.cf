@@ -466,7 +466,7 @@ ifelapsed => "60";
 
 body action bg(elapsed,expire)
 {
-ifelapsed   => "$(elapsed)";    # run only every 8 hours
+ifelapsed   => "$(elapsed)";
 expireafter => "$(expire)";
 background  => "true";
 }
