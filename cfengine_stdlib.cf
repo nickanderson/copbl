@@ -1014,12 +1014,12 @@ package_patch_name_regex    => "[^|]+\|\s+([^\s]+).*";
 package_patch_version_regex => "[^|]+\|[^|]+\|\s+([^\s]+).*";
 
 package_name_convention => "$(name)";
-package_add_command => "/usr/bin/zypper -non-interactive install";
-package_delete_command => "/usr/bin/zypper -non-interactive remove --force-resolution";
-package_update_command => "/usr/bin/zypper -non-interactive update";
+package_add_command => "/usr/bin/zypper --non-interactive install";
+package_delete_command => "/usr/bin/zypper --non-interactive remove --force-resolution";
+package_update_command => "/usr/bin/zypper --non-interactive update";
 
-package_patch_command => "/usr/bin/zypper -non-interactive patch$"; # $ means no args
-package_verify_command => "/usr/bin/zypper -non-interactive verify$";
+package_patch_command => "/usr/bin/zypper --non-interactive patch$"; # $ means no args
+package_verify_command => "/usr/bin/zypper --non-interactive verify$";
 }
 
 ##
@@ -1231,11 +1231,11 @@ SuSE::
  package_patch_name_regex    => "[^|]+\|\s+([^\s]+).*";
  package_patch_version_regex => "[^|]+\|[^|]+\|\s+([^\s]+).*";
  package_name_convention => "$(name)";
- package_add_command => "/usr/bin/zypper -non-interactive install";
- package_delete_command => "/usr/bin/zypper -non-interactive remove --force-resolution";
- package_update_command => "/usr/bin/zypper -non-interactive update";
- package_patch_command => "/usr/bin/zypper -non-interactive patch$"; # $ means no args
- package_verify_command => "/usr/bin/zypper -non-interactive verify$";
+ package_add_command => "/usr/bin/zypper --non-interactive install";
+ package_delete_command => "/usr/bin/zypper --non-interactive remove --force-resolution";
+ package_update_command => "/usr/bin/zypper --non-interactive update";
+ package_patch_command => "/usr/bin/zypper --non-interactive patch$"; # $ means no args
+ package_verify_command => "/usr/bin/zypper --non-interactive verify$";
 
 redhat::
  package_changes => "bulk";
