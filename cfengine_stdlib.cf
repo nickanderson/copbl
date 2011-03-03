@@ -330,6 +330,32 @@ insert_lines:
 }
 
 ##
+
+bundle agent cronjob(commands,user,hours,mins)
+
+ # For adding lines to crontab for a user
+ # methods:
+ #  "cron" usebundle => cronjob("/bin/ls","mark","*","5,10");
+
+{
+vars:
+  SuSE::
+   "crontab" string => "/var/spool/cron/tabs";
+ !SuSE::
+   "crontab" string => "/var/spool/cron/crontabs";
+
+files:
+
+  "$(crontab)/$(user)"
+     create => "true",
+     edit_line => append_if_no_line("$(mins) $(hours) * * * $(commands)"),
+     perms => mo("644","$(user)");
+
+}
+
+
+
+##
 ## editing bodies
 ##
 
