@@ -346,10 +346,18 @@ vars:
 
 files:
 
-  "$(crontab)/$(user)"
+  "$(crontab)/$(user)" 
+
+    comment => "A user's regular batch jobs are added to this file",
      create => "true",
      edit_line => append_if_no_line("$(mins) $(hours) * * * $(commands)"),
      perms => mo("644","$(user)");
+
+processes:
+
+   "cron"
+         comment => "Most crons need to be huped after file changes",
+         signals => { "hup" };
 
 }
 

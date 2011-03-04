@@ -124,6 +124,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body classes if_repaired::    
 * body classes state_repaired::  
 * body contain in_dir::         
+* body contain in_dir_shell::   
 * body contain in_shell::       
 * body contain jail::           
 * body contain setuid::         
@@ -189,6 +190,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body service_method bootstart::  
 * body service_method force_deps::  
 * body volume min_free_space::  
+* bundle agent cronjob::        
 * bundle edit_line append_groups_starting::  
 * bundle edit_line append_if_no_line::  
 * bundle edit_line append_if_no_lines::  
@@ -247,7 +249,7 @@ aces => { "user:root:rwx" };
 @verbatim
 body action bg(elapsed,expire)
 {
-ifelapsed   => "$(elapsed)";    # run only every 8 hours
+ifelapsed   => "$(elapsed)";
 expireafter => "$(expire)";
 background  => "true";
 }
@@ -534,7 +536,7 @@ persist_time => "10";
 
 @end verbatim
 
-@node body contain in_dir, body contain in_shell, body classes state_repaired, The Purpose Of This Handbook
+@node body contain in_dir, body contain in_dir_shell, body classes state_repaired, The Purpose Of This Handbook
 @section body contain in_dir(s)
 
 @verbatim
@@ -546,7 +548,20 @@ chdir => "$(s)";
 
 @end verbatim
 
-@node body contain in_shell, body contain jail, body contain in_dir, The Purpose Of This Handbook
+@node body contain in_dir_shell, body contain in_shell, body contain in_dir, The Purpose Of This Handbook
+@section body contain in_dir_shell(s)
+
+@verbatim
+body contain in_dir_shell(s)
+{
+chdir => "$(s)";
+useshell => "true";
+}
+
+
+@end verbatim
+
+@node body contain in_shell, body contain jail, body contain in_dir_shell, The Purpose Of This Handbook
 @section body contain in_shell
 
 @verbatim
@@ -1097,12 +1112,16 @@ have_aptitude::
    package_list_update_command => "/usr/bin/aptitude update";
    package_delete_command => "/usr/bin/aptitude --assume-yes remove";
    package_update_command =>  "/usr/bin/aptitude --assume-yes install";
+   package_verify_command =>  "/usr/bin/aptitude show";
+   package_noverify_regex => "(State: not installed|E: Unable to locate package .*)";
 
 !have_aptitude::
    package_add_command => "/usr/bin/apt-get --yes install";
    package_list_update_command => "/usr/bin/apt-get update";
    package_delete_command => "/usr/bin/apt-get --yes remove";
    package_update_command =>  "/usr/bin/apt-get --yes install";
+   package_verify_command => "/usr/bin/dpkg -s";
+   package_noverify_returncode => "1";
 }
 
 
@@ -1159,20 +1178,26 @@ SuSE::
  package_patch_name_regex    => "[^|]+\|\s+([^\s]+).*";
  package_patch_version_regex => "[^|]+\|[^|]+\|\s+([^\s]+).*";
  package_name_convention => "$(name)";
- package_add_command => "/usr/bin/zypper -non-interactive install";
- package_delete_command => "/usr/bin/zypper -non-interactive remove --force-resolution";
- package_update_command => "/usr/bin/zypper -non-interactive update";
- package_patch_command => "/usr/bin/zypper -non-interactive patch$"; # $ means no args
- package_verify_command => "/usr/bin/zypper -non-interactive verify$";
+ package_add_command => "/usr/bin/zypper --non-interactive install";
+ package_delete_command => "/usr/bin/zypper --non-interactive remove --force-resolution";
+ package_update_command => "/usr/bin/zypper --non-interactive update";
+ package_patch_command => "/usr/bin/zypper --non-interactive patch$"; # $ means no args
+ package_verify_command => "/usr/bin/zypper --non-interactive verify$";
 
 redhat::
  package_changes => "bulk";
  package_list_command => "/usr/bin/yum list installed";
+ package_patch_list_command => "/usr/bin/yum check-update";
  package_list_name_regex    => "([^.]+).*";
  package_list_version_regex => "[^\s]\s+([^\s]+).*";
  package_list_arch_regex    => "[^.]+\.([^\s]+).*";
  package_installed_regex => ".*installed.*";
  package_name_convention => "$(name).$(arch)";
+ package_list_update_ifelapsed => "240";
+ package_patch_installed_regex => "";
+ package_patch_name_regex    => "([^.]+).*";
+ package_patch_version_regex => "[^\s]\s+([^\s]+).*";
+ package_patch_arch_regex    => "[^.]+\.([^\s]+).*";
  package_add_command => "/usr/bin/yum -y install";
  package_delete_command => "/bin/rpm -e";
  package_verify_command => "/bin/rpm -V";
@@ -1191,12 +1216,16 @@ debian.have_aptitude::
    package_list_update_command => "/usr/bin/aptitude update";
    package_delete_command => "/usr/bin/aptitude --assume-yes remove";
    package_update_command =>  "/usr/bin/aptitude --assume-yes install";
+   package_verify_command =>  "/usr/bin/aptitude show";
+   package_noverify_regex => "(State: not installed|E: Unable to locate package .*)";
 
 debian.!have_aptitude::
    package_add_command => "/usr/bin/apt-get --yes install";
    package_list_update_command => "/usr/bin/apt-get update";
    package_delete_command => "/usr/bin/apt-get --yes remove";
    package_update_command =>  "/usr/bin/apt-get --yes install";
+   package_verify_command => "/usr/bin/dpkg -s";
+   package_noverify_returncode => "1";
 
 freebsd::
  package_changes => "individual";
@@ -1325,6 +1354,7 @@ body package_method yum
 {
 package_changes => "bulk";
 package_list_command => "/usr/bin/yum list installed";
+package_patch_list_command => "/usr/bin/yum check-update";
 
 # Remember to escape special characters like |
 
@@ -1334,6 +1364,13 @@ package_list_arch_regex    => "[^.]+\.([^\s]+).*";
 
 package_installed_regex => ".*installed.*";
 package_name_convention => "$(name).$(arch)";
+
+package_list_update_ifelapsed => "240";
+
+package_patch_installed_regex => "";
+package_patch_name_regex    => "([^.]+).*";
+package_patch_version_regex => "[^\s]\s+([^\s]+).*";
+package_patch_arch_regex    => "[^.]+\.([^\s]+).*";
 
 package_add_command => "/usr/bin/yum -y install";
 package_delete_command => "/bin/rpm -e";
@@ -1359,6 +1396,7 @@ body package_method yum_rpm
 {
   package_changes => "bulk";
   package_list_command => "/bin/rpm -qa --qf '%{name} %{version}-%{release} %{arch}\n'";
+  package_patch_list_command => "/usr/bin/yum check-update";
 
   package_list_name_regex    => "^(\S+?)\s\S+?\s\S+$";
   package_list_version_regex => "^\S+?\s(\S+?)\s\S+$";
@@ -1366,6 +1404,11 @@ body package_method yum_rpm
 
   package_installed_regex => ".*";
   package_name_convention => "$(name)";
+
+  package_patch_installed_regex => "";
+  package_patch_name_regex    => "([^.]+).*";
+  package_patch_version_regex => "[^\s]\s+([^\s]+).*";
+  package_patch_arch_regex    => "[^.]+\.([^\s]+).*";
 
   package_add_command    => "/usr/bin/yum -y install";
   package_update_command => "/usr/bin/yum -y update";
@@ -1401,12 +1444,12 @@ package_patch_name_regex    => "[^|]+\|\s+([^\s]+).*";
 package_patch_version_regex => "[^|]+\|[^|]+\|\s+([^\s]+).*";
 
 package_name_convention => "$(name)";
-package_add_command => "/usr/bin/zypper -non-interactive install";
-package_delete_command => "/usr/bin/zypper -non-interactive remove --force-resolution";
-package_update_command => "/usr/bin/zypper -non-interactive update";
+package_add_command => "/usr/bin/zypper --non-interactive install";
+package_delete_command => "/usr/bin/zypper --non-interactive remove --force-resolution";
+package_update_command => "/usr/bin/zypper --non-interactive update";
 
-package_patch_command => "/usr/bin/zypper -non-interactive patch$"; # $ means no args
-package_verify_command => "/usr/bin/zypper -non-interactive verify$";
+package_patch_command => "/usr/bin/zypper --non-interactive patch$"; # $ means no args
+package_verify_command => "/usr/bin/zypper --non-interactive verify$";
 }
 
 
@@ -1620,7 +1663,7 @@ windows::
 
 @end verbatim
 
-@node body volume min_free_space, bundle edit_line append_groups_starting, body service_method force_deps, The Purpose Of This Handbook
+@node body volume min_free_space, bundle agent cronjob, body service_method force_deps, The Purpose Of This Handbook
 @section body volume min_free_space(free)
 
 @verbatim
@@ -1635,7 +1678,46 @@ sensible_count => "2";
 
 @end verbatim
 
-@node bundle edit_line append_groups_starting, bundle edit_line append_if_no_line, body volume min_free_space, The Purpose Of This Handbook
+@node bundle agent cronjob, bundle edit_line append_groups_starting, body volume min_free_space, The Purpose Of This Handbook
+@section bundle agent cronjob(commands,user,hours,mins)
+
+@verbatim
+bundle agent cronjob(commands,user,hours,mins)
+
+ # For adding lines to crontab for a user
+ # methods:
+ #  "cron" usebundle => cronjob("/bin/ls","mark","*","5,10");
+
+{
+vars:
+  SuSE::
+   "crontab" string => "/var/spool/cron/tabs";
+ !SuSE::
+   "crontab" string => "/var/spool/cron/crontabs";
+
+files:
+
+  "$(crontab)/$(user)" 
+
+    comment => "A user's regular batch jobs are added to this file",
+     create => "true",
+     edit_line => append_if_no_line("$(mins) $(hours) * * * $(commands)"),
+     perms => mo("644","$(user)");
+
+processes:
+
+   "cron"
+         comment => "Most crons need to be huped after file changes",
+         signals => { "hup" };
+
+}
+
+
+
+
+@end verbatim
+
+@node bundle edit_line append_groups_starting, bundle edit_line append_if_no_line, bundle agent cronjob, The Purpose Of This Handbook
 @section bundle edit_line append_groups_starting(v)
 
 @verbatim
