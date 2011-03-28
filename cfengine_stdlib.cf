@@ -229,11 +229,12 @@ insert_lines:
 
 ##
 
-bundle edit_line set_variable_values2(v)
+bundle edit_line set_variable_values2(file,v)
 #
 # Another implementation of set_variable_values.
-# The input and output should be exactly the same, but in some Cfengine
-# versions there are bugs, so this bundle can be used as a workaround.
+# The input and output should be exactly the same (except the file name), 
+# but in some Cfengine versions there are bugs, 
+# so this bundle can be used as a workaround.
 #
 {
 vars:
@@ -244,7 +245,7 @@ vars:
 
   "cindex[$(index)]" string => canonify("$(index)");
 
-  "fieldc_$(cindex[$(index)])" int => getfields("$(index).*","/tmp/service","=","FIELD_$(cindex[$(index)])");
+  "fieldc_$(cindex[$(index)])" int => getfields("$(index).*","$(file)","=","FIELD_$(cindex[$(index)])");
 
 classes:
   "$(cindex[$(index)])_in_file" expression => strcmp("$(index)=$($(v)[$(index)])", "$(FIELD_$(index)[1])=$(FIELD_$(index)[2])");
