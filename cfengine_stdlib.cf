@@ -711,6 +711,14 @@ promise_kept => { "$(x)" };
 }
 
 ##
+
+body classes cmd_repair(code,cl)
+{
+repaired_returncodes => { "$(code)" };
+promise_repaired => { "$(cl)" };
+}
+
+##
 ## Persistent classes
 ##
 
