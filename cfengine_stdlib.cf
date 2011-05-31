@@ -61,6 +61,17 @@ insert_lines:
 
 ##
 
+bundle edit_line insert_file(templatefile)
+{
+insert_lines:
+
+   "$(templatefile)"
+            comment => "Insert the template file into the file being edited",
+        insert_type => "file";
+}
+
+##
+
 bundle edit_line comment_lines_matching(regex,comment)
 
  # Comment lines of a file matching a regex
@@ -467,6 +478,13 @@ max_file_size => "300000";
 }
 
 ##
+
+body edit_defaults no_backup
+{
+edit_backup => "false";
+}
+
+##
 ## location
 ##
 
@@ -776,9 +794,26 @@ compare     => "mtime";
 
 ##
 
+body copy_from remote_dcp(from,server)
+{
+servers     => { "$(server)" };
+source      => "$(from)";
+compare     => "digest";
+}
+
+##
+
 body copy_from local_cp(from)
 {
 source      => "$(from)";
+}
+
+##
+
+body copy_from local_dcp(from)
+{
+source      => "$(from)";
+compare     => "digest";
 }
 
 ##
@@ -815,6 +850,15 @@ body copy_from no_backup_cp(from)
 {
 source      => "$(from)";
 copy_backup => "false";
+}
+
+##
+
+body copy_from no_backup_dcp(from)
+{
+source      => "$(from)";
+copy_backup => "false";
+compare     => "digest";
 }
 
 ##
@@ -1079,6 +1123,16 @@ hash           => "sha256";
 report_changes => "content";
 report_diffs   => "true";
 update_hashes  => "yes";
+}
+
+##
+
+body changes diff_noupdate
+{
+hash           => "sha256";
+report_changes => "content";
+report_diffs   => "true";
+update_hashes  => "no";
 }
 
 ##--------------------------------------------------------------
@@ -1446,6 +1500,23 @@ body process_select exclude_procs(x)
 {
 command => "$(x)";
 process_result => "!command";
+}
+
+##
+
+body process_select days_older_than(d)
+{
+stime_range    => irange(ago(0,0,"$(d)",0,0,0),now);
+process_result => "stime";
+}
+
+##
+
+body process_count any_count(cl)
+
+{
+match_range => "0,0";
+out_of_range_define => { "$(cl)" };
 }
 
 ##
