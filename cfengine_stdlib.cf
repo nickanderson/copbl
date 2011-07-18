@@ -390,8 +390,10 @@ bundle agent cronjob(commands,user,hours,mins)
 vars:
   SuSE::
    "crontab" string => "/var/spool/cron/tabs";
- !SuSE::
-   "crontab" string => "/var/spool/cron/crontabs";
+  redhat|fedora::
+   "crontab" string => "/var/spool/cron";
+ !(SuSE|redhat|fedora)::
+    "crontab" string => "/var/spool/cron/crontabs"; 
 
 files:
 
