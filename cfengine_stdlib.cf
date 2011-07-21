@@ -844,6 +844,7 @@ servers     => { "$(server)" };
 source      => "$(from)";
 purge       => "true";
 preserve    => "true";
+type_check  => "false";
 }
 
 ##
