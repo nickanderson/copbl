@@ -1,10 +1,10 @@
 ##########################################################################
-#                          CFE RHEL STIG v5r1                            #
+#                          CFE RHEL5 STIGs v5r1                            #
 ##########################################################################
 
 The Security Technical Implementation Guides (STIGs) is a methodology for standardized secure installation and maintenance of computer software and hardware created by the Defense Information Systems Agency (DISA) who provides configuration documents in support of the United States Department of Defense (DoD). 
 
-This document contains technical guidance to "lock down" information systems/software that might otherwise be vulnerable to a malicious computer attack implemented based on a configuraton management tool called CFEngine 3. We strongly recommended to all users going through this document before executing the CFE policy in order to avoid any unpredicted bahaviours to your systems. The CFE policy is applied for RHEL at a current stage.
+This document contains technical guidance to "lock down" information systems/software that might otherwise be vulnerable to a malicious computer attack implemented based on a configuraton management tool called CFEngine 3. We strongly recommended to all users going through this document before executing the CFE policy in order to avoid any unpredicted bahaviours to your systems. The CFE policy is applied for "RHEL5" at a current stage.
 
 Reference:
   http://iase.disa.mil/stigs/downloads/pdf/unix-stig-v5r1.pdf
