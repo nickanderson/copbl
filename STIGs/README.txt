@@ -507,7 +507,7 @@ bundle edit_line maintain_ssh_config
       handle => "maintain_ssh_config_delete_lines_gen005500";
 
  insert_lines:
-  "Ciphers aes256-cbc,aes192-cbc,blowfish-cbc,cast128-cbc,aes128-cbc,3des-cbc   # GEN005500" -> { "GEN005500" }
+  "Ciphers aes256-cbc,aes192-cbc,blowfish-cbc,cast128-cbc,aes128-cbc,3des-cbc" -> { "GEN005500" }
      comment => "Allow only specific ciphers to be used",
       handle => "maintain_ssh_config_insert_lines_gen005500";
 }

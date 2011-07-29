@@ -1504,7 +1504,7 @@ bundle edit_line maintain_ssh_config
       handle => "maintain_ssh_config_delete_lines_gen005500";
 
  insert_lines:
-  "Ciphers aes256-cbc,aes192-cbc,blowfish-cbc,cast128-cbc,aes128-cbc,3des-cbc   # GEN005500" -> { "GEN005500" }
+  "Ciphers aes256-cbc,aes192-cbc,blowfish-cbc,cast128-cbc,aes128-cbc,3des-cbc" -> { "GEN005500" }
      comment => "Allow only specific ciphers to be used",
       handle => "maintain_ssh_config_insert_lines_gen005500";
 }
@@ -1519,7 +1519,7 @@ bundle edit_line maintain_grub
 
  insert_lines:
   # default password is cfengine
-  "password --md5 $(const.dollar)1$(const.dollar)8fI020$(const.dollar)YPs7MCo3A1ZkS7xagjYnb0   # LNX00140" -> { "LNX00140" }
+  "password --md5 $(const.dollar)1$(const.dollar)8fI020$(const.dollar)YPs7MCo3A1ZkS7xagjYnb0" -> { "LNX00140" }
      comment => "Use an MD5 encrypted password to GRUB",
       handle => "maintain_grub_insert_lines_lnx00140",
      location => before("^title.*");
