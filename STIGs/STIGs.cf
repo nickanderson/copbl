@@ -1201,7 +1201,7 @@ bundle edit_line maintain_security_access_conf
 {
  insert_lines:
 "# Only access for root is cron
-+ : root : cron crond
++ : root : cron crond tty1
 - : ALL EXCEPT users : ALL" -> { "GEN001020" }
        comment => "Allow only root uses cron",
         handle => "maintain_security_access_conf_insert_lines_gen001020",
