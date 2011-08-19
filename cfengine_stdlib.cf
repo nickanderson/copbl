@@ -1387,6 +1387,34 @@ package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 
 ##
 
+#
+# The following bundle is part of a package setup for solaris, see unit examples
+#
+
+bundle edit_line create_solaris_admin_file
+{
+insert_lines:
+		
+  "mail=
+instance=unique
+partial=nocheck
+runlevel=nocheck
+idepend=nocheck
+rdepend=nocheck
+space=nocheck
+setuid=nocheck
+conflict=nocheck
+action=nocheck
+networktimeout=60
+networkretries=3
+authentication=quit
+keystore=/var/sadm/security
+proxy=
+basedir=default";
+}
+
+##
+
 body package_method freebsd
 {
  package_changes => "individual";
