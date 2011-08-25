@@ -12,14 +12,15 @@ This community file comes with no warranty of fitness for any purpose.
 
 This document contains technical guidance to "lock down" information
 systems/software that might otherwise be vulnerable to a malicious
-computer attack implemented based on a configuraton management tool
+computer attack implemented based on a configuration management tool
 called CFEngine 3. We strongly recommended to all users going through
 this document before executing the CFE policy in order to avoid any
-unpredicted bahaviours to your systems. The CFE policy is applied for
+unpredicted behaviours to your systems. The CFE policy is applied for
 "RHEL5" at a current stage.
 
 Reference:
   http://iase.disa.mil/stigs/downloads/pdf/unix-stig-v5r1.pdf
+  http://iase.disa.mil/stigs/downloads/zip/u_unix_checklist_v5r1-29_20110429.zip
 
 GEN000020
 GEN000040
