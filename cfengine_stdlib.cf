@@ -1630,6 +1630,14 @@ track_growing_file => "true";
 
 ##
 
+body match_value scan_changing_file(line)
+{
+select_line_matching => "$(line)";
+track_growing_file => "false";
+}
+
+##
+
 body action sample_rate(x)
 {
 ifelapsed => "$(x)";
