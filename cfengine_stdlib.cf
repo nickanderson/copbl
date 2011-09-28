@@ -179,6 +179,43 @@ insert_lines:
 
 ##
 
+bundle edit_line replace_line_end(start,end)
+#
+# Lines starting with "$(start)" will get the ending given in "$(end)",
+# whitespaces will be left unmodified.
+# For example, replace_line_end("ftp", "2121/tcp") would replace
+# "ftp             21/tcp"
+# with 
+# "ftp             2121/tcp"
+{
+field_edits:
+
+   "\s*$(start)\s.*"
+      edit_field => line("(^|\s)$(start)\s*", "2", "$(end)","set");
+}
+
+##
+
+bundle edit_line append_to_line_end(start,end)
+#
+# Lines starting with "$(start)" and not ending with "$(end)"
+# will get appended with "$(end)", whitespaces will be left unmodified.
+# For example, append_to_line_end("kernel", "vga=791") would replace
+# "kernel /boot/vmlinuz root=/dev/sda7"
+# with 
+# "kernel /boot/vmlinuz root=/dev/sda7 resume=/dev/sda9 vga=791"
+#
+# WARNING: Be careful not to have multiple promises matching the same line,
+#          which would result in the line growing indefinetively.
+{
+field_edits:
+
+   "\s*$(start)\s.*"
+      edit_field => line("(^|\s)$(start)\s*", "2", "$(end)","append");
+}
+
+##
+
 bundle edit_line resolvconf(search,list)
 
  # search is the search domains with space
@@ -445,6 +482,18 @@ extend_fields      => "true";
 allow_blank_fields => "true";
 }
 
+##
+
+body edit_field line(split,col,newval,method)
+{
+field_separator    => "$(split)";
+select_field       => "$(col)";
+value_separator    => " ";
+field_value        => "$(newval)";
+field_operation    => "$(method)";
+extend_fields      => "true";
+allow_blank_fields => "true";
+}
 
 ##
 
