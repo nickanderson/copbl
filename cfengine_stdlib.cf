@@ -1003,6 +1003,15 @@ aces => { "@(acl)" };
 
 ##
 
+body acl ntfs(acl)
+{
+acl_type => "ntfs";
+acl_method => "overwrite";
+aces => { "@(acl)" };
+}
+
+##
+
 body acl strict
 # NOTE: May need to take ownership of file/dir
 # to be sure no-one else is allowed access
@@ -1032,6 +1041,13 @@ body depth_search recurse_ignore(d,list)
 {
 depth => "$(d)";
 exclude_dirs => { @(list) };
+}
+
+##
+
+body depth_search include_base
+{
+include_basedir => "true";
 }
 
 ##
