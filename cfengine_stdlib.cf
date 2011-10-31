@@ -647,6 +647,13 @@ log_string => "$(sys.date), $(message)";
 log_repaired => "$(log)";
 }
 
+###
+
+body action log_verbose
+{
+log_level => "verbose";
+}
+
 ##
 ## contain
 ##
