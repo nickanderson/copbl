@@ -1010,10 +1010,16 @@ owners => { "$(user)" };
 
 body acl access_generic(acl)
 # default/inherited ACLs are left unchanged,
-# applicable for both files and directory on all platforms
+# applicable for both files and directories on all platforms
 {
 acl_method => "overwrite";
 aces => { "@(acl)" };
+
+windows::
+acl_type => "ntfs";
+
+!windows::
+acl_type => "posix";
 }
 
 ##
