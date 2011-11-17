@@ -236,10 +236,16 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 @verbatim
 body acl access_generic(acl)
 # default/inherited ACLs are left unchanged,
-# applicable for both files and directory on all platforms
+# applicable for both files and directories on all platforms
 {
 acl_method => "overwrite";
 aces => { "@(acl)" };
+
+windows::
+acl_type => "ntfs";
+
+!windows::
+acl_type => "posix";
 }
 
 
@@ -1568,9 +1574,9 @@ body package_method solaris (pkgname, spoolfile, adminfile)
 {
 package_changes => "individual";
 package_list_command => "/usr/bin/pkginfo -l";
-package_multiline_start    =>  "\s*PKGINST:\s+[^\s]+";
-package_list_name_regex    => "\s*PKGINST:\s+([^\s]+)";
-package_list_version_regex => "\s*VERSION:\s+([^\s]+)";
+package_multiline_start    =>  "\s*PKGINST:\s+[^\s]+.*";
+package_list_name_regex    => "\s*PKGINST:\s+([^\s]+).*";
+package_list_version_regex => "\s*VERSION:\s+([^\s]+).*";
 package_list_arch_regex    => "\s*ARCH:\s+([^\s]+)";
 package_installed_regex => "\s*STATUS:\s*(completely|partially)\s+installed.*";
 package_name_convention => "$(name)";

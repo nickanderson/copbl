@@ -3,7 +3,7 @@
 <title>Community Open Promise Body Library</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="Community Open Promise Body Library">
-<meta name="generator" content="makeinfo 4.13">
+<meta name="generator" content="makeinfo 4.8">
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <meta http-equiv="Content-Style-Type" content="text/css">
@@ -204,8 +204,8 @@ pre.sp {
 <body>
 <h1 class="settitle">Community Open Promise Body Library</h1>
 <div class="node">
-<a name="Top"></a>
 <p><hr>
+<a name="Top"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#dir">(dir)</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
@@ -222,8 +222,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 </ul>
 
 <div class="node">
-<a name="The-Purpose-Of-This-Handbook"></a>
 <p><hr>
+<a name="The-Purpose-Of-This-Handbook"></a>
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
@@ -402,9 +402,9 @@ ca n be made to the help-cfengine@cfengine.org mailing list.
 </ul>
 
 <div class="node">
+<p><hr>
 <a name="body-acl-access_generic"></a>
 <a name="body-acl-access_005fgeneric"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-acl-ntfs">body acl ntfs</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -413,20 +413,27 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.1 body acl access_generic(acl)</h3>
 
-<pre class="verbatim">body acl access_generic(acl)
+<pre class="verbatim">
+body acl access_generic(acl)
 # default/inherited ACLs are left unchanged,
-# applicable for both files and directory on all platforms
+# applicable for both files and directories on all platforms
 {
 acl_method => "overwrite";
 aces => { "@(acl)" };
+
+windows::
+acl_type => "ntfs";
+
+!windows::
+acl_type => "posix";
 }
 
 
 </pre>
 
 <div class="node">
-<a name="body-acl-ntfs"></a>
 <p><hr>
+<a name="body-acl-ntfs"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-acl-strict">body acl strict</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-acl-access_005fgeneric">body acl access_generic</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -435,7 +442,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.2 body acl ntfs(acl)</h3>
 
-<pre class="verbatim">body acl ntfs(acl)
+<pre class="verbatim">
+body acl ntfs(acl)
 {
 acl_type => "ntfs";
 acl_method => "overwrite";
@@ -446,8 +454,8 @@ aces => { "@(acl)" };
 </pre>
 
 <div class="node">
-<a name="body-acl-strict"></a>
 <p><hr>
+<a name="body-acl-strict"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-bg">body action bg</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-acl-ntfs">body acl ntfs</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -456,7 +464,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.3 body acl strict</h3>
 
-<pre class="verbatim">body acl strict
+<pre class="verbatim">
+body acl strict
 # NOTE: May need to take ownership of file/dir
 # to be sure no-one else is allowed access
 {
@@ -472,8 +481,8 @@ aces => { "user:root:rwx" };
 </pre>
 
 <div class="node">
-<a name="body-action-bg"></a>
 <p><hr>
+<a name="body-action-bg"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-if_005felapsed">body action if_elapsed</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-acl-strict">body acl strict</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -482,7 +491,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.4 body action bg(elapsed,expire)</h3>
 
-<pre class="verbatim">body action bg(elapsed,expire)
+<pre class="verbatim">
+body action bg(elapsed,expire)
 {
 ifelapsed   => "$(elapsed)";
 expireafter => "$(expire)";
@@ -493,9 +503,9 @@ background  => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-action-if_elapsed"></a>
 <a name="body-action-if_005felapsed"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-ifwin_005fbg">body action ifwin_bg</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-bg">body action bg</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -504,7 +514,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.5 body action if_elapsed(x)</h3>
 
-<pre class="verbatim">body action if_elapsed(x)
+<pre class="verbatim">
+body action if_elapsed(x)
 {
 ifelapsed => "$(x)";
 expireafter => "$(x)";
@@ -514,9 +525,9 @@ expireafter => "$(x)";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-action-ifwin_bg"></a>
 <a name="body-action-ifwin_005fbg"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-immediate">body action immediate</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-if_005felapsed">body action if_elapsed</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -525,7 +536,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.6 body action ifwin_bg</h3>
 
-<pre class="verbatim">body action ifwin_bg
+<pre class="verbatim">
+body action ifwin_bg
 {
 windows::
 background => "true";
@@ -535,8 +547,8 @@ background => "true";
 </pre>
 
 <div class="node">
-<a name="body-action-immediate"></a>
 <p><hr>
+<a name="body-action-immediate"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-log_005frepaired">body action log_repaired</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-ifwin_005fbg">body action ifwin_bg</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -545,7 +557,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.7 body action immediate</h3>
 
-<pre class="verbatim">body action immediate
+<pre class="verbatim">
+body action immediate
 {
 ifelapsed => "0";
 }
@@ -554,9 +567,9 @@ ifelapsed => "0";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-action-log_repaired"></a>
 <a name="body-action-log_005frepaired"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-log_005fverbose">body action log_verbose</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-immediate">body action immediate</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -565,7 +578,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.8 body action log_repaired(log,message)</h3>
 
-<pre class="verbatim">body action log_repaired(log,message)
+<pre class="verbatim">
+body action log_repaired(log,message)
 {
 log_string => "$(sys.date), $(message)";
 log_repaired => "$(log)";
@@ -575,9 +589,9 @@ log_repaired => "$(log)";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-action-log_verbose"></a>
 <a name="body-action-log_005fverbose"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-measure_005fperformance">body action measure_performance</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-log_005frepaired">body action log_repaired</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -586,7 +600,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.9 body action log_verbose</h3>
 
-<pre class="verbatim">body action log_verbose
+<pre class="verbatim">
+body action log_verbose
 {
 log_level => "verbose";
 }
@@ -595,9 +610,9 @@ log_level => "verbose";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-action-measure_performance"></a>
 <a name="body-action-measure_005fperformance"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-policy">body action policy</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-log_005fverbose">body action log_verbose</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -606,7 +621,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.10 body action measure_performance(x)</h3>
 
-<pre class="verbatim">body action measure_performance(x)
+<pre class="verbatim">
+body action measure_performance(x)
 {
 measurement_class => "Detect changes in $(this.promiser)";
 ifelapsed => "$(x)";
@@ -617,8 +633,8 @@ expireafter => "$(x)";
 </pre>
 
 <div class="node">
-<a name="body-action-policy"></a>
 <p><hr>
+<a name="body-action-policy"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-sample_005frate">body action sample_rate</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-measure_005fperformance">body action measure_performance</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -627,7 +643,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.11 body action policy(p)</h3>
 
-<pre class="verbatim">body action policy(p)
+<pre class="verbatim">
+body action policy(p)
 {
 action_policy => "$(p)";
 }
@@ -638,9 +655,9 @@ action_policy => "$(p)";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-action-sample_rate"></a>
 <a name="body-action-sample_005frate"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-action-warn_005fonly">body action warn_only</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-policy">body action policy</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -649,7 +666,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.12 body action sample_rate(x)</h3>
 
-<pre class="verbatim">body action sample_rate(x)
+<pre class="verbatim">
+body action sample_rate(x)
 {
 ifelapsed => "$(x)";
 expireafter => "10";
@@ -657,9 +675,9 @@ expireafter => "10";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-action-warn_only"></a>
 <a name="body-action-warn_005fonly"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-changes-detect_005fall_005fchange">body changes detect_all_change</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-sample_005frate">body action sample_rate</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -668,7 +686,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.13 body action warn_only</h3>
 
-<pre class="verbatim">body action warn_only
+<pre class="verbatim">
+body action warn_only
 {
 action_policy => "warn";
 ifelapsed => "60";
@@ -678,9 +697,9 @@ ifelapsed => "60";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-changes-detect_all_change"></a>
 <a name="body-changes-detect_005fall_005fchange"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-changes-detect_005fcontent">body changes detect_content</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-action-warn_005fonly">body action warn_only</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -689,7 +708,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.14 body changes detect_all_change</h3>
 
-<pre class="verbatim">body changes detect_all_change
+<pre class="verbatim">
+body changes detect_all_change
 
 # This is fierce, and will cost disk cycles
 
@@ -703,9 +723,9 @@ update_hashes  => "yes";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-changes-detect_content"></a>
 <a name="body-changes-detect_005fcontent"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-changes-diff">body changes diff</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-detect_005fall_005fchange">body changes detect_all_change</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -714,7 +734,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.15 body changes detect_content</h3>
 
-<pre class="verbatim">body changes detect_content
+<pre class="verbatim">
+body changes detect_content
 
 # This is a cheaper alternative
 
@@ -728,8 +749,8 @@ update_hashes  => "yes";
 </pre>
 
 <div class="node">
-<a name="body-changes-diff"></a>
 <p><hr>
+<a name="body-changes-diff"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-changes-diff_005fnoupdate">body changes diff_noupdate</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-detect_005fcontent">body changes detect_content</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -738,7 +759,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.16 body changes diff</h3>
 
-<pre class="verbatim">body changes diff
+<pre class="verbatim">
+body changes diff
 # Generates diff report (Nova and above)
 {
 hash           => "sha256";
@@ -751,9 +773,9 @@ update_hashes  => "yes";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-changes-diff_noupdate"></a>
 <a name="body-changes-diff_005fnoupdate"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-changes-noupdate">body changes noupdate</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-diff">body changes diff</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -762,7 +784,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.17 body changes diff_noupdate</h3>
 
-<pre class="verbatim">body changes diff_noupdate
+<pre class="verbatim">
+body changes diff_noupdate
 {
 hash           => "sha256";
 report_changes => "content";
@@ -774,8 +797,8 @@ update_hashes  => "no";
 </pre>
 
 <div class="node">
-<a name="body-changes-noupdate"></a>
 <p><hr>
+<a name="body-changes-noupdate"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-cf2_005fif_005felse">body classes cf2_if_else</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-diff_005fnoupdate">body changes diff_noupdate</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -784,7 +807,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.18 body changes noupdate</h3>
 
-<pre class="verbatim">body changes noupdate
+<pre class="verbatim">
+body changes noupdate
 # Use on (small) files that should never change
 {
 hash           => "sha256";
@@ -796,9 +820,9 @@ update_hashes  => "no";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-classes-cf2_if_else"></a>
 <a name="body-classes-cf2_005fif_005felse"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-cmd_005frepair">body classes cmd_repair</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-noupdate">body changes noupdate</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -807,7 +831,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.19 body classes cf2_if_else(yes,no)</h3>
 
-<pre class="verbatim">body classes cf2_if_else(yes,no)
+<pre class="verbatim">
+body classes cf2_if_else(yes,no)
 
 # meant to match cf2 semantics
 
@@ -822,9 +847,9 @@ repair_timeout   => { "$(no)" };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-classes-cmd_repair"></a>
 <a name="body-classes-cmd_005frepair"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-enumerate">body classes enumerate</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-cf2_005fif_005felse">body classes cf2_if_else</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -833,7 +858,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.20 body classes cmd_repair(code,cl)</h3>
 
-<pre class="verbatim">body classes cmd_repair(code,cl)
+<pre class="verbatim">
+body classes cmd_repair(code,cl)
 {
 repaired_returncodes => { "$(code)" };
 promise_repaired => { "$(cl)" };
@@ -843,8 +869,8 @@ promise_repaired => { "$(cl)" };
 </pre>
 
 <div class="node">
-<a name="body-classes-enumerate"></a>
 <p><hr>
+<a name="body-classes-enumerate"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-if_005felse">body classes if_else</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-cmd_005frepair">body classes cmd_repair</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -853,7 +879,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.21 body classes enumerate(x)</h3>
 
-<pre class="verbatim">body classes enumerate(x)
+<pre class="verbatim">
+body classes enumerate(x)
 
 #
 # This is used by commercial editions to count 
@@ -874,9 +901,9 @@ persist_time => "15";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-classes-if_else"></a>
 <a name="body-classes-if_005felse"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-if_005fnotkept">body classes if_notkept</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-enumerate">body classes enumerate</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -885,7 +912,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.22 body classes if_else(yes,no)</h3>
 
-<pre class="verbatim">body classes if_else(yes,no)
+<pre class="verbatim">
+body classes if_else(yes,no)
 
 {
 promise_kept     => { "$(yes)" };
@@ -899,9 +927,9 @@ repair_timeout   => { "$(no)" };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-classes-if_notkept"></a>
 <a name="body-classes-if_005fnotkept"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-if_005fok">body classes if_ok</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-if_005felse">body classes if_else</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -910,7 +938,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.23 body classes if_notkept(x)</h3>
 
-<pre class="verbatim">body classes if_notkept(x)
+<pre class="verbatim">
+body classes if_notkept(x)
 {
 repair_failed   => { "$(x)" };
 repair_denied   => { "$(x)" };
@@ -921,9 +950,9 @@ repair_timeout  => { "$(x)" };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-classes-if_ok"></a>
 <a name="body-classes-if_005fok"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-if_005frepaired">body classes if_repaired</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-if_005fnotkept">body classes if_notkept</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -932,7 +961,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.24 body classes if_ok(x)</h3>
 
-<pre class="verbatim">body classes if_ok(x)
+<pre class="verbatim">
+body classes if_ok(x)
 {
 promise_repaired => { "$(x)" };
 promise_kept => { "$(x)" };
@@ -942,9 +972,9 @@ promise_kept => { "$(x)" };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-classes-if_repaired"></a>
 <a name="body-classes-if_005frepaired"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-state_005frepaired">body classes state_repaired</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-if_005fok">body classes if_ok</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -953,7 +983,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.25 body classes if_repaired(x)</h3>
 
-<pre class="verbatim">body classes if_repaired(x)
+<pre class="verbatim">
+body classes if_repaired(x)
 {
 promise_repaired => { "$(x)" };
 }
@@ -962,9 +993,9 @@ promise_repaired => { "$(x)" };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-classes-state_repaired"></a>
 <a name="body-classes-state_005frepaired"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-in_005fdir">body contain in_dir</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-if_005frepaired">body classes if_repaired</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -973,7 +1004,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.26 body classes state_repaired(x)</h3>
 
-<pre class="verbatim">body classes state_repaired(x)
+<pre class="verbatim">
+body classes state_repaired(x)
 {
 promise_repaired => { "$(x)" };
 persist_time => "10";
@@ -983,9 +1015,9 @@ persist_time => "10";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-contain-in_dir"></a>
 <a name="body-contain-in_005fdir"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-in_005fdir_005fshell">body contain in_dir_shell</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-state_005frepaired">body classes state_repaired</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -994,7 +1026,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.27 body contain in_dir(s)</h3>
 
-<pre class="verbatim">body contain in_dir(s)
+<pre class="verbatim">
+body contain in_dir(s)
 {
 chdir => "$(s)";
 }
@@ -1003,9 +1036,9 @@ chdir => "$(s)";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-contain-in_dir_shell"></a>
 <a name="body-contain-in_005fdir_005fshell"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-in_005fshell">body contain in_shell</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-in_005fdir">body contain in_dir</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1014,7 +1047,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.28 body contain in_dir_shell(s)</h3>
 
-<pre class="verbatim">body contain in_dir_shell(s)
+<pre class="verbatim">
+body contain in_dir_shell(s)
 {
 chdir => "$(s)";
 useshell => "true";
@@ -1024,9 +1058,9 @@ useshell => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-contain-in_shell"></a>
 <a name="body-contain-in_005fshell"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-in_005fshell_005fand_005fsilent">body contain in_shell_and_silent</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-in_005fdir_005fshell">body contain in_dir_shell</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1035,7 +1069,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.29 body contain in_shell</h3>
 
-<pre class="verbatim">body contain in_shell
+<pre class="verbatim">
+body contain in_shell
 {
 useshell => "true";
 }
@@ -1044,9 +1079,9 @@ useshell => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-contain-in_shell_and_silent"></a>
 <a name="body-contain-in_005fshell_005fand_005fsilent"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-in_005fshell_005fbg">body contain in_shell_bg</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-in_005fshell">body contain in_shell</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1055,7 +1090,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.30 body contain in_shell_and_silent</h3>
 
-<pre class="verbatim">body contain in_shell_and_silent
+<pre class="verbatim">
+body contain in_shell_and_silent
 {
 useshell => "true";
 no_output => "true";
@@ -1065,9 +1101,9 @@ no_output => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-contain-in_shell_bg"></a>
 <a name="body-contain-in_005fshell_005fbg"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-jail">body contain jail</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-in_005fshell_005fand_005fsilent">body contain in_shell_and_silent</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1076,7 +1112,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.31 body contain in_shell_bg</h3>
 
-<pre class="verbatim">body contain in_shell_bg
+<pre class="verbatim">
+body contain in_shell_bg
 {
 useshell => "true";
 background => "true";
@@ -1086,8 +1123,8 @@ background => "true";
 </pre>
 
 <div class="node">
-<a name="body-contain-jail"></a>
 <p><hr>
+<a name="body-contain-jail"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-setuid">body contain setuid</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-in_005fshell_005fbg">body contain in_shell_bg</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1096,7 +1133,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.32 body contain jail(owner,root,dir)</h3>
 
-<pre class="verbatim">body contain jail(owner,root,dir)
+<pre class="verbatim">
+body contain jail(owner,root,dir)
 {
 exec_owner => "$(owner)";
 useshell => "true";
@@ -1110,8 +1148,8 @@ chroot => "$(root)";
 </pre>
 
 <div class="node">
-<a name="body-contain-setuid"></a>
 <p><hr>
+<a name="body-contain-setuid"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-setuid_005fsh">body contain setuid_sh</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-jail">body contain jail</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1120,7 +1158,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.33 body contain setuid(x)</h3>
 
-<pre class="verbatim">body contain setuid(x)
+<pre class="verbatim">
+body contain setuid(x)
 {
 exec_owner => "$(x)";
 useshell => "false";
@@ -1130,9 +1169,9 @@ useshell => "false";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-contain-setuid_sh"></a>
 <a name="body-contain-setuid_005fsh"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-setuidgid_005fsh">body contain setuidgid_sh</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-setuid">body contain setuid</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1141,7 +1180,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.34 body contain setuid_sh(x)</h3>
 
-<pre class="verbatim">body contain setuid_sh(x)
+<pre class="verbatim">
+body contain setuid_sh(x)
 {
 exec_owner => "$(x)";
 useshell => "true";
@@ -1151,9 +1191,9 @@ useshell => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-contain-setuidgid_sh"></a>
 <a name="body-contain-setuidgid_005fsh"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-silent">body contain silent</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-setuid_005fsh">body contain setuid_sh</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1162,7 +1202,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.35 body contain setuidgid_sh(owner,group)</h3>
 
-<pre class="verbatim">body contain setuidgid_sh(owner,group)
+<pre class="verbatim">
+body contain setuidgid_sh(owner,group)
 {
 exec_owner => "$(owner)";
 exec_group => "$(group)";
@@ -1173,8 +1214,8 @@ useshell => "true";
 </pre>
 
 <div class="node">
-<a name="body-contain-silent"></a>
 <p><hr>
+<a name="body-contain-silent"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-contain-silent_005fin_005fdir">body contain silent_in_dir</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-setuidgid_005fsh">body contain setuidgid_sh</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1183,7 +1224,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.36 body contain silent</h3>
 
-<pre class="verbatim">body contain silent
+<pre class="verbatim">
+body contain silent
 {
 no_output => "true";
 }
@@ -1192,9 +1234,9 @@ no_output => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-contain-silent_in_dir"></a>
 <a name="body-contain-silent_005fin_005fdir"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-local_005fcp">body copy_from local_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-silent">body contain silent</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1203,7 +1245,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.37 body contain silent_in_dir(s)</h3>
 
-<pre class="verbatim">body contain silent_in_dir(s)
+<pre class="verbatim">
+body contain silent_in_dir(s)
 {
 chdir => "$(s)";
 no_output => "true";
@@ -1213,9 +1256,9 @@ no_output => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-local_cp"></a>
 <a name="body-copy_005ffrom-local_005fcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-local_005fdcp">body copy_from local_dcp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-silent_005fin_005fdir">body contain silent_in_dir</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1224,7 +1267,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.38 body copy_from local_cp(from)</h3>
 
-<pre class="verbatim">body copy_from local_cp(from)
+<pre class="verbatim">
+body copy_from local_cp(from)
 {
 source      => "$(from)";
 }
@@ -1233,9 +1277,9 @@ source      => "$(from)";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-local_dcp"></a>
 <a name="body-copy_005ffrom-local_005fdcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-no_005fbackup_005fcp">body copy_from no_backup_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-local_005fcp">body copy_from local_cp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1244,7 +1288,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.39 body copy_from local_dcp(from)</h3>
 
-<pre class="verbatim">body copy_from local_dcp(from)
+<pre class="verbatim">
+body copy_from local_dcp(from)
 {
 source      => "$(from)";
 compare     => "digest";
@@ -1254,9 +1299,9 @@ compare     => "digest";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-no_backup_cp"></a>
 <a name="body-copy_005ffrom-no_005fbackup_005fcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-no_005fbackup_005fdcp">body copy_from no_backup_dcp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-local_005fdcp">body copy_from local_dcp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1265,7 +1310,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.40 body copy_from no_backup_cp(from)</h3>
 
-<pre class="verbatim">body copy_from no_backup_cp(from)
+<pre class="verbatim">
+body copy_from no_backup_cp(from)
 {
 source      => "$(from)";
 copy_backup => "false";
@@ -1275,9 +1321,9 @@ copy_backup => "false";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-no_backup_dcp"></a>
 <a name="body-copy_005ffrom-no_005fbackup_005fdcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-no_005fbackup_005frcp">body copy_from no_backup_rcp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-no_005fbackup_005fcp">body copy_from no_backup_cp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1286,7 +1332,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.41 body copy_from no_backup_dcp(from)</h3>
 
-<pre class="verbatim">body copy_from no_backup_dcp(from)
+<pre class="verbatim">
+body copy_from no_backup_dcp(from)
 {
 source      => "$(from)";
 copy_backup => "false";
@@ -1297,9 +1344,9 @@ compare     => "digest";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-no_backup_rcp"></a>
 <a name="body-copy_005ffrom-no_005fbackup_005frcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-perms_005fcp">body copy_from perms_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-no_005fbackup_005fdcp">body copy_from no_backup_dcp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1308,7 +1355,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.42 body copy_from no_backup_rcp(from,server)</h3>
 
-<pre class="verbatim">body copy_from no_backup_rcp(from,server)
+<pre class="verbatim">
+body copy_from no_backup_rcp(from,server)
 {
 servers     => { "$(server)" };
 source      => "$(from)";
@@ -1320,9 +1368,9 @@ copy_backup => "false";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-perms_cp"></a>
 <a name="body-copy_005ffrom-perms_005fcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-remote_005fcp">body copy_from remote_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-no_005fbackup_005frcp">body copy_from no_backup_rcp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1331,7 +1379,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.43 body copy_from perms_cp(from)</h3>
 
-<pre class="verbatim">body copy_from perms_cp(from)
+<pre class="verbatim">
+body copy_from perms_cp(from)
 {
 source      => "$(from)";
 preserve    => "true";
@@ -1343,9 +1392,9 @@ preserve    => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-remote_cp"></a>
 <a name="body-copy_005ffrom-remote_005fcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-remote_005fdcp">body copy_from remote_dcp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-perms_005fcp">body copy_from perms_cp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1354,7 +1403,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.44 body copy_from remote_cp(from,server)</h3>
 
-<pre class="verbatim">body copy_from remote_cp(from,server)
+<pre class="verbatim">
+body copy_from remote_cp(from,server)
 {
 servers     => { "$(server)" };
 source      => "$(from)";
@@ -1365,9 +1415,9 @@ compare     => "mtime";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-remote_dcp"></a>
 <a name="body-copy_005ffrom-remote_005fdcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-secure_005fcp">body copy_from secure_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-remote_005fcp">body copy_from remote_cp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1376,7 +1426,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.45 body copy_from remote_dcp(from,server)</h3>
 
-<pre class="verbatim">body copy_from remote_dcp(from,server)
+<pre class="verbatim">
+body copy_from remote_dcp(from,server)
 {
 servers     => { "$(server)" };
 source      => "$(from)";
@@ -1387,9 +1438,9 @@ compare     => "digest";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-secure_cp"></a>
 <a name="body-copy_005ffrom-secure_005fcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-seed_005fcp">body copy_from seed_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-remote_005fdcp">body copy_from remote_dcp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1398,7 +1449,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.46 body copy_from secure_cp(from,server)</h3>
 
-<pre class="verbatim">body copy_from secure_cp(from,server)
+<pre class="verbatim">
+body copy_from secure_cp(from,server)
 {
 source      => "$(from)";
 servers     => { "$(server)" };
@@ -1411,9 +1463,9 @@ verify      => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-seed_cp"></a>
 <a name="body-copy_005ffrom-seed_005fcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-sync_005fcp">body copy_from sync_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-secure_005fcp">body copy_from secure_cp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1422,7 +1474,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.47 body copy_from seed_cp(from)</h3>
 
-<pre class="verbatim">body copy_from seed_cp(from)
+<pre class="verbatim">
+body copy_from seed_cp(from)
 {
 source      => "$(from)";
 compare     => "exists";
@@ -1432,9 +1485,9 @@ compare     => "exists";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-copy_from-sync_cp"></a>
 <a name="body-copy_005ffrom-sync_005fcp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-delete-tidy">body delete tidy</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-seed_005fcp">body copy_from seed_cp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1443,7 +1496,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.48 body copy_from sync_cp(from,server)</h3>
 
-<pre class="verbatim">body copy_from sync_cp(from,server)
+<pre class="verbatim">
+body copy_from sync_cp(from,server)
 {
 servers     => { "$(server)" };
 source      => "$(from)";
@@ -1456,8 +1510,8 @@ type_check  => "false";
 </pre>
 
 <div class="node">
-<a name="body-delete-tidy"></a>
 <p><hr>
+<a name="body-delete-tidy"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-depth_005fsearch-include_005fbase">body depth_search include_base</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-sync_005fcp">body copy_from sync_cp</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1466,7 +1520,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.49 body delete tidy</h3>
 
-<pre class="verbatim">body delete tidy
+<pre class="verbatim">
+body delete tidy
 
 {
 dirlinks => "delete";
@@ -1477,9 +1532,9 @@ rmdirs   => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-depth_search-include_base"></a>
 <a name="body-depth_005fsearch-include_005fbase"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-depth_005fsearch-recurse">body depth_search recurse</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-delete-tidy">body delete tidy</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1488,7 +1543,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.50 body depth_search include_base</h3>
 
-<pre class="verbatim">body depth_search include_base
+<pre class="verbatim">
+body depth_search include_base
 {
 include_basedir => "true";
 }
@@ -1497,9 +1553,9 @@ include_basedir => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-depth_search-recurse"></a>
 <a name="body-depth_005fsearch-recurse"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-depth_005fsearch-recurse_005fignore">body depth_search recurse_ignore</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-depth_005fsearch-include_005fbase">body depth_search include_base</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1508,7 +1564,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.51 body depth_search recurse(d)</h3>
 
-<pre class="verbatim">body depth_search recurse(d)
+<pre class="verbatim">
+body depth_search recurse(d)
 
 {
 depth => "$(d)";
@@ -1519,9 +1576,9 @@ xdev  => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-depth_search-recurse_ignore"></a>
 <a name="body-depth_005fsearch-recurse_005fignore"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005fdefaults-empty">body edit_defaults empty</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-depth_005fsearch-recurse">body depth_search recurse</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1530,7 +1587,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.52 body depth_search recurse_ignore(d,list)</h3>
 
-<pre class="verbatim">body depth_search recurse_ignore(d,list)
+<pre class="verbatim">
+body depth_search recurse_ignore(d,list)
 {
 depth => "$(d)";
 exclude_dirs => { @(list) };
@@ -1540,9 +1598,9 @@ exclude_dirs => { @(list) };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-edit_defaults-empty"></a>
 <a name="body-edit_005fdefaults-empty"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005fdefaults-no_005fbackup">body edit_defaults no_backup</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-depth_005fsearch-recurse_005fignore">body depth_search recurse_ignore</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1551,7 +1609,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.53 body edit_defaults empty</h3>
 
-<pre class="verbatim">body edit_defaults empty
+<pre class="verbatim">
+body edit_defaults empty
 {
 empty_file_before_editing => "true";
 edit_backup => "false";
@@ -1562,9 +1621,9 @@ max_file_size => "300000";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-edit_defaults-no_backup"></a>
 <a name="body-edit_005fdefaults-no_005fbackup"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005fdefaults-std_005fdefs">body edit_defaults std_defs</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005fdefaults-empty">body edit_defaults empty</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1573,7 +1632,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.54 body edit_defaults no_backup</h3>
 
-<pre class="verbatim">body edit_defaults no_backup
+<pre class="verbatim">
+body edit_defaults no_backup
 {
 edit_backup => "false";
 }
@@ -1582,9 +1642,9 @@ edit_backup => "false";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-edit_defaults-std_defs"></a>
 <a name="body-edit_005fdefaults-std_005fdefs"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005ffield-col">body edit_field col</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005fdefaults-no_005fbackup">body edit_defaults no_backup</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1593,7 +1653,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.55 body edit_defaults std_defs</h3>
 
-<pre class="verbatim">body edit_defaults std_defs
+<pre class="verbatim">
+body edit_defaults std_defs
 {
 empty_file_before_editing => "false";
 edit_backup => "false";
@@ -1604,9 +1665,9 @@ max_file_size => "300000";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-edit_field-col"></a>
 <a name="body-edit_005ffield-col"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005ffield-line">body edit_field line</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005fdefaults-std_005fdefs">body edit_defaults std_defs</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1615,7 +1676,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.56 body edit_field col(split,col,newval,method)</h3>
 
-<pre class="verbatim">body edit_field col(split,col,newval,method)
+<pre class="verbatim">
+body edit_field col(split,col,newval,method)
 {
 field_separator    => "$(split)";
 select_field       => "$(col)";
@@ -1630,9 +1692,9 @@ allow_blank_fields => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-edit_field-line"></a>
 <a name="body-edit_005ffield-line"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-edit_005ffield-quoted_005fvar">body edit_field quoted_var</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005ffield-col">body edit_field col</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1641,7 +1703,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.57 body edit_field line(split,col,newval,method)</h3>
 
-<pre class="verbatim">body edit_field line(split,col,newval,method)
+<pre class="verbatim">
+body edit_field line(split,col,newval,method)
 {
 field_separator    => "$(split)";
 select_field       => "$(col)";
@@ -1656,9 +1719,9 @@ allow_blank_fields => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-edit_field-quoted_var"></a>
 <a name="body-edit_005ffield-quoted_005fvar"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-by_005fname">body file_select by_name</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005ffield-line">body edit_field line</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1667,7 +1730,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.58 body edit_field quoted_var(newval,method)</h3>
 
-<pre class="verbatim">body edit_field quoted_var(newval,method)
+<pre class="verbatim">
+body edit_field quoted_var(newval,method)
 {
 field_separator => "\"";
 select_field    => "2";
@@ -1682,9 +1746,9 @@ allow_blank_fields => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-file_select-by_name"></a>
 <a name="body-file_005fselect-by_005fname"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-days_005fold">body file_select days_old</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-edit_005ffield-quoted_005fvar">body edit_field quoted_var</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1693,7 +1757,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.59 body file_select by_name(names)</h3>
 
-<pre class="verbatim">body file_select by_name(names)
+<pre class="verbatim">
+body file_select by_name(names)
 {
 leaf_name  => { @(names)};
 file_result => "leaf_name";
@@ -1703,9 +1768,9 @@ file_result => "leaf_name";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-file_select-days_old"></a>
 <a name="body-file_005fselect-days_005fold"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-dirs">body file_select dirs</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-by_005fname">body file_select by_name</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1714,7 +1779,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.60 body file_select days_old(days)</h3>
 
-<pre class="verbatim">body file_select days_old(days)
+<pre class="verbatim">
+body file_select days_old(days)
 {
 mtime       => irange(0,ago(0,0,"$(days)",0,0,0));
 file_result => "mtime";
@@ -1724,9 +1790,9 @@ file_result => "mtime";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-file_select-dirs"></a>
 <a name="body-file_005fselect-dirs"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-ex_005flist">body file_select ex_list</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-days_005fold">body file_select days_old</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1735,7 +1801,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.61 body file_select dirs</h3>
 
-<pre class="verbatim">body file_select dirs
+<pre class="verbatim">
+body file_select dirs
 {
 file_types  => { "dir" };
 file_result => "file_types";
@@ -1745,9 +1812,9 @@ file_result => "file_types";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-file_select-ex_list"></a>
 <a name="body-file_005fselect-ex_005flist"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-exclude">body file_select exclude</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-dirs">body file_select dirs</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1756,7 +1823,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.62 body file_select ex_list(names)</h3>
 
-<pre class="verbatim">body file_select ex_list(names)
+<pre class="verbatim">
+body file_select ex_list(names)
 {
 leaf_name  => { @(names)};
 file_result => "!leaf_name";
@@ -1766,9 +1834,9 @@ file_result => "!leaf_name";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-file_select-exclude"></a>
 <a name="body-file_005fselect-exclude"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-name_005fage">body file_select name_age</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-ex_005flist">body file_select ex_list</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1777,7 +1845,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.63 body file_select exclude(name)</h3>
 
-<pre class="verbatim">body file_select exclude(name)
+<pre class="verbatim">
+body file_select exclude(name)
 {
 leaf_name  => { "$(name)"};
 file_result => "!leaf_name";
@@ -1787,9 +1856,9 @@ file_result => "!leaf_name";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-file_select-name_age"></a>
 <a name="body-file_005fselect-name_005fage"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-plain">body file_select plain</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-exclude">body file_select exclude</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1798,7 +1867,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.64 body file_select name_age(name,days)</h3>
 
-<pre class="verbatim">body file_select name_age(name,days)
+<pre class="verbatim">
+body file_select name_age(name,days)
 {
 leaf_name   => { "$(name)" };
 mtime       => irange(0,ago(0,0,"$(days)",0,0,0));  
@@ -1809,9 +1879,9 @@ file_result => "mtime.leaf_name";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-file_select-plain"></a>
 <a name="body-file_005fselect-plain"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-file_005fselect-size_005frange">body file_select size_range</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-name_005fage">body file_select name_age</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1820,7 +1890,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.65 body file_select plain</h3>
 
-<pre class="verbatim">body file_select plain
+<pre class="verbatim">
+body file_select plain
 {
 file_types  => { "plain" };
 file_result => "file_types";
@@ -1829,9 +1900,9 @@ file_result => "file_types";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-file_select-size_range"></a>
 <a name="body-file_005fselect-size_005frange"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-link_005ffrom-linkchildren">body link_from linkchildren</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-plain">body file_select plain</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1840,7 +1911,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.66 body file_select size_range(from,to)</h3>
 
-<pre class="verbatim">body file_select size_range(from,to)
+<pre class="verbatim">
+body file_select size_range(from,to)
 {
 search_size => irange("$(from)","$(to)");
 file_result => "size";
@@ -1850,9 +1922,9 @@ file_result => "size";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-link_from-linkchildren"></a>
 <a name="body-link_005ffrom-linkchildren"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-link_005ffrom-ln_005fs">body link_from ln_s</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-file_005fselect-size_005frange">body file_select size_range</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1861,7 +1933,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.67 body link_from linkchildren(tofile)</h3>
 
-<pre class="verbatim">body link_from linkchildren(tofile)
+<pre class="verbatim">
+body link_from linkchildren(tofile)
 {
 source        => "$(tofile)";
 link_type     => "symlink";
@@ -1874,9 +1947,9 @@ when_linking_children => "if_no_such_file"; # "override_file";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-link_from-ln_s"></a>
 <a name="body-link_005ffrom-ln_005fs"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-location-after">body location after</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-link_005ffrom-linkchildren">body link_from linkchildren</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1885,7 +1958,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.68 body link_from ln_s(x)</h3>
 
-<pre class="verbatim">body link_from ln_s(x)
+<pre class="verbatim">
+body link_from ln_s(x)
 {
 link_type => "symlink";
 source => "$(x)";
@@ -1896,8 +1970,8 @@ when_no_source => "force";
 </pre>
 
 <div class="node">
-<a name="body-location-after"></a>
 <p><hr>
+<a name="body-location-after"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-location-start">body location start</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-link_005ffrom-ln_005fs">body link_from ln_s</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1906,7 +1980,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.69 body location after(str)</h3>
 
-<pre class="verbatim">body location after(str)
+<pre class="verbatim">
+body location after(str)
 {
 before_after => "after";
 select_line_matching => "$(str)";
@@ -1917,8 +1992,8 @@ select_line_matching => "$(str)";
 </pre>
 
 <div class="node">
-<a name="body-location-start"></a>
 <p><hr>
+<a name="body-location-start"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-match_005fvalue-scan_005fchanging_005ffile">body match_value scan_changing_file</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-location-after">body location after</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1927,7 +2002,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.70 body location start</h3>
 
-<pre class="verbatim">body location start
+<pre class="verbatim">
+body location start
 {
 before_after => "before";
 }
@@ -1936,9 +2012,9 @@ before_after => "before";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-match_value-scan_changing_file"></a>
 <a name="body-match_005fvalue-scan_005fchanging_005ffile"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-match_005fvalue-scan_005flog">body match_value scan_log</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-location-start">body location start</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1947,7 +2023,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.71 body match_value scan_changing_file(line)</h3>
 
-<pre class="verbatim">body match_value scan_changing_file(line)
+<pre class="verbatim">
+body match_value scan_changing_file(line)
 {
 select_line_matching => "$(line)";
 track_growing_file => "false";
@@ -1957,9 +2034,9 @@ track_growing_file => "false";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-match_value-scan_log"></a>
 <a name="body-match_005fvalue-scan_005flog"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-mount-nfs">body mount nfs</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-match_005fvalue-scan_005fchanging_005ffile">body match_value scan_changing_file</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1968,7 +2045,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.72 body match_value scan_log(line)</h3>
 
-<pre class="verbatim">body match_value scan_log(line)
+<pre class="verbatim">
+body match_value scan_log(line)
 {
 select_line_matching => "$(line)";
 track_growing_file => "true";
@@ -1978,8 +2056,8 @@ track_growing_file => "true";
 </pre>
 
 <div class="node">
-<a name="body-mount-nfs"></a>
 <p><hr>
+<a name="body-mount-nfs"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-mount-nfs_005fp">body mount nfs_p</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-match_005fvalue-scan_005flog">body match_value scan_log</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -1988,7 +2066,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.73 body mount nfs(server,source)</h3>
 
-<pre class="verbatim">body mount nfs(server,source)
+<pre class="verbatim">
+body mount nfs(server,source)
 {
 mount_type => "nfs";
 mount_source => "$(source)";
@@ -2001,9 +2080,9 @@ edit_fstab => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-mount-nfs_p"></a>
 <a name="body-mount-nfs_005fp"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-mount-unmount">body mount unmount</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-mount-nfs">body mount nfs</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2012,7 +2091,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.74 body mount nfs_p(server,source,perm)</h3>
 
-<pre class="verbatim">body mount nfs_p(server,source,perm)
+<pre class="verbatim">
+body mount nfs_p(server,source,perm)
 {
 mount_type => "nfs";
 mount_source => "$(source)";
@@ -2025,8 +2105,8 @@ edit_fstab => "true";
 </pre>
 
 <div class="node">
-<a name="body-mount-unmount"></a>
 <p><hr>
+<a name="body-mount-unmount"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-apt">body package_method apt</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-mount-nfs_005fp">body mount nfs_p</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2035,7 +2115,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.75 body mount unmount</h3>
 
-<pre class="verbatim">body mount unmount
+<pre class="verbatim">
+body mount unmount
 {
 mount_type => "nfs";
 edit_fstab => "true";
@@ -2046,9 +2127,9 @@ unmount => "true";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-apt"></a>
 <a name="body-package_005fmethod-apt"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-dpkg_005fversion">body package_method dpkg_version</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-mount-unmount">body mount unmount</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2057,7 +2138,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.76 body package_method apt</h3>
 
-<pre class="verbatim">body package_method apt
+<pre class="verbatim">
+body package_method apt
 {
 package_changes => "bulk";
 package_list_command => "/usr/bin/dpkg -l";
@@ -2090,9 +2172,9 @@ have_aptitude::
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-dpkg_version"></a>
 <a name="body-package_005fmethod-dpkg_005fversion"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-freebsd">body package_method freebsd</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-apt">body package_method apt</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2101,7 +2183,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.77 body package_method dpkg_version(repo)</h3>
 
-<pre class="verbatim">body package_method dpkg_version(repo)
+<pre class="verbatim">
+body package_method dpkg_version(repo)
 {
 package_changes => "individual";
 package_list_command => "/usr/bin/dpkg -l";
@@ -2132,9 +2215,9 @@ debian::
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-freebsd"></a>
 <a name="body-package_005fmethod-freebsd"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-generic">body package_method generic</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-dpkg_005fversion">body package_method dpkg_version</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2143,7 +2226,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.78 body package_method freebsd</h3>
 
-<pre class="verbatim">body package_method freebsd
+<pre class="verbatim">
+body package_method freebsd
 {
  package_changes => "individual";
 
@@ -2173,9 +2257,9 @@ package_delete_command => "/usr/sbin/pkg_delete";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-generic"></a>
 <a name="body-package_005fmethod-generic"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-msi_005fexplicit">body package_method msi_explicit</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-freebsd">body package_method freebsd</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2184,7 +2268,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.79 body package_method generic</h3>
 
-<pre class="verbatim">body package_method generic
+<pre class="verbatim">
+body package_method generic
 {
 SuSE::
  package_changes => "bulk";
@@ -2264,9 +2349,9 @@ freebsd::
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-msi_explicit"></a>
 <a name="body-package_005fmethod-msi_005fexplicit"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-msi_005fimplicit">body package_method msi_implicit</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-generic">body package_method generic</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2275,7 +2360,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.80 body package_method msi_explicit(repo)</h3>
 
-<pre class="verbatim">body package_method msi_explicit(repo)
+<pre class="verbatim">
+body package_method msi_explicit(repo)
 # use software name as promiser, e.g. "7-Zip", and explicitly
 # specify any package_version and package_arch
 {
@@ -2296,9 +2382,9 @@ package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-msi_implicit"></a>
 <a name="body-package_005fmethod-msi_005fimplicit"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-rpm_005fversion">body package_method rpm_version</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-msi_005fexplicit">body package_method msi_explicit</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2307,7 +2393,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.81 body package_method msi_implicit(repo)</h3>
 
-<pre class="verbatim">body package_method msi_implicit(repo)
+<pre class="verbatim">
+body package_method msi_implicit(repo)
 # Use whole file name as promiser, e.g. "7-Zip-4.50-x86_64.msi",
 # the name, version and arch is then deduced from the promiser
 {
@@ -2332,9 +2419,9 @@ package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-rpm_version"></a>
 <a name="body-package_005fmethod-rpm_005fversion"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-solaris">body package_method solaris</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-msi_005fimplicit">body package_method msi_implicit</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2343,7 +2430,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.82 body package_method rpm_version(repo)</h3>
 
-<pre class="verbatim">body package_method rpm_version(repo)
+<pre class="verbatim">
+body package_method rpm_version(repo)
 {
 package_changes => "individual";
 
@@ -2372,9 +2460,9 @@ package_noverify_regex => ".*[^\s].*";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-solaris"></a>
 <a name="body-package_005fmethod-solaris"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-yum">body package_method yum</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-rpm_005fversion">body package_method rpm_version</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2383,13 +2471,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.83 body package_method solaris (pkgname, spoolfile, adminfile)</h3>
 
-<pre class="verbatim">body package_method solaris (pkgname, spoolfile, adminfile)
+<pre class="verbatim">
+body package_method solaris (pkgname, spoolfile, adminfile)
 {
 package_changes => "individual";
 package_list_command => "/usr/bin/pkginfo -l";
-package_multiline_start    =>  "\s*PKGINST:\s+[^\s]+";
-package_list_name_regex    => "\s*PKGINST:\s+([^\s]+)";
-package_list_version_regex => "\s*VERSION:\s+([^\s]+)";
+package_multiline_start    =>  "\s*PKGINST:\s+[^\s]+.*";
+package_list_name_regex    => "\s*PKGINST:\s+([^\s]+).*";
+package_list_version_regex => "\s*VERSION:\s+([^\s]+).*";
 package_list_arch_regex    => "\s*ARCH:\s+([^\s]+)";
 package_installed_regex => "\s*STATUS:\s*(completely|partially)\s+installed.*";
 package_name_convention => "$(name)";
@@ -2405,9 +2494,9 @@ package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-yum"></a>
 <a name="body-package_005fmethod-yum"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-yum_005frpm">body package_method yum_rpm</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-solaris">body package_method solaris</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2416,7 +2505,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.84 body package_method yum</h3>
 
-<pre class="verbatim">body package_method yum
+<pre class="verbatim">
+body package_method yum
 {
 package_changes => "bulk";
 package_list_command => "/usr/bin/yum list installed";
@@ -2449,9 +2539,9 @@ package_verify_command => "/bin/rpm -V";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-yum_rpm"></a>
 <a name="body-package_005fmethod-yum_005frpm"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-package_005fmethod-zypper">body package_method zypper</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-yum">body package_method yum</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2460,7 +2550,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.85 body package_method yum_rpm</h3>
 
-<pre class="verbatim">body package_method yum_rpm
+<pre class="verbatim">
+body package_method yum_rpm
 # Contributed by Trond Hasle Amundsen
 
 # More efficient package method for RedHat - uses rpm to list instead of yum
@@ -2500,9 +2591,9 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-package_method-zypper"></a>
 <a name="body-package_005fmethod-zypper"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-m">body perms m</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-yum_005frpm">body package_method yum_rpm</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2511,7 +2602,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.86 body package_method zypper</h3>
 
-<pre class="verbatim">body package_method zypper
+<pre class="verbatim">
+body package_method zypper
 
 {
 package_changes => "bulk";
@@ -2544,8 +2636,8 @@ package_verify_command => "/usr/bin/zypper --non-interactive verify$";
 </pre>
 
 <div class="node">
-<a name="body-perms-m"></a>
 <p><hr>
+<a name="body-perms-m"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-mo">body perms mo</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-package_005fmethod-zypper">body package_method zypper</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2554,7 +2646,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.87 body perms m(mode)</h3>
 
-<pre class="verbatim">body perms m(mode)
+<pre class="verbatim">
+body perms m(mode)
 {
 mode   => "$(mode)";
 }
@@ -2563,8 +2656,8 @@ mode   => "$(mode)";
 </pre>
 
 <div class="node">
-<a name="body-perms-mo"></a>
 <p><hr>
+<a name="body-perms-mo"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-mog">body perms mog</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-m">body perms m</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2573,7 +2666,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.88 body perms mo(mode,user)</h3>
 
-<pre class="verbatim">body perms mo(mode,user)
+<pre class="verbatim">
+body perms mo(mode,user)
 {
 owners => { "$(user)" };
 mode   => "$(mode)";
@@ -2583,8 +2677,8 @@ mode   => "$(mode)";
 </pre>
 
 <div class="node">
-<a name="body-perms-mog"></a>
 <p><hr>
+<a name="body-perms-mog"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-og">body perms og</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-mo">body perms mo</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2593,7 +2687,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.89 body perms mog(mode,user,group)</h3>
 
-<pre class="verbatim">body perms mog(mode,user,group)
+<pre class="verbatim">
+body perms mog(mode,user,group)
 {
 owners => { "$(user)" };
 groups => { "$(group)" };
@@ -2604,8 +2699,8 @@ mode   => "$(mode)";
 </pre>
 
 <div class="node">
-<a name="body-perms-og"></a>
 <p><hr>
+<a name="body-perms-og"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-perms-owner">body perms owner</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-mog">body perms mog</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2614,7 +2709,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.90 body perms og(u,g)</h3>
 
-<pre class="verbatim">body perms og(u,g)
+<pre class="verbatim">
+body perms og(u,g)
 {
 owners => { "$(u)" };
 groups => { "$(g)" };
@@ -2624,8 +2720,8 @@ groups => { "$(g)" };
 </pre>
 
 <div class="node">
-<a name="body-perms-owner"></a>
 <p><hr>
+<a name="body-perms-owner"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-process_005fcount-any_005fcount">body process_count any_count</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-og">body perms og</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2634,7 +2730,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.91 body perms owner(user)</h3>
 
-<pre class="verbatim">body perms owner(user)
+<pre class="verbatim">
+body perms owner(user)
 {
 owners => { "$(user)" };
 }
@@ -2643,9 +2740,9 @@ owners => { "$(user)" };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-process_count-any_count"></a>
 <a name="body-process_005fcount-any_005fcount"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-process_005fcount-check_005frange">body process_count check_range</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-perms-owner">body perms owner</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2654,7 +2751,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.92 body process_count any_count(cl)</h3>
 
-<pre class="verbatim">body process_count any_count(cl)
+<pre class="verbatim">
+body process_count any_count(cl)
 
 {
 match_range => "0,0";
@@ -2665,9 +2763,9 @@ out_of_range_define => { "$(cl)" };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-process_count-check_range"></a>
 <a name="body-process_005fcount-check_005frange"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-process_005fselect-days_005folder_005fthan">body process_select days_older_than</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-process_005fcount-any_005fcount">body process_count any_count</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2676,7 +2774,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.93 body process_count check_range(name,lower,upper)</h3>
 
-<pre class="verbatim">body process_count check_range(name,lower,upper)
+<pre class="verbatim">
+body process_count check_range(name,lower,upper)
 {
 match_range => irange("$(lower)","$(upper)");
 out_of_range_define => { "$(name)_out_of_range" };
@@ -2686,9 +2785,9 @@ out_of_range_define => { "$(name)_out_of_range" };
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-process_select-days_older_than"></a>
 <a name="body-process_005fselect-days_005folder_005fthan"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-process_005fselect-exclude_005fprocs">body process_select exclude_procs</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-process_005fcount-check_005frange">body process_count check_range</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2697,7 +2796,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.94 body process_select days_older_than(d)</h3>
 
-<pre class="verbatim">body process_select days_older_than(d)
+<pre class="verbatim">
+body process_select days_older_than(d)
 {
 stime_range    => irange(ago(0,0,"$(d)",0,0,0),now);
 process_result => "stime";
@@ -2707,9 +2807,9 @@ process_result => "stime";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-process_select-exclude_procs"></a>
 <a name="body-process_005fselect-exclude_005fprocs"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-rename-disable">body rename disable</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-process_005fselect-days_005folder_005fthan">body process_select days_older_than</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2718,7 +2818,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.95 body process_select exclude_procs(x)</h3>
 
-<pre class="verbatim">body process_select exclude_procs(x)
+<pre class="verbatim">
+body process_select exclude_procs(x)
 {
 command => "$(x)";
 process_result => "!command";
@@ -2728,8 +2829,8 @@ process_result => "!command";
 </pre>
 
 <div class="node">
-<a name="body-rename-disable"></a>
 <p><hr>
+<a name="body-rename-disable"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-rename-rotate">body rename rotate</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-process_005fselect-exclude_005fprocs">body process_select exclude_procs</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2738,7 +2839,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.96 body rename disable</h3>
 
-<pre class="verbatim">body rename disable
+<pre class="verbatim">
+body rename disable
 {
 disable => "true";
 }
@@ -2747,8 +2849,8 @@ disable => "true";
 </pre>
 
 <div class="node">
-<a name="body-rename-rotate"></a>
 <p><hr>
+<a name="body-rename-rotate"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-rename-to">body rename to</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-rename-disable">body rename disable</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2757,7 +2859,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.97 body rename rotate(level)</h3>
 
-<pre class="verbatim">body rename rotate(level)
+<pre class="verbatim">
+body rename rotate(level)
 {
 rotate => "$(level)";
 }
@@ -2766,8 +2869,8 @@ rotate => "$(level)";
 </pre>
 
 <div class="node">
-<a name="body-rename-to"></a>
 <p><hr>
+<a name="body-rename-to"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-replace_005fwith-comment">body replace_with comment</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-rename-rotate">body rename rotate</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2776,7 +2879,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.98 body rename to(file)</h3>
 
-<pre class="verbatim">body rename to(file)
+<pre class="verbatim">
+body rename to(file)
 {
 newname => "$(file)";
 }
@@ -2785,9 +2889,9 @@ newname => "$(file)";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-replace_with-comment"></a>
 <a name="body-replace_005fwith-comment"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-replace_005fwith-uncomment">body replace_with uncomment</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-rename-to">body rename to</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2796,7 +2900,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.99 body replace_with comment(c)</h3>
 
-<pre class="verbatim">body replace_with comment(c)
+<pre class="verbatim">
+body replace_with comment(c)
 {
 replace_value => "$(c) $(match.1)";
 occurrences => "all";
@@ -2806,9 +2911,9 @@ occurrences => "all";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-replace_with-uncomment"></a>
 <a name="body-replace_005fwith-uncomment"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-replace_005fwith-value">body replace_with value</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-replace_005fwith-comment">body replace_with comment</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2817,7 +2922,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.100 body replace_with uncomment</h3>
 
-<pre class="verbatim">body replace_with uncomment
+<pre class="verbatim">
+body replace_with uncomment
 {
 replace_value => "$(match.1)";
 occurrences => "all";
@@ -2828,9 +2934,9 @@ occurrences => "all";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-replace_with-value"></a>
 <a name="body-replace_005fwith-value"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-select_005fregion-INI_005fsection">body select_region INI_section</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-replace_005fwith-uncomment">body replace_with uncomment</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2839,7 +2945,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.101 body replace_with value(x)</h3>
 
-<pre class="verbatim">body replace_with value(x)
+<pre class="verbatim">
+body replace_with value(x)
 {
 replace_value => "$(x)";
 occurrences => "all";
@@ -2849,9 +2956,9 @@ occurrences => "all";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-select_region-INI_section"></a>
 <a name="body-select_005fregion-INI_005fsection"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-service_005fmethod-bootstart">body service_method bootstart</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-replace_005fwith-value">body replace_with value</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2860,7 +2967,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.102 body select_region INI_section(x)</h3>
 
-<pre class="verbatim">body select_region INI_section(x)
+<pre class="verbatim">
+body select_region INI_section(x)
 {
 select_start => "\[$(x)\]\s*";
 select_end => "\[.*\]\s*";
@@ -2870,9 +2978,9 @@ select_end => "\[.*\]\s*";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-service_method-bootstart"></a>
 <a name="body-service_005fmethod-bootstart"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-service_005fmethod-force_005fdeps">body service_method force_deps</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-select_005fregion-INI_005fsection">body select_region INI_section</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2881,7 +2989,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.103 body service_method bootstart</h3>
 
-<pre class="verbatim">body service_method bootstart
+<pre class="verbatim">
+body service_method bootstart
 {
   service_autostart_policy => "boot_time";
   service_dependence_chain => "start_parent_services";
@@ -2893,9 +3002,9 @@ windows::
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-service_method-force_deps"></a>
 <a name="body-service_005fmethod-force_005fdeps"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#body-volume-min_005ffree_005fspace">body volume min_free_space</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-service_005fmethod-bootstart">body service_method bootstart</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2904,7 +3013,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.104 body service_method force_deps</h3>
 
-<pre class="verbatim">body service_method force_deps
+<pre class="verbatim">
+body service_method force_deps
 {
   service_dependence_chain => "all_related";
 windows::
@@ -2915,9 +3025,9 @@ windows::
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="body-volume-min_free_space"></a>
 <a name="body-volume-min_005ffree_005fspace"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-agent-cronjob">bundle agent cronjob</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-service_005fmethod-force_005fdeps">body service_method force_deps</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2926,7 +3036,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.105 body volume min_free_space(free)</h3>
 
-<pre class="verbatim">body volume min_free_space(free)
+<pre class="verbatim">
+body volume min_free_space(free)
 {
 check_foreign  => "false";
 freespace      => "$(free)";
@@ -2938,8 +3049,8 @@ sensible_count => "2";
 </pre>
 
 <div class="node">
-<a name="bundle-agent-cronjob"></a>
 <p><hr>
+<a name="bundle-agent-cronjob"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fgroups_005fstarting">bundle edit_line append_groups_starting</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-volume-min_005ffree_005fspace">body volume min_free_space</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -2948,7 +3059,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.106 bundle agent cronjob(commands,user,hours,mins)</h3>
 
-<pre class="verbatim">bundle agent cronjob(commands,user,hours,mins)
+<pre class="verbatim">
+bundle agent cronjob(commands,user,hours,mins)
 
  # For adding lines to crontab for a user
  # methods:
@@ -2989,9 +3101,9 @@ changed_crontab::
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-append_groups_starting"></a>
 <a name="bundle-edit_005fline-append_005fgroups_005fstarting"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fif_005fno_005fline">bundle edit_line append_if_no_line</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-agent-cronjob">bundle agent cronjob</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3000,7 +3112,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.107 bundle edit_line append_groups_starting(v)</h3>
 
-<pre class="verbatim">bundle edit_line append_groups_starting(v)
+<pre class="verbatim">
+bundle edit_line append_groups_starting(v)
 
  # For adding groups to /etc/group, needs
  # an array v[groupname] string => "line..."
@@ -3027,9 +3140,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-append_if_no_line"></a>
 <a name="bundle-edit_005fline-append_005fif_005fno_005fline"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fif_005fno_005flines">bundle edit_line append_if_no_lines</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fgroups_005fstarting">bundle edit_line append_groups_starting</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3038,7 +3151,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.108 bundle edit_line append_if_no_line(str)</h3>
 
-<pre class="verbatim">bundle edit_line append_if_no_line(str)
+<pre class="verbatim">
+bundle edit_line append_if_no_line(str)
 {
 insert_lines:
 
@@ -3051,9 +3165,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-append_if_no_lines"></a>
 <a name="bundle-edit_005fline-append_005fif_005fno_005flines"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fto_005fline_005fend">bundle edit_line append_to_line_end</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fif_005fno_005fline">bundle edit_line append_if_no_line</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3062,7 +3176,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.109 bundle edit_line append_if_no_lines(list)</h3>
 
-<pre class="verbatim">bundle edit_line append_if_no_lines(list)
+<pre class="verbatim">
+bundle edit_line append_if_no_lines(list)
 {
 insert_lines:
 
@@ -3075,9 +3190,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-append_to_line_end"></a>
 <a name="bundle-edit_005fline-append_005fto_005fline_005fend"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fuser_005ffield">bundle edit_line append_user_field</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fif_005fno_005flines">bundle edit_line append_if_no_lines</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3086,7 +3201,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.110 bundle edit_line append_to_line_end(start,end)</h3>
 
-<pre class="verbatim">bundle edit_line append_to_line_end(start,end)
+<pre class="verbatim">
+bundle edit_line append_to_line_end(start,end)
 #
 # Lines starting with "$(start)" and not ending with "$(end)"
 # will get appended with "$(end)", whitespaces will be left unmodified.
@@ -3108,9 +3224,9 @@ field_edits:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-append_user_field"></a>
 <a name="bundle-edit_005fline-append_005fuser_005ffield"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-append_005fusers_005fstarting">bundle edit_line append_users_starting</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fto_005fline_005fend">bundle edit_line append_to_line_end</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3119,7 +3235,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.111 bundle edit_line append_user_field(group,field,allusers)</h3>
 
-<pre class="verbatim">bundle edit_line append_user_field(group,field,allusers)
+<pre class="verbatim">
+bundle edit_line append_user_field(group,field,allusers)
 
  # For adding users to to a file like /etc/group
  # at field position "field", comma separated subfields
@@ -3141,9 +3258,9 @@ field_edits:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-append_users_starting"></a>
 <a name="bundle-edit_005fline-append_005fusers_005fstarting"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-comment_005flines_005fcontaining">bundle edit_line comment_lines_containing</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fuser_005ffield">bundle edit_line append_user_field</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3152,7 +3269,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.112 bundle edit_line append_users_starting(v)</h3>
 
-<pre class="verbatim">bundle edit_line append_users_starting(v)
+<pre class="verbatim">
+bundle edit_line append_users_starting(v)
 
  # For adding to /etc/passwd or etc/shadow, needs
  # an array v[username] string => "line..."
@@ -3178,9 +3296,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-comment_lines_containing"></a>
 <a name="bundle-edit_005fline-comment_005flines_005fcontaining"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-comment_005flines_005fmatching">bundle edit_line comment_lines_matching</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-append_005fusers_005fstarting">bundle edit_line append_users_starting</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3189,7 +3307,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.113 bundle edit_line comment_lines_containing(regex,comment)</h3>
 
-<pre class="verbatim">bundle edit_line comment_lines_containing(regex,comment)
+<pre class="verbatim">
+bundle edit_line comment_lines_containing(regex,comment)
 
  # Comment lines of a file containing a regex
 
@@ -3206,9 +3325,9 @@ replace_patterns:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-comment_lines_matching"></a>
 <a name="bundle-edit_005fline-comment_005flines_005fmatching"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-create_005fsolaris_005fadmin_005ffile">bundle edit_line create_solaris_admin_file</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-comment_005flines_005fcontaining">bundle edit_line comment_lines_containing</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3217,7 +3336,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.114 bundle edit_line comment_lines_matching(regex,comment)</h3>
 
-<pre class="verbatim">bundle edit_line comment_lines_matching(regex,comment)
+<pre class="verbatim">
+bundle edit_line comment_lines_matching(regex,comment)
 
  # Comment lines of a file matching a regex
 
@@ -3234,9 +3354,9 @@ replace_patterns:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-create_solaris_admin_file"></a>
 <a name="bundle-edit_005fline-create_005fsolaris_005fadmin_005ffile"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-delete_005flines_005fmatching">bundle edit_line delete_lines_matching</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-comment_005flines_005fmatching">bundle edit_line comment_lines_matching</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3245,7 +3365,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.115 bundle edit_line create_solaris_admin_file</h3>
 
-<pre class="verbatim">bundle edit_line create_solaris_admin_file
+<pre class="verbatim">
+bundle edit_line create_solaris_admin_file
 {
 insert_lines:
 		
@@ -3271,9 +3392,9 @@ basedir=default";
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-delete_lines_matching"></a>
 <a name="bundle-edit_005fline-delete_005flines_005fmatching"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-expand_005ftemplate">bundle edit_line expand_template</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-create_005fsolaris_005fadmin_005ffile">bundle edit_line create_solaris_admin_file</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3282,7 +3403,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.116 bundle edit_line delete_lines_matching(regex)</h3>
 
-<pre class="verbatim">bundle edit_line delete_lines_matching(regex)
+<pre class="verbatim">
+bundle edit_line delete_lines_matching(regex)
 {
 delete_lines:
 
@@ -3295,9 +3417,9 @@ delete_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-expand_template"></a>
 <a name="bundle-edit_005fline-expand_005ftemplate"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-insert_005ffile">bundle edit_line insert_file</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-delete_005flines_005fmatching">bundle edit_line delete_lines_matching</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3306,7 +3428,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.117 bundle edit_line expand_template(templatefile)</h3>
 
-<pre class="verbatim">bundle edit_line expand_template(templatefile)
+<pre class="verbatim">
+bundle edit_line expand_template(templatefile)
 
  # Read in the named text file and expand $(var)
  # inside the file
@@ -3325,9 +3448,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-insert_file"></a>
 <a name="bundle-edit_005fline-insert_005ffile"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-insert_005flines">bundle edit_line insert_lines</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-expand_005ftemplate">bundle edit_line expand_template</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3336,7 +3459,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.118 bundle edit_line insert_file(templatefile)</h3>
 
-<pre class="verbatim">bundle edit_line insert_file(templatefile)
+<pre class="verbatim">
+bundle edit_line insert_file(templatefile)
 {
 insert_lines:
 
@@ -3349,9 +3473,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-insert_lines"></a>
 <a name="bundle-edit_005fline-insert_005flines"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-replace_005fline_005fend">bundle edit_line replace_line_end</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-insert_005ffile">bundle edit_line insert_file</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3360,12 +3484,13 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.119 bundle edit_line insert_lines(lines)</h3>
 
-<pre class="verbatim"></pre>
+<pre class="verbatim">
+</pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-replace_line_end"></a>
 <a name="bundle-edit_005fline-replace_005fline_005fend"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-insert_005flines">bundle edit_line insert_lines</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3374,7 +3499,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.120 bundle edit_line replace_line_end(start,end)</h3>
 
-<pre class="verbatim">bundle edit_line replace_line_end(start,end)
+<pre class="verbatim">
+bundle edit_line replace_line_end(start,end)
 #
 # Lines starting with "$(start)" will get the ending given in "$(end)",
 # whitespaces will be left unmodified.
@@ -3393,9 +3519,9 @@ field_edits:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-resolvconf"></a>
 <a name="bundle-edit_005fline-resolvconf"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fuser_005ffield">bundle edit_line set_user_field</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-replace_005fline_005fend">bundle edit_line replace_line_end</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3404,7 +3530,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.121 bundle edit_line resolvconf(search,list)</h3>
 
-<pre class="verbatim">bundle edit_line resolvconf(search,list)
+<pre class="verbatim">
+bundle edit_line resolvconf(search,list)
 
  # search is the search domains with space
  # list is an slist of nameserver addresses
@@ -3425,9 +3552,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-set_user_field"></a>
 <a name="bundle-edit_005fline-set_005fuser_005ffield"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fvariable_005fvalues">bundle edit_line set_variable_values</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3436,7 +3563,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.122 bundle edit_line set_user_field(user,field,val)</h3>
 
-<pre class="verbatim">bundle edit_line set_user_field(user,field,val)
+<pre class="verbatim">
+bundle edit_line set_user_field(user,field,val)
 
  # Set the value of field number "field" in
  # a :-field formatted file like /etc/passwd
@@ -3454,9 +3582,9 @@ field_edits:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-set_variable_values"></a>
 <a name="bundle-edit_005fline-set_005fvariable_005fvalues"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fvariable_005fvalues2">bundle edit_line set_variable_values2</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-set_005fuser_005ffield">bundle edit_line set_user_field</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3465,7 +3593,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.123 bundle edit_line set_variable_values(v)</h3>
 
-<pre class="verbatim">bundle edit_line set_variable_values(v)
+<pre class="verbatim">
+bundle edit_line set_variable_values(v)
 
  # Sets the RHS of variables in the file of the form
  #   LHS = RHS
@@ -3509,9 +3638,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-set_variable_values2"></a>
 <a name="bundle-edit_005fline-set_005fvariable_005fvalues2"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-uncomment_005flines_005fcontaining">bundle edit_line uncomment_lines_containing</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-set_005fvariable_005fvalues">bundle edit_line set_variable_values</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3520,7 +3649,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.124 bundle edit_line set_variable_values2(file,v)</h3>
 
-<pre class="verbatim">bundle edit_line set_variable_values2(file,v)
+<pre class="verbatim">
+bundle edit_line set_variable_values2(file,v)
 #
 # Another implementation of set_variable_values.
 # The input and output should be exactly the same (except the file name), 
@@ -3560,9 +3690,9 @@ insert_lines:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-uncomment_lines_containing"></a>
 <a name="bundle-edit_005fline-uncomment_005flines_005fcontaining"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-uncomment_005flines_005fmatching">bundle edit_line uncomment_lines_matching</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-set_005fvariable_005fvalues2">bundle edit_line set_variable_values2</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3571,7 +3701,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.125 bundle edit_line uncomment_lines_containing(regex,comment)</h3>
 
-<pre class="verbatim">bundle edit_line uncomment_lines_containing(regex,comment)
+<pre class="verbatim">
+bundle edit_line uncomment_lines_containing(regex,comment)
 	 
  # Uncomment lines of a file where the regex matches
  # the text after the comment string
@@ -3589,9 +3720,9 @@ replace_patterns:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-uncomment_lines_matching"></a>
 <a name="bundle-edit_005fline-uncomment_005flines_005fmatching"></a>
-<p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-warn_005flines_005fmatching">bundle edit_line warn_lines_matching</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-uncomment_005flines_005fcontaining">bundle edit_line uncomment_lines_containing</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
@@ -3600,7 +3731,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.126 bundle edit_line uncomment_lines_matching(regex,comment)</h3>
 
-<pre class="verbatim">bundle edit_line uncomment_lines_matching(regex,comment)
+<pre class="verbatim">
+bundle edit_line uncomment_lines_matching(regex,comment)
 	 
  # Uncomment lines of a file where the regex matches
  # the text after the comment string
@@ -3618,9 +3750,9 @@ replace_patterns:
 </pre>
 
 <div class="node">
+<p><hr>
 <a name="bundle-edit_line-warn_lines_matching"></a>
 <a name="bundle-edit_005fline-warn_005flines_005fmatching"></a>
-<p><hr>
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-uncomment_005flines_005fmatching">bundle edit_line uncomment_lines_matching</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
@@ -3628,7 +3760,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 <h3 class="section">1.127 bundle edit_line warn_lines_matching(regex)</h3>
 
-<pre class="verbatim">bundle edit_line warn_lines_matching(regex)
+<pre class="verbatim">
+bundle edit_line warn_lines_matching(regex)
 {
 delete_lines:
 
