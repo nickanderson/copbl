@@ -8,7 +8,7 @@ CfengineStdLibrary.html: stdlib.texinfo
 	makeinfo --force --html --no-split --css-include=cfcomdoc.css stdlib.texinfo
 	echo "Now copy this scp TO cf001lin.cfengine.com:/cfengine/cf001lin/community/app/webroot/manuals/"
 
-stdlib.texinfo: cfengine_stdlib.cf
+stdlib.texinfo: cfengine_stdlib.cf build_library
 	./build_library
 
 build_library: build_library.c
