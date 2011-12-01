@@ -1608,6 +1608,34 @@ freebsd::
  package_delete_command => "/usr/sbin/pkg_delete";
 }
 
+##
+
+#
+# Suggested by -- bronto -- CFE waits for return codes from some packages
+#
+
+body package_method aptget
+{
+package_changes => "bulk";
+package_list_command => "/usr/bin/dpkg -l";
+package_list_name_regex    => "ii\s+([^\s]+).*";
+package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
+package_installed_regex => ".*"; # all reported are installed
+package_name_convention => "$(name)";
+
+# set it to "0" to avoid caching of list during upgrade
+package_list_update_ifelapsed => "240";
+
+# package_add_command => "/usr/bin/apt-get --force-yes --yes -q -o DPkg::Options::=--force-confold install";
+package_add_command => "/usr/bin/apt-get --yes -q -o DPkg::Options::=--force-confold install";
+package_list_update_command => "/usr/bin/apt-get update";
+package_delete_command => "/usr/bin/apt-get --yes -q remove";
+# package_update_command =>  "/usr/bin/apt-get --force-yes --yes -q -o DPkg::Options::=--force-confold install";
+package_update_command =>  "/usr/bin/apt-get --yes -q -o DPkg::Options::=--force-confold install";
+package_verify_command => "/usr/bin/dpkg -s";
+package_noverify_returncode => "1";
+}
+
 ##-------------------------------------------------------
 ## storage promises
 ##-------------------------------------------------------
