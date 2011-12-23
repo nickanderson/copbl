@@ -929,6 +929,13 @@ source      => "$(from)";
 preserve    => "true";
 }
 
+body copy_from backup_local_cp(from)
+# Local copy, keeping a backup of old versions
+{
+  source      => "$(from)";
+  copy_backup => "timestamp";
+}
+
 ##
 
 # Copy only if the file does not already exist, i.e. seed the placement
