@@ -415,6 +415,28 @@ insert_lines:
      expand_scalars => "true";
 }
 
+bundle edit_line replace_or_add(pattern,line)
+
+ # Replace a pattern in a file with a single line.
+ # If the pattern is not found, add the line to the file.
+ # The pattern must match the whole line (it is automatically
+ # anchored to the start and end of the line) to avoid
+ # ambiguity.
+
+{
+vars:
+  "cline" string => canonify("$(line)");
+
+replace_patterns:
+  "^(?!$(line))$(pattern)$"
+  replace_with => value("$(line)"),
+  classes => always("replace_done_$(cline)");
+
+insert_lines:
+  "$(line)"
+    ifvarclass => "replace_done_$(cline)";
+}
+
 ##
 
 bundle agent cronjob(commands,user,hours,mins)
