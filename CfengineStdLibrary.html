@@ -290,6 +290,7 @@ ca n be made to the help-cfengine@cfengine.org mailing list.
 <li><a href="#body-changes-diff">body changes diff</a>
 <li><a href="#body-changes-diff_005fnoupdate">body changes diff_noupdate</a>
 <li><a href="#body-changes-noupdate">body changes noupdate</a>
+<li><a href="#body-classes-always">body classes always</a>
 <li><a href="#body-classes-cf2_005fif_005felse">body classes cf2_if_else</a>
 <li><a href="#body-classes-cmd_005frepair">body classes cmd_repair</a>
 <li><a href="#body-classes-enumerate">body classes enumerate</a>
@@ -309,6 +310,7 @@ ca n be made to the help-cfengine@cfengine.org mailing list.
 <li><a href="#body-contain-setuidgid_005fsh">body contain setuidgid_sh</a>
 <li><a href="#body-contain-silent">body contain silent</a>
 <li><a href="#body-contain-silent_005fin_005fdir">body contain silent_in_dir</a>
+<li><a href="#body-copy_005ffrom-backup_005flocal_005fcp">body copy_from backup_local_cp</a>
 <li><a href="#body-copy_005ffrom-local_005fcp">body copy_from local_cp</a>
 <li><a href="#body-copy_005ffrom-local_005fdcp">body copy_from local_dcp</a>
 <li><a href="#body-copy_005ffrom-no_005fbackup_005fcp">body copy_from no_backup_cp</a>
@@ -392,7 +394,9 @@ ca n be made to the help-cfengine@cfengine.org mailing list.
 <li><a href="#bundle-edit_005fline-insert_005ffile">bundle edit_line insert_file</a>
 <li><a href="#bundle-edit_005fline-insert_005flines">bundle edit_line insert_lines</a>
 <li><a href="#bundle-edit_005fline-replace_005fline_005fend">bundle edit_line replace_line_end</a>
+<li><a href="#bundle-edit_005fline-replace_005for_005fadd">bundle edit_line replace_or_add</a>
 <li><a href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>
+<li><a href="#bundle-edit_005fline-set_005fconfig_005fvalues">bundle edit_line set_config_values</a>
 <li><a href="#bundle-edit_005fline-set_005fuser_005ffield">bundle edit_line set_user_field</a>
 <li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues">bundle edit_line set_variable_values</a>
 <li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues2">bundle edit_line set_variable_values2</a>
@@ -799,7 +803,7 @@ update_hashes  => "no";
 <div class="node">
 <p><hr>
 <a name="body-changes-noupdate"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-cf2_005fif_005felse">body classes cf2_if_else</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-always">body classes always</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-diff_005fnoupdate">body changes diff_noupdate</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
@@ -821,15 +825,46 @@ update_hashes  => "no";
 
 <div class="node">
 <p><hr>
-<a name="body-classes-cf2_if_else"></a>
-<a name="body-classes-cf2_005fif_005felse"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-cmd_005frepair">body classes cmd_repair</a>,
+<a name="body-classes-always"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-cf2_005fif_005felse">body classes cf2_if_else</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-changes-noupdate">body changes noupdate</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
 </div>
 
-<h3 class="section">1.19 body classes cf2_if_else(yes,no)</h3>
+<h3 class="section">1.19 body classes always(x)</h3>
+
+<pre class="verbatim">
+body classes always(x)
+
+# Define a class no matter what the outcome of the promise is
+
+{
+  promise_repaired => { "$(x)" };
+  promise_kept => { "$(x)" };
+  repair_failed => { "$(x)" };
+  repair_denied => { "$(x)" };
+  repair_timeout => { "$(x)" };
+}
+
+# agent bundles
+
+
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-classes-cf2_if_else"></a>
+<a name="body-classes-cf2_005fif_005felse"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-classes-cmd_005frepair">body classes cmd_repair</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-classes-always">body classes always</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.20 body classes cf2_if_else(yes,no)</h3>
 
 <pre class="verbatim">
 body classes cf2_if_else(yes,no)
@@ -856,7 +891,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.20 body classes cmd_repair(code,cl)</h3>
+<h3 class="section">1.21 body classes cmd_repair(code,cl)</h3>
 
 <pre class="verbatim">
 body classes cmd_repair(code,cl)
@@ -877,7 +912,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.21 body classes enumerate(x)</h3>
+<h3 class="section">1.22 body classes enumerate(x)</h3>
 
 <pre class="verbatim">
 body classes enumerate(x)
@@ -893,10 +928,6 @@ promise_kept => { "mXC_$(x)" };
 persist_time => "15";
 }
 
-# agent bundles
-
-
-
 
 </pre>
 
@@ -910,7 +941,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.22 body classes if_else(yes,no)</h3>
+<h3 class="section">1.23 body classes if_else(yes,no)</h3>
 
 <pre class="verbatim">
 body classes if_else(yes,no)
@@ -936,7 +967,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.23 body classes if_notkept(x)</h3>
+<h3 class="section">1.24 body classes if_notkept(x)</h3>
 
 <pre class="verbatim">
 body classes if_notkept(x)
@@ -959,7 +990,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.24 body classes if_ok(x)</h3>
+<h3 class="section">1.25 body classes if_ok(x)</h3>
 
 <pre class="verbatim">
 body classes if_ok(x)
@@ -981,7 +1012,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.25 body classes if_repaired(x)</h3>
+<h3 class="section">1.26 body classes if_repaired(x)</h3>
 
 <pre class="verbatim">
 body classes if_repaired(x)
@@ -1002,7 +1033,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.26 body classes state_repaired(x)</h3>
+<h3 class="section">1.27 body classes state_repaired(x)</h3>
 
 <pre class="verbatim">
 body classes state_repaired(x)
@@ -1024,7 +1055,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.27 body contain in_dir(s)</h3>
+<h3 class="section">1.28 body contain in_dir(s)</h3>
 
 <pre class="verbatim">
 body contain in_dir(s)
@@ -1045,7 +1076,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.28 body contain in_dir_shell(s)</h3>
+<h3 class="section">1.29 body contain in_dir_shell(s)</h3>
 
 <pre class="verbatim">
 body contain in_dir_shell(s)
@@ -1067,7 +1098,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.29 body contain in_shell</h3>
+<h3 class="section">1.30 body contain in_shell</h3>
 
 <pre class="verbatim">
 body contain in_shell
@@ -1088,7 +1119,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.30 body contain in_shell_and_silent</h3>
+<h3 class="section">1.31 body contain in_shell_and_silent</h3>
 
 <pre class="verbatim">
 body contain in_shell_and_silent
@@ -1110,7 +1141,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.31 body contain in_shell_bg</h3>
+<h3 class="section">1.32 body contain in_shell_bg</h3>
 
 <pre class="verbatim">
 body contain in_shell_bg
@@ -1131,7 +1162,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.32 body contain jail(owner,root,dir)</h3>
+<h3 class="section">1.33 body contain jail(owner,root,dir)</h3>
 
 <pre class="verbatim">
 body contain jail(owner,root,dir)
@@ -1156,7 +1187,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.33 body contain setuid(x)</h3>
+<h3 class="section">1.34 body contain setuid(x)</h3>
 
 <pre class="verbatim">
 body contain setuid(x)
@@ -1178,7 +1209,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.34 body contain setuid_sh(x)</h3>
+<h3 class="section">1.35 body contain setuid_sh(x)</h3>
 
 <pre class="verbatim">
 body contain setuid_sh(x)
@@ -1200,7 +1231,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.35 body contain setuidgid_sh(owner,group)</h3>
+<h3 class="section">1.36 body contain setuidgid_sh(owner,group)</h3>
 
 <pre class="verbatim">
 body contain setuidgid_sh(owner,group)
@@ -1222,7 +1253,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.36 body contain silent</h3>
+<h3 class="section">1.37 body contain silent</h3>
 
 <pre class="verbatim">
 body contain silent
@@ -1237,13 +1268,13 @@ no_output => "true";
 <p><hr>
 <a name="body-contain-silent_in_dir"></a>
 <a name="body-contain-silent_005fin_005fdir"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-local_005fcp">body copy_from local_cp</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-backup_005flocal_005fcp">body copy_from backup_local_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-silent">body contain silent</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
 </div>
 
-<h3 class="section">1.37 body contain silent_in_dir(s)</h3>
+<h3 class="section">1.38 body contain silent_in_dir(s)</h3>
 
 <pre class="verbatim">
 body contain silent_in_dir(s)
@@ -1257,15 +1288,40 @@ no_output => "true";
 
 <div class="node">
 <p><hr>
-<a name="body-copy_from-local_cp"></a>
-<a name="body-copy_005ffrom-local_005fcp"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-local_005fdcp">body copy_from local_dcp</a>,
+<a name="body-copy_from-backup_local_cp"></a>
+<a name="body-copy_005ffrom-backup_005flocal_005fcp"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-local_005fcp">body copy_from local_cp</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-contain-silent_005fin_005fdir">body contain silent_in_dir</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
 </div>
 
-<h3 class="section">1.38 body copy_from local_cp(from)</h3>
+<h3 class="section">1.39 body copy_from backup_local_cp(from)</h3>
+
+<pre class="verbatim">
+body copy_from backup_local_cp(from)
+# Local copy, keeping a backup of old versions
+{
+  source      => "$(from)";
+  copy_backup => "timestamp";
+}
+
+
+# Copy only if the file does not already exist, i.e. seed the placement
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="body-copy_from-local_cp"></a>
+<a name="body-copy_005ffrom-local_005fcp"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#body-copy_005ffrom-local_005fdcp">body copy_from local_dcp</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#body-copy_005ffrom-backup_005flocal_005fcp">body copy_from backup_local_cp</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.40 body copy_from local_cp(from)</h3>
 
 <pre class="verbatim">
 body copy_from local_cp(from)
@@ -1286,7 +1342,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.39 body copy_from local_dcp(from)</h3>
+<h3 class="section">1.41 body copy_from local_dcp(from)</h3>
 
 <pre class="verbatim">
 body copy_from local_dcp(from)
@@ -1308,7 +1364,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.40 body copy_from no_backup_cp(from)</h3>
+<h3 class="section">1.42 body copy_from no_backup_cp(from)</h3>
 
 <pre class="verbatim">
 body copy_from no_backup_cp(from)
@@ -1330,7 +1386,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.41 body copy_from no_backup_dcp(from)</h3>
+<h3 class="section">1.43 body copy_from no_backup_dcp(from)</h3>
 
 <pre class="verbatim">
 body copy_from no_backup_dcp(from)
@@ -1353,7 +1409,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.42 body copy_from no_backup_rcp(from,server)</h3>
+<h3 class="section">1.44 body copy_from no_backup_rcp(from,server)</h3>
 
 <pre class="verbatim">
 body copy_from no_backup_rcp(from,server)
@@ -1377,7 +1433,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.43 body copy_from perms_cp(from)</h3>
+<h3 class="section">1.45 body copy_from perms_cp(from)</h3>
 
 <pre class="verbatim">
 body copy_from perms_cp(from)
@@ -1385,9 +1441,6 @@ body copy_from perms_cp(from)
 source      => "$(from)";
 preserve    => "true";
 }
-
-
-# Copy only if the file does not already exist, i.e. seed the placement
 
 </pre>
 
@@ -1401,7 +1454,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.44 body copy_from remote_cp(from,server)</h3>
+<h3 class="section">1.46 body copy_from remote_cp(from,server)</h3>
 
 <pre class="verbatim">
 body copy_from remote_cp(from,server)
@@ -1424,7 +1477,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.45 body copy_from remote_dcp(from,server)</h3>
+<h3 class="section">1.47 body copy_from remote_dcp(from,server)</h3>
 
 <pre class="verbatim">
 body copy_from remote_dcp(from,server)
@@ -1447,7 +1500,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.46 body copy_from secure_cp(from,server)</h3>
+<h3 class="section">1.48 body copy_from secure_cp(from,server)</h3>
 
 <pre class="verbatim">
 body copy_from secure_cp(from,server)
@@ -1472,7 +1525,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.47 body copy_from seed_cp(from)</h3>
+<h3 class="section">1.49 body copy_from seed_cp(from)</h3>
 
 <pre class="verbatim">
 body copy_from seed_cp(from)
@@ -1494,7 +1547,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.48 body copy_from sync_cp(from,server)</h3>
+<h3 class="section">1.50 body copy_from sync_cp(from,server)</h3>
 
 <pre class="verbatim">
 body copy_from sync_cp(from,server)
@@ -1518,7 +1571,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.49 body delete tidy</h3>
+<h3 class="section">1.51 body delete tidy</h3>
 
 <pre class="verbatim">
 body delete tidy
@@ -1541,7 +1594,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.50 body depth_search include_base</h3>
+<h3 class="section">1.52 body depth_search include_base</h3>
 
 <pre class="verbatim">
 body depth_search include_base
@@ -1562,7 +1615,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.51 body depth_search recurse(d)</h3>
+<h3 class="section">1.53 body depth_search recurse(d)</h3>
 
 <pre class="verbatim">
 body depth_search recurse(d)
@@ -1585,7 +1638,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.52 body depth_search recurse_ignore(d,list)</h3>
+<h3 class="section">1.54 body depth_search recurse_ignore(d,list)</h3>
 
 <pre class="verbatim">
 body depth_search recurse_ignore(d,list)
@@ -1607,7 +1660,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.53 body edit_defaults empty</h3>
+<h3 class="section">1.55 body edit_defaults empty</h3>
 
 <pre class="verbatim">
 body edit_defaults empty
@@ -1630,7 +1683,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.54 body edit_defaults no_backup</h3>
+<h3 class="section">1.56 body edit_defaults no_backup</h3>
 
 <pre class="verbatim">
 body edit_defaults no_backup
@@ -1651,7 +1704,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.55 body edit_defaults std_defs</h3>
+<h3 class="section">1.57 body edit_defaults std_defs</h3>
 
 <pre class="verbatim">
 body edit_defaults std_defs
@@ -1674,7 +1727,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.56 body edit_field col(split,col,newval,method)</h3>
+<h3 class="section">1.58 body edit_field col(split,col,newval,method)</h3>
 
 <pre class="verbatim">
 body edit_field col(split,col,newval,method)
@@ -1701,7 +1754,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.57 body edit_field line(split,col,newval,method)</h3>
+<h3 class="section">1.59 body edit_field line(split,col,newval,method)</h3>
 
 <pre class="verbatim">
 body edit_field line(split,col,newval,method)
@@ -1728,7 +1781,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.58 body edit_field quoted_var(newval,method)</h3>
+<h3 class="section">1.60 body edit_field quoted_var(newval,method)</h3>
 
 <pre class="verbatim">
 body edit_field quoted_var(newval,method)
@@ -1755,7 +1808,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.59 body file_select by_name(names)</h3>
+<h3 class="section">1.61 body file_select by_name(names)</h3>
 
 <pre class="verbatim">
 body file_select by_name(names)
@@ -1777,7 +1830,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.60 body file_select days_old(days)</h3>
+<h3 class="section">1.62 body file_select days_old(days)</h3>
 
 <pre class="verbatim">
 body file_select days_old(days)
@@ -1799,7 +1852,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.61 body file_select dirs</h3>
+<h3 class="section">1.63 body file_select dirs</h3>
 
 <pre class="verbatim">
 body file_select dirs
@@ -1821,7 +1874,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.62 body file_select ex_list(names)</h3>
+<h3 class="section">1.64 body file_select ex_list(names)</h3>
 
 <pre class="verbatim">
 body file_select ex_list(names)
@@ -1843,7 +1896,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.63 body file_select exclude(name)</h3>
+<h3 class="section">1.65 body file_select exclude(name)</h3>
 
 <pre class="verbatim">
 body file_select exclude(name)
@@ -1865,7 +1918,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.64 body file_select name_age(name,days)</h3>
+<h3 class="section">1.66 body file_select name_age(name,days)</h3>
 
 <pre class="verbatim">
 body file_select name_age(name,days)
@@ -1888,7 +1941,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.65 body file_select plain</h3>
+<h3 class="section">1.67 body file_select plain</h3>
 
 <pre class="verbatim">
 body file_select plain
@@ -1909,7 +1962,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.66 body file_select size_range(from,to)</h3>
+<h3 class="section">1.68 body file_select size_range(from,to)</h3>
 
 <pre class="verbatim">
 body file_select size_range(from,to)
@@ -1931,7 +1984,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.67 body link_from linkchildren(tofile)</h3>
+<h3 class="section">1.69 body link_from linkchildren(tofile)</h3>
 
 <pre class="verbatim">
 body link_from linkchildren(tofile)
@@ -1956,7 +2009,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.68 body link_from ln_s(x)</h3>
+<h3 class="section">1.70 body link_from ln_s(x)</h3>
 
 <pre class="verbatim">
 body link_from ln_s(x)
@@ -1978,7 +2031,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.69 body location after(str)</h3>
+<h3 class="section">1.71 body location after(str)</h3>
 
 <pre class="verbatim">
 body location after(str)
@@ -2000,7 +2053,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.70 body location start</h3>
+<h3 class="section">1.72 body location start</h3>
 
 <pre class="verbatim">
 body location start
@@ -2021,7 +2074,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.71 body match_value scan_changing_file(line)</h3>
+<h3 class="section">1.73 body match_value scan_changing_file(line)</h3>
 
 <pre class="verbatim">
 body match_value scan_changing_file(line)
@@ -2043,7 +2096,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.72 body match_value scan_log(line)</h3>
+<h3 class="section">1.74 body match_value scan_log(line)</h3>
 
 <pre class="verbatim">
 body match_value scan_log(line)
@@ -2064,7 +2117,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.73 body mount nfs(server,source)</h3>
+<h3 class="section">1.75 body mount nfs(server,source)</h3>
 
 <pre class="verbatim">
 body mount nfs(server,source)
@@ -2089,7 +2142,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.74 body mount nfs_p(server,source,perm)</h3>
+<h3 class="section">1.76 body mount nfs_p(server,source,perm)</h3>
 
 <pre class="verbatim">
 body mount nfs_p(server,source,perm)
@@ -2113,7 +2166,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.75 body mount unmount</h3>
+<h3 class="section">1.77 body mount unmount</h3>
 
 <pre class="verbatim">
 body mount unmount
@@ -2136,7 +2189,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.76 body package_method apt</h3>
+<h3 class="section">1.78 body package_method apt</h3>
 
 <pre class="verbatim">
 body package_method apt
@@ -2152,18 +2205,18 @@ package_name_convention => "$(name)";
 package_list_update_ifelapsed => "240";
 
 have_aptitude::
-   package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes install";
    package_list_update_command => "/usr/bin/aptitude update";
-   package_delete_command => "/usr/bin/aptitude --assume-yes remove";
-   package_update_command =>  "/usr/bin/aptitude --assume-yes install";
+   package_delete_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes -q remove";
+   package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes install";
    package_verify_command =>  "/usr/bin/aptitude show";
    package_noverify_regex => "(State: not installed|E: Unable to locate package .*)";
 
 !have_aptitude::
-   package_add_command => "/usr/bin/apt-get --yes install";
+   package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_list_update_command => "/usr/bin/apt-get update";
-   package_delete_command => "/usr/bin/apt-get --yes remove";
-   package_update_command =>  "/usr/bin/apt-get --yes install";
+   package_delete_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes -q remove";
+   package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_verify_command => "/usr/bin/dpkg -s";
    package_noverify_returncode => "1";
 }
@@ -2181,7 +2234,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.77 body package_method dpkg_version(repo)</h3>
+<h3 class="section">1.79 body package_method dpkg_version(repo)</h3>
 
 <pre class="verbatim">
 body package_method dpkg_version(repo)
@@ -2224,7 +2277,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.78 body package_method freebsd</h3>
+<h3 class="section">1.80 body package_method freebsd</h3>
 
 <pre class="verbatim">
 body package_method freebsd
@@ -2266,7 +2319,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.79 body package_method generic</h3>
+<h3 class="section">1.81 body package_method generic</h3>
 
 <pre class="verbatim">
 body package_method generic
@@ -2317,18 +2370,18 @@ debian::
  package_list_update_ifelapsed => "240";		# 4 hours
 
 debian.have_aptitude::
-   package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes install";
    package_list_update_command => "/usr/bin/aptitude update";
-   package_delete_command => "/usr/bin/aptitude --assume-yes remove";
-   package_update_command =>  "/usr/bin/aptitude --assume-yes install";
+   package_delete_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes remove";
+   package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes install";
    package_verify_command =>  "/usr/bin/aptitude show";
    package_noverify_regex => "(State: not installed|E: Unable to locate package .*)";
 
 debian.!have_aptitude::
-   package_add_command => "/usr/bin/apt-get --yes install";
+   package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_list_update_command => "/usr/bin/apt-get update";
-   package_delete_command => "/usr/bin/apt-get --yes remove";
-   package_update_command =>  "/usr/bin/apt-get --yes install";
+   package_delete_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes remove";
+   package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_verify_command => "/usr/bin/dpkg -s";
    package_noverify_returncode => "1";
 
@@ -2346,6 +2399,7 @@ freebsd::
 }
 
 
+
 </pre>
 
 <div class="node">
@@ -2358,7 +2412,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.80 body package_method msi_explicit(repo)</h3>
+<h3 class="section">1.82 body package_method msi_explicit(repo)</h3>
 
 <pre class="verbatim">
 body package_method msi_explicit(repo)
@@ -2391,7 +2445,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.81 body package_method msi_implicit(repo)</h3>
+<h3 class="section">1.83 body package_method msi_implicit(repo)</h3>
 
 <pre class="verbatim">
 body package_method msi_implicit(repo)
@@ -2428,7 +2482,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.82 body package_method rpm_version(repo)</h3>
+<h3 class="section">1.84 body package_method rpm_version(repo)</h3>
 
 <pre class="verbatim">
 body package_method rpm_version(repo)
@@ -2469,7 +2523,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.83 body package_method solaris (pkgname, spoolfile, adminfile)</h3>
+<h3 class="section">1.85 body package_method solaris (pkgname, spoolfile, adminfile)</h3>
 
 <pre class="verbatim">
 body package_method solaris (pkgname, spoolfile, adminfile)
@@ -2503,7 +2557,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.84 body package_method yum</h3>
+<h3 class="section">1.86 body package_method yum</h3>
 
 <pre class="verbatim">
 body package_method yum
@@ -2548,7 +2602,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.85 body package_method yum_rpm</h3>
+<h3 class="section">1.87 body package_method yum_rpm</h3>
 
 <pre class="verbatim">
 body package_method yum_rpm
@@ -2600,7 +2654,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.86 body package_method zypper</h3>
+<h3 class="section">1.88 body package_method zypper</h3>
 
 <pre class="verbatim">
 body package_method zypper
@@ -2644,7 +2698,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.87 body perms m(mode)</h3>
+<h3 class="section">1.89 body perms m(mode)</h3>
 
 <pre class="verbatim">
 body perms m(mode)
@@ -2664,7 +2718,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.88 body perms mo(mode,user)</h3>
+<h3 class="section">1.90 body perms mo(mode,user)</h3>
 
 <pre class="verbatim">
 body perms mo(mode,user)
@@ -2685,7 +2739,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.89 body perms mog(mode,user,group)</h3>
+<h3 class="section">1.91 body perms mog(mode,user,group)</h3>
 
 <pre class="verbatim">
 body perms mog(mode,user,group)
@@ -2707,7 +2761,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.90 body perms og(u,g)</h3>
+<h3 class="section">1.92 body perms og(u,g)</h3>
 
 <pre class="verbatim">
 body perms og(u,g)
@@ -2728,7 +2782,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.91 body perms owner(user)</h3>
+<h3 class="section">1.93 body perms owner(user)</h3>
 
 <pre class="verbatim">
 body perms owner(user)
@@ -2749,7 +2803,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.92 body process_count any_count(cl)</h3>
+<h3 class="section">1.94 body process_count any_count(cl)</h3>
 
 <pre class="verbatim">
 body process_count any_count(cl)
@@ -2772,7 +2826,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.93 body process_count check_range(name,lower,upper)</h3>
+<h3 class="section">1.95 body process_count check_range(name,lower,upper)</h3>
 
 <pre class="verbatim">
 body process_count check_range(name,lower,upper)
@@ -2794,7 +2848,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.94 body process_select days_older_than(d)</h3>
+<h3 class="section">1.96 body process_select days_older_than(d)</h3>
 
 <pre class="verbatim">
 body process_select days_older_than(d)
@@ -2816,7 +2870,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.95 body process_select exclude_procs(x)</h3>
+<h3 class="section">1.97 body process_select exclude_procs(x)</h3>
 
 <pre class="verbatim">
 body process_select exclude_procs(x)
@@ -2837,7 +2891,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.96 body rename disable</h3>
+<h3 class="section">1.98 body rename disable</h3>
 
 <pre class="verbatim">
 body rename disable
@@ -2857,7 +2911,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.97 body rename rotate(level)</h3>
+<h3 class="section">1.99 body rename rotate(level)</h3>
 
 <pre class="verbatim">
 body rename rotate(level)
@@ -2877,7 +2931,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.98 body rename to(file)</h3>
+<h3 class="section">1.100 body rename to(file)</h3>
 
 <pre class="verbatim">
 body rename to(file)
@@ -2898,7 +2952,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.99 body replace_with comment(c)</h3>
+<h3 class="section">1.101 body replace_with comment(c)</h3>
 
 <pre class="verbatim">
 body replace_with comment(c)
@@ -2920,7 +2974,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.100 body replace_with uncomment</h3>
+<h3 class="section">1.102 body replace_with uncomment</h3>
 
 <pre class="verbatim">
 body replace_with uncomment
@@ -2943,7 +2997,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.101 body replace_with value(x)</h3>
+<h3 class="section">1.103 body replace_with value(x)</h3>
 
 <pre class="verbatim">
 body replace_with value(x)
@@ -2965,7 +3019,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.102 body select_region INI_section(x)</h3>
+<h3 class="section">1.104 body select_region INI_section(x)</h3>
 
 <pre class="verbatim">
 body select_region INI_section(x)
@@ -2987,7 +3041,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.103 body service_method bootstart</h3>
+<h3 class="section">1.105 body service_method bootstart</h3>
 
 <pre class="verbatim">
 body service_method bootstart
@@ -3011,7 +3065,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.104 body service_method force_deps</h3>
+<h3 class="section">1.106 body service_method force_deps</h3>
 
 <pre class="verbatim">
 body service_method force_deps
@@ -3034,7 +3088,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.105 body volume min_free_space(free)</h3>
+<h3 class="section">1.107 body volume min_free_space(free)</h3>
 
 <pre class="verbatim">
 body volume min_free_space(free)
@@ -3057,7 +3111,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.106 bundle agent cronjob(commands,user,hours,mins)</h3>
+<h3 class="section">1.108 bundle agent cronjob(commands,user,hours,mins)</h3>
 
 <pre class="verbatim">
 bundle agent cronjob(commands,user,hours,mins)
@@ -3110,7 +3164,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.107 bundle edit_line append_groups_starting(v)</h3>
+<h3 class="section">1.109 bundle edit_line append_groups_starting(v)</h3>
 
 <pre class="verbatim">
 bundle edit_line append_groups_starting(v)
@@ -3149,7 +3203,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.108 bundle edit_line append_if_no_line(str)</h3>
+<h3 class="section">1.110 bundle edit_line append_if_no_line(str)</h3>
 
 <pre class="verbatim">
 bundle edit_line append_if_no_line(str)
@@ -3174,7 +3228,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.109 bundle edit_line append_if_no_lines(list)</h3>
+<h3 class="section">1.111 bundle edit_line append_if_no_lines(list)</h3>
 
 <pre class="verbatim">
 bundle edit_line append_if_no_lines(list)
@@ -3199,7 +3253,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.110 bundle edit_line append_to_line_end(start,end)</h3>
+<h3 class="section">1.112 bundle edit_line append_to_line_end(start,end)</h3>
 
 <pre class="verbatim">
 bundle edit_line append_to_line_end(start,end)
@@ -3233,7 +3287,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.111 bundle edit_line append_user_field(group,field,allusers)</h3>
+<h3 class="section">1.113 bundle edit_line append_user_field(group,field,allusers)</h3>
 
 <pre class="verbatim">
 bundle edit_line append_user_field(group,field,allusers)
@@ -3267,7 +3321,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.112 bundle edit_line append_users_starting(v)</h3>
+<h3 class="section">1.114 bundle edit_line append_users_starting(v)</h3>
 
 <pre class="verbatim">
 bundle edit_line append_users_starting(v)
@@ -3305,7 +3359,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.113 bundle edit_line comment_lines_containing(regex,comment)</h3>
+<h3 class="section">1.115 bundle edit_line comment_lines_containing(regex,comment)</h3>
 
 <pre class="verbatim">
 bundle edit_line comment_lines_containing(regex,comment)
@@ -3334,7 +3388,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.114 bundle edit_line comment_lines_matching(regex,comment)</h3>
+<h3 class="section">1.116 bundle edit_line comment_lines_matching(regex,comment)</h3>
 
 <pre class="verbatim">
 bundle edit_line comment_lines_matching(regex,comment)
@@ -3363,7 +3417,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.115 bundle edit_line create_solaris_admin_file</h3>
+<h3 class="section">1.117 bundle edit_line create_solaris_admin_file</h3>
 
 <pre class="verbatim">
 bundle edit_line create_solaris_admin_file
@@ -3401,7 +3455,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.116 bundle edit_line delete_lines_matching(regex)</h3>
+<h3 class="section">1.118 bundle edit_line delete_lines_matching(regex)</h3>
 
 <pre class="verbatim">
 bundle edit_line delete_lines_matching(regex)
@@ -3426,7 +3480,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.117 bundle edit_line expand_template(templatefile)</h3>
+<h3 class="section">1.119 bundle edit_line expand_template(templatefile)</h3>
 
 <pre class="verbatim">
 bundle edit_line expand_template(templatefile)
@@ -3444,7 +3498,6 @@ insert_lines:
      expand_scalars => "true";
 }
 
-
 </pre>
 
 <div class="node">
@@ -3457,7 +3510,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.118 bundle edit_line insert_file(templatefile)</h3>
+<h3 class="section">1.120 bundle edit_line insert_file(templatefile)</h3>
 
 <pre class="verbatim">
 bundle edit_line insert_file(templatefile)
@@ -3482,7 +3535,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.119 bundle edit_line insert_lines(lines)</h3>
+<h3 class="section">1.121 bundle edit_line insert_lines(lines)</h3>
 
 <pre class="verbatim">
 </pre>
@@ -3491,13 +3544,13 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 <p><hr>
 <a name="bundle-edit_line-replace_line_end"></a>
 <a name="bundle-edit_005fline-replace_005fline_005fend"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-replace_005for_005fadd">bundle edit_line replace_or_add</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-insert_005flines">bundle edit_line insert_lines</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
 </div>
 
-<h3 class="section">1.120 bundle edit_line replace_line_end(start,end)</h3>
+<h3 class="section">1.122 bundle edit_line replace_line_end(start,end)</h3>
 
 <pre class="verbatim">
 bundle edit_line replace_line_end(start,end)
@@ -3520,15 +3573,53 @@ field_edits:
 
 <div class="node">
 <p><hr>
-<a name="bundle-edit_line-resolvconf"></a>
-<a name="bundle-edit_005fline-resolvconf"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fuser_005ffield">bundle edit_line set_user_field</a>,
+<a name="bundle-edit_line-replace_or_add"></a>
+<a name="bundle-edit_005fline-replace_005for_005fadd"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-replace_005fline_005fend">bundle edit_line replace_line_end</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
 </div>
 
-<h3 class="section">1.121 bundle edit_line resolvconf(search,list)</h3>
+<h3 class="section">1.123 bundle edit_line replace_or_add(pattern,line)</h3>
+
+<pre class="verbatim">
+bundle edit_line replace_or_add(pattern,line)
+
+ # Replace a pattern in a file with a single line.
+ # If the pattern is not found, add the line to the file.
+ # The pattern must match the whole line (it is automatically
+ # anchored to the start and end of the line) to avoid
+ # ambiguity.
+
+{
+vars:
+  "cline" string => canonify("$(line)");
+
+replace_patterns:
+  "^(?!$(line))$(pattern)$"
+  replace_with => value("$(line)"),
+  classes => always("replace_done_$(cline)");
+
+insert_lines:
+  "$(line)"
+    ifvarclass => "replace_done_$(cline)";
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-resolvconf"></a>
+<a name="bundle-edit_005fline-resolvconf"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fconfig_005fvalues">bundle edit_line set_config_values</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-replace_005for_005fadd">bundle edit_line replace_or_add</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.124 bundle edit_line resolvconf(search,list)</h3>
 
 <pre class="verbatim">
 bundle edit_line resolvconf(search,list)
@@ -3553,15 +3644,59 @@ insert_lines:
 
 <div class="node">
 <p><hr>
-<a name="bundle-edit_line-set_user_field"></a>
-<a name="bundle-edit_005fline-set_005fuser_005ffield"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fvariable_005fvalues">bundle edit_line set_variable_values</a>,
+<a name="bundle-edit_line-set_config_values"></a>
+<a name="bundle-edit_005fline-set_005fconfig_005fvalues"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fuser_005ffield">bundle edit_line set_user_field</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-resolvconf">bundle edit_line resolvconf</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
 
 </div>
 
-<h3 class="section">1.122 bundle edit_line set_user_field(user,field,val)</h3>
+<h3 class="section">1.125 bundle edit_line set_config_values(v)</h3>
+
+<pre class="verbatim">
+bundle edit_line set_config_values(v)
+
+ # Sets the RHS of configuration items in the file of the form
+ #   LHS RHS
+ # If the line is commented out with #, it gets uncommented first.
+ # Adds a new line if none exists.
+ # The argument is the fully-qualified name of an associative array containing v[LHS]="rhs"
+
+{
+vars:
+  "index" slist => getindices("$(v)");
+
+  # Be careful if the index string contains funny chars
+  "cindex[$(index)]" string => canonify("$(index)");
+
+replace_patterns:
+  # If the line is there, maybe commented out, uncomment and replace with
+  # the correct value
+  "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+    replace_with => value("$(index) $($(v)[$(index)])"),
+    classes => always("replace_attempted_$(cindex[$(index)])");
+
+insert_lines:
+  "$(index) $($(v)[$(index)])"
+    ifvarclass => "replace_attempted_$(cindex[$(index)])";
+
+}
+
+
+</pre>
+
+<div class="node">
+<p><hr>
+<a name="bundle-edit_line-set_user_field"></a>
+<a name="bundle-edit_005fline-set_005fuser_005ffield"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#bundle-edit_005fline-set_005fvariable_005fvalues">bundle edit_line set_variable_values</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#bundle-edit_005fline-set_005fconfig_005fvalues">bundle edit_line set_config_values</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purpose Of This Handbook</a>
+
+</div>
+
+<h3 class="section">1.126 bundle edit_line set_user_field(user,field,val)</h3>
 
 <pre class="verbatim">
 bundle edit_line set_user_field(user,field,val)
@@ -3591,7 +3726,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.123 bundle edit_line set_variable_values(v)</h3>
+<h3 class="section">1.127 bundle edit_line set_variable_values(v)</h3>
 
 <pre class="verbatim">
 bundle edit_line set_variable_values(v)
@@ -3634,7 +3769,6 @@ insert_lines:
       ifvarclass => "!$(cindex[$(index)])_in_file";
 }
 
-
 </pre>
 
 <div class="node">
@@ -3647,7 +3781,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.124 bundle edit_line set_variable_values2(file,v)</h3>
+<h3 class="section">1.128 bundle edit_line set_variable_values2(file,v)</h3>
 
 <pre class="verbatim">
 bundle edit_line set_variable_values2(file,v)
@@ -3699,7 +3833,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.125 bundle edit_line uncomment_lines_containing(regex,comment)</h3>
+<h3 class="section">1.129 bundle edit_line uncomment_lines_containing(regex,comment)</h3>
 
 <pre class="verbatim">
 bundle edit_line uncomment_lines_containing(regex,comment)
@@ -3729,7 +3863,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.126 bundle edit_line uncomment_lines_matching(regex,comment)</h3>
+<h3 class="section">1.130 bundle edit_line uncomment_lines_matching(regex,comment)</h3>
 
 <pre class="verbatim">
 bundle edit_line uncomment_lines_matching(regex,comment)
@@ -3758,7 +3892,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-Purpose-Of-This-Handbook">The Purp
 
 </div>
 
-<h3 class="section">1.127 bundle edit_line warn_lines_matching(regex)</h3>
+<h3 class="section">1.131 bundle edit_line warn_lines_matching(regex)</h3>
 
 <pre class="verbatim">
 bundle edit_line warn_lines_matching(regex)
@@ -3800,115 +3934,119 @@ delete_lines:
 <li><a href="#body-changes-diff">1.16 body changes diff</a>
 <li><a href="#body-changes-diff_005fnoupdate">1.17 body changes diff_noupdate</a>
 <li><a href="#body-changes-noupdate">1.18 body changes noupdate</a>
-<li><a href="#body-classes-cf2_005fif_005felse">1.19 body classes cf2_if_else(yes,no)</a>
-<li><a href="#body-classes-cmd_005frepair">1.20 body classes cmd_repair(code,cl)</a>
-<li><a href="#body-classes-enumerate">1.21 body classes enumerate(x)</a>
-<li><a href="#body-classes-if_005felse">1.22 body classes if_else(yes,no)</a>
-<li><a href="#body-classes-if_005fnotkept">1.23 body classes if_notkept(x)</a>
-<li><a href="#body-classes-if_005fok">1.24 body classes if_ok(x)</a>
-<li><a href="#body-classes-if_005frepaired">1.25 body classes if_repaired(x)</a>
-<li><a href="#body-classes-state_005frepaired">1.26 body classes state_repaired(x)</a>
-<li><a href="#body-contain-in_005fdir">1.27 body contain in_dir(s)</a>
-<li><a href="#body-contain-in_005fdir_005fshell">1.28 body contain in_dir_shell(s)</a>
-<li><a href="#body-contain-in_005fshell">1.29 body contain in_shell</a>
-<li><a href="#body-contain-in_005fshell_005fand_005fsilent">1.30 body contain in_shell_and_silent</a>
-<li><a href="#body-contain-in_005fshell_005fbg">1.31 body contain in_shell_bg</a>
-<li><a href="#body-contain-jail">1.32 body contain jail(owner,root,dir)</a>
-<li><a href="#body-contain-setuid">1.33 body contain setuid(x)</a>
-<li><a href="#body-contain-setuid_005fsh">1.34 body contain setuid_sh(x)</a>
-<li><a href="#body-contain-setuidgid_005fsh">1.35 body contain setuidgid_sh(owner,group)</a>
-<li><a href="#body-contain-silent">1.36 body contain silent</a>
-<li><a href="#body-contain-silent_005fin_005fdir">1.37 body contain silent_in_dir(s)</a>
-<li><a href="#body-copy_005ffrom-local_005fcp">1.38 body copy_from local_cp(from)</a>
-<li><a href="#body-copy_005ffrom-local_005fdcp">1.39 body copy_from local_dcp(from)</a>
-<li><a href="#body-copy_005ffrom-no_005fbackup_005fcp">1.40 body copy_from no_backup_cp(from)</a>
-<li><a href="#body-copy_005ffrom-no_005fbackup_005fdcp">1.41 body copy_from no_backup_dcp(from)</a>
-<li><a href="#body-copy_005ffrom-no_005fbackup_005frcp">1.42 body copy_from no_backup_rcp(from,server)</a>
-<li><a href="#body-copy_005ffrom-perms_005fcp">1.43 body copy_from perms_cp(from)</a>
-<li><a href="#body-copy_005ffrom-remote_005fcp">1.44 body copy_from remote_cp(from,server)</a>
-<li><a href="#body-copy_005ffrom-remote_005fdcp">1.45 body copy_from remote_dcp(from,server)</a>
-<li><a href="#body-copy_005ffrom-secure_005fcp">1.46 body copy_from secure_cp(from,server)</a>
-<li><a href="#body-copy_005ffrom-seed_005fcp">1.47 body copy_from seed_cp(from)</a>
-<li><a href="#body-copy_005ffrom-sync_005fcp">1.48 body copy_from sync_cp(from,server)</a>
-<li><a href="#body-delete-tidy">1.49 body delete tidy</a>
-<li><a href="#body-depth_005fsearch-include_005fbase">1.50 body depth_search include_base</a>
-<li><a href="#body-depth_005fsearch-recurse">1.51 body depth_search recurse(d)</a>
-<li><a href="#body-depth_005fsearch-recurse_005fignore">1.52 body depth_search recurse_ignore(d,list)</a>
-<li><a href="#body-edit_005fdefaults-empty">1.53 body edit_defaults empty</a>
-<li><a href="#body-edit_005fdefaults-no_005fbackup">1.54 body edit_defaults no_backup</a>
-<li><a href="#body-edit_005fdefaults-std_005fdefs">1.55 body edit_defaults std_defs</a>
-<li><a href="#body-edit_005ffield-col">1.56 body edit_field col(split,col,newval,method)</a>
-<li><a href="#body-edit_005ffield-line">1.57 body edit_field line(split,col,newval,method)</a>
-<li><a href="#body-edit_005ffield-quoted_005fvar">1.58 body edit_field quoted_var(newval,method)</a>
-<li><a href="#body-file_005fselect-by_005fname">1.59 body file_select by_name(names)</a>
-<li><a href="#body-file_005fselect-days_005fold">1.60 body file_select days_old(days)</a>
-<li><a href="#body-file_005fselect-dirs">1.61 body file_select dirs</a>
-<li><a href="#body-file_005fselect-ex_005flist">1.62 body file_select ex_list(names)</a>
-<li><a href="#body-file_005fselect-exclude">1.63 body file_select exclude(name)</a>
-<li><a href="#body-file_005fselect-name_005fage">1.64 body file_select name_age(name,days)</a>
-<li><a href="#body-file_005fselect-plain">1.65 body file_select plain</a>
-<li><a href="#body-file_005fselect-size_005frange">1.66 body file_select size_range(from,to)</a>
-<li><a href="#body-link_005ffrom-linkchildren">1.67 body link_from linkchildren(tofile)</a>
-<li><a href="#body-link_005ffrom-ln_005fs">1.68 body link_from ln_s(x)</a>
-<li><a href="#body-location-after">1.69 body location after(str)</a>
-<li><a href="#body-location-start">1.70 body location start</a>
-<li><a href="#body-match_005fvalue-scan_005fchanging_005ffile">1.71 body match_value scan_changing_file(line)</a>
-<li><a href="#body-match_005fvalue-scan_005flog">1.72 body match_value scan_log(line)</a>
-<li><a href="#body-mount-nfs">1.73 body mount nfs(server,source)</a>
-<li><a href="#body-mount-nfs_005fp">1.74 body mount nfs_p(server,source,perm)</a>
-<li><a href="#body-mount-unmount">1.75 body mount unmount</a>
-<li><a href="#body-package_005fmethod-apt">1.76 body package_method apt</a>
-<li><a href="#body-package_005fmethod-dpkg_005fversion">1.77 body package_method dpkg_version(repo)</a>
-<li><a href="#body-package_005fmethod-freebsd">1.78 body package_method freebsd</a>
-<li><a href="#body-package_005fmethod-generic">1.79 body package_method generic</a>
-<li><a href="#body-package_005fmethod-msi_005fexplicit">1.80 body package_method msi_explicit(repo)</a>
-<li><a href="#body-package_005fmethod-msi_005fimplicit">1.81 body package_method msi_implicit(repo)</a>
-<li><a href="#body-package_005fmethod-rpm_005fversion">1.82 body package_method rpm_version(repo)</a>
-<li><a href="#body-package_005fmethod-solaris">1.83 body package_method solaris (pkgname, spoolfile, adminfile)</a>
-<li><a href="#body-package_005fmethod-yum">1.84 body package_method yum</a>
-<li><a href="#body-package_005fmethod-yum_005frpm">1.85 body package_method yum_rpm</a>
-<li><a href="#body-package_005fmethod-zypper">1.86 body package_method zypper</a>
-<li><a href="#body-perms-m">1.87 body perms m(mode)</a>
-<li><a href="#body-perms-mo">1.88 body perms mo(mode,user)</a>
-<li><a href="#body-perms-mog">1.89 body perms mog(mode,user,group)</a>
-<li><a href="#body-perms-og">1.90 body perms og(u,g)</a>
-<li><a href="#body-perms-owner">1.91 body perms owner(user)</a>
-<li><a href="#body-process_005fcount-any_005fcount">1.92 body process_count any_count(cl)</a>
-<li><a href="#body-process_005fcount-check_005frange">1.93 body process_count check_range(name,lower,upper)</a>
-<li><a href="#body-process_005fselect-days_005folder_005fthan">1.94 body process_select days_older_than(d)</a>
-<li><a href="#body-process_005fselect-exclude_005fprocs">1.95 body process_select exclude_procs(x)</a>
-<li><a href="#body-rename-disable">1.96 body rename disable</a>
-<li><a href="#body-rename-rotate">1.97 body rename rotate(level)</a>
-<li><a href="#body-rename-to">1.98 body rename to(file)</a>
-<li><a href="#body-replace_005fwith-comment">1.99 body replace_with comment(c)</a>
-<li><a href="#body-replace_005fwith-uncomment">1.100 body replace_with uncomment</a>
-<li><a href="#body-replace_005fwith-value">1.101 body replace_with value(x)</a>
-<li><a href="#body-select_005fregion-INI_005fsection">1.102 body select_region INI_section(x)</a>
-<li><a href="#body-service_005fmethod-bootstart">1.103 body service_method bootstart</a>
-<li><a href="#body-service_005fmethod-force_005fdeps">1.104 body service_method force_deps</a>
-<li><a href="#body-volume-min_005ffree_005fspace">1.105 body volume min_free_space(free)</a>
-<li><a href="#bundle-agent-cronjob">1.106 bundle agent cronjob(commands,user,hours,mins)</a>
-<li><a href="#bundle-edit_005fline-append_005fgroups_005fstarting">1.107 bundle edit_line append_groups_starting(v)</a>
-<li><a href="#bundle-edit_005fline-append_005fif_005fno_005fline">1.108 bundle edit_line append_if_no_line(str)</a>
-<li><a href="#bundle-edit_005fline-append_005fif_005fno_005flines">1.109 bundle edit_line append_if_no_lines(list)</a>
-<li><a href="#bundle-edit_005fline-append_005fto_005fline_005fend">1.110 bundle edit_line append_to_line_end(start,end)</a>
-<li><a href="#bundle-edit_005fline-append_005fuser_005ffield">1.111 bundle edit_line append_user_field(group,field,allusers)</a>
-<li><a href="#bundle-edit_005fline-append_005fusers_005fstarting">1.112 bundle edit_line append_users_starting(v)</a>
-<li><a href="#bundle-edit_005fline-comment_005flines_005fcontaining">1.113 bundle edit_line comment_lines_containing(regex,comment)</a>
-<li><a href="#bundle-edit_005fline-comment_005flines_005fmatching">1.114 bundle edit_line comment_lines_matching(regex,comment)</a>
-<li><a href="#bundle-edit_005fline-create_005fsolaris_005fadmin_005ffile">1.115 bundle edit_line create_solaris_admin_file</a>
-<li><a href="#bundle-edit_005fline-delete_005flines_005fmatching">1.116 bundle edit_line delete_lines_matching(regex)</a>
-<li><a href="#bundle-edit_005fline-expand_005ftemplate">1.117 bundle edit_line expand_template(templatefile)</a>
-<li><a href="#bundle-edit_005fline-insert_005ffile">1.118 bundle edit_line insert_file(templatefile)</a>
-<li><a href="#bundle-edit_005fline-insert_005flines">1.119 bundle edit_line insert_lines(lines)</a>
-<li><a href="#bundle-edit_005fline-replace_005fline_005fend">1.120 bundle edit_line replace_line_end(start,end)</a>
-<li><a href="#bundle-edit_005fline-resolvconf">1.121 bundle edit_line resolvconf(search,list)</a>
-<li><a href="#bundle-edit_005fline-set_005fuser_005ffield">1.122 bundle edit_line set_user_field(user,field,val)</a>
-<li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues">1.123 bundle edit_line set_variable_values(v)</a>
-<li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues2">1.124 bundle edit_line set_variable_values2(file,v)</a>
-<li><a href="#bundle-edit_005fline-uncomment_005flines_005fcontaining">1.125 bundle edit_line uncomment_lines_containing(regex,comment)</a>
-<li><a href="#bundle-edit_005fline-uncomment_005flines_005fmatching">1.126 bundle edit_line uncomment_lines_matching(regex,comment)</a>
-<li><a href="#bundle-edit_005fline-warn_005flines_005fmatching">1.127 bundle edit_line warn_lines_matching(regex)</a>
+<li><a href="#body-classes-always">1.19 body classes always(x)</a>
+<li><a href="#body-classes-cf2_005fif_005felse">1.20 body classes cf2_if_else(yes,no)</a>
+<li><a href="#body-classes-cmd_005frepair">1.21 body classes cmd_repair(code,cl)</a>
+<li><a href="#body-classes-enumerate">1.22 body classes enumerate(x)</a>
+<li><a href="#body-classes-if_005felse">1.23 body classes if_else(yes,no)</a>
+<li><a href="#body-classes-if_005fnotkept">1.24 body classes if_notkept(x)</a>
+<li><a href="#body-classes-if_005fok">1.25 body classes if_ok(x)</a>
+<li><a href="#body-classes-if_005frepaired">1.26 body classes if_repaired(x)</a>
+<li><a href="#body-classes-state_005frepaired">1.27 body classes state_repaired(x)</a>
+<li><a href="#body-contain-in_005fdir">1.28 body contain in_dir(s)</a>
+<li><a href="#body-contain-in_005fdir_005fshell">1.29 body contain in_dir_shell(s)</a>
+<li><a href="#body-contain-in_005fshell">1.30 body contain in_shell</a>
+<li><a href="#body-contain-in_005fshell_005fand_005fsilent">1.31 body contain in_shell_and_silent</a>
+<li><a href="#body-contain-in_005fshell_005fbg">1.32 body contain in_shell_bg</a>
+<li><a href="#body-contain-jail">1.33 body contain jail(owner,root,dir)</a>
+<li><a href="#body-contain-setuid">1.34 body contain setuid(x)</a>
+<li><a href="#body-contain-setuid_005fsh">1.35 body contain setuid_sh(x)</a>
+<li><a href="#body-contain-setuidgid_005fsh">1.36 body contain setuidgid_sh(owner,group)</a>
+<li><a href="#body-contain-silent">1.37 body contain silent</a>
+<li><a href="#body-contain-silent_005fin_005fdir">1.38 body contain silent_in_dir(s)</a>
+<li><a href="#body-copy_005ffrom-backup_005flocal_005fcp">1.39 body copy_from backup_local_cp(from)</a>
+<li><a href="#body-copy_005ffrom-local_005fcp">1.40 body copy_from local_cp(from)</a>
+<li><a href="#body-copy_005ffrom-local_005fdcp">1.41 body copy_from local_dcp(from)</a>
+<li><a href="#body-copy_005ffrom-no_005fbackup_005fcp">1.42 body copy_from no_backup_cp(from)</a>
+<li><a href="#body-copy_005ffrom-no_005fbackup_005fdcp">1.43 body copy_from no_backup_dcp(from)</a>
+<li><a href="#body-copy_005ffrom-no_005fbackup_005frcp">1.44 body copy_from no_backup_rcp(from,server)</a>
+<li><a href="#body-copy_005ffrom-perms_005fcp">1.45 body copy_from perms_cp(from)</a>
+<li><a href="#body-copy_005ffrom-remote_005fcp">1.46 body copy_from remote_cp(from,server)</a>
+<li><a href="#body-copy_005ffrom-remote_005fdcp">1.47 body copy_from remote_dcp(from,server)</a>
+<li><a href="#body-copy_005ffrom-secure_005fcp">1.48 body copy_from secure_cp(from,server)</a>
+<li><a href="#body-copy_005ffrom-seed_005fcp">1.49 body copy_from seed_cp(from)</a>
+<li><a href="#body-copy_005ffrom-sync_005fcp">1.50 body copy_from sync_cp(from,server)</a>
+<li><a href="#body-delete-tidy">1.51 body delete tidy</a>
+<li><a href="#body-depth_005fsearch-include_005fbase">1.52 body depth_search include_base</a>
+<li><a href="#body-depth_005fsearch-recurse">1.53 body depth_search recurse(d)</a>
+<li><a href="#body-depth_005fsearch-recurse_005fignore">1.54 body depth_search recurse_ignore(d,list)</a>
+<li><a href="#body-edit_005fdefaults-empty">1.55 body edit_defaults empty</a>
+<li><a href="#body-edit_005fdefaults-no_005fbackup">1.56 body edit_defaults no_backup</a>
+<li><a href="#body-edit_005fdefaults-std_005fdefs">1.57 body edit_defaults std_defs</a>
+<li><a href="#body-edit_005ffield-col">1.58 body edit_field col(split,col,newval,method)</a>
+<li><a href="#body-edit_005ffield-line">1.59 body edit_field line(split,col,newval,method)</a>
+<li><a href="#body-edit_005ffield-quoted_005fvar">1.60 body edit_field quoted_var(newval,method)</a>
+<li><a href="#body-file_005fselect-by_005fname">1.61 body file_select by_name(names)</a>
+<li><a href="#body-file_005fselect-days_005fold">1.62 body file_select days_old(days)</a>
+<li><a href="#body-file_005fselect-dirs">1.63 body file_select dirs</a>
+<li><a href="#body-file_005fselect-ex_005flist">1.64 body file_select ex_list(names)</a>
+<li><a href="#body-file_005fselect-exclude">1.65 body file_select exclude(name)</a>
+<li><a href="#body-file_005fselect-name_005fage">1.66 body file_select name_age(name,days)</a>
+<li><a href="#body-file_005fselect-plain">1.67 body file_select plain</a>
+<li><a href="#body-file_005fselect-size_005frange">1.68 body file_select size_range(from,to)</a>
+<li><a href="#body-link_005ffrom-linkchildren">1.69 body link_from linkchildren(tofile)</a>
+<li><a href="#body-link_005ffrom-ln_005fs">1.70 body link_from ln_s(x)</a>
+<li><a href="#body-location-after">1.71 body location after(str)</a>
+<li><a href="#body-location-start">1.72 body location start</a>
+<li><a href="#body-match_005fvalue-scan_005fchanging_005ffile">1.73 body match_value scan_changing_file(line)</a>
+<li><a href="#body-match_005fvalue-scan_005flog">1.74 body match_value scan_log(line)</a>
+<li><a href="#body-mount-nfs">1.75 body mount nfs(server,source)</a>
+<li><a href="#body-mount-nfs_005fp">1.76 body mount nfs_p(server,source,perm)</a>
+<li><a href="#body-mount-unmount">1.77 body mount unmount</a>
+<li><a href="#body-package_005fmethod-apt">1.78 body package_method apt</a>
+<li><a href="#body-package_005fmethod-dpkg_005fversion">1.79 body package_method dpkg_version(repo)</a>
+<li><a href="#body-package_005fmethod-freebsd">1.80 body package_method freebsd</a>
+<li><a href="#body-package_005fmethod-generic">1.81 body package_method generic</a>
+<li><a href="#body-package_005fmethod-msi_005fexplicit">1.82 body package_method msi_explicit(repo)</a>
+<li><a href="#body-package_005fmethod-msi_005fimplicit">1.83 body package_method msi_implicit(repo)</a>
+<li><a href="#body-package_005fmethod-rpm_005fversion">1.84 body package_method rpm_version(repo)</a>
+<li><a href="#body-package_005fmethod-solaris">1.85 body package_method solaris (pkgname, spoolfile, adminfile)</a>
+<li><a href="#body-package_005fmethod-yum">1.86 body package_method yum</a>
+<li><a href="#body-package_005fmethod-yum_005frpm">1.87 body package_method yum_rpm</a>
+<li><a href="#body-package_005fmethod-zypper">1.88 body package_method zypper</a>
+<li><a href="#body-perms-m">1.89 body perms m(mode)</a>
+<li><a href="#body-perms-mo">1.90 body perms mo(mode,user)</a>
+<li><a href="#body-perms-mog">1.91 body perms mog(mode,user,group)</a>
+<li><a href="#body-perms-og">1.92 body perms og(u,g)</a>
+<li><a href="#body-perms-owner">1.93 body perms owner(user)</a>
+<li><a href="#body-process_005fcount-any_005fcount">1.94 body process_count any_count(cl)</a>
+<li><a href="#body-process_005fcount-check_005frange">1.95 body process_count check_range(name,lower,upper)</a>
+<li><a href="#body-process_005fselect-days_005folder_005fthan">1.96 body process_select days_older_than(d)</a>
+<li><a href="#body-process_005fselect-exclude_005fprocs">1.97 body process_select exclude_procs(x)</a>
+<li><a href="#body-rename-disable">1.98 body rename disable</a>
+<li><a href="#body-rename-rotate">1.99 body rename rotate(level)</a>
+<li><a href="#body-rename-to">1.100 body rename to(file)</a>
+<li><a href="#body-replace_005fwith-comment">1.101 body replace_with comment(c)</a>
+<li><a href="#body-replace_005fwith-uncomment">1.102 body replace_with uncomment</a>
+<li><a href="#body-replace_005fwith-value">1.103 body replace_with value(x)</a>
+<li><a href="#body-select_005fregion-INI_005fsection">1.104 body select_region INI_section(x)</a>
+<li><a href="#body-service_005fmethod-bootstart">1.105 body service_method bootstart</a>
+<li><a href="#body-service_005fmethod-force_005fdeps">1.106 body service_method force_deps</a>
+<li><a href="#body-volume-min_005ffree_005fspace">1.107 body volume min_free_space(free)</a>
+<li><a href="#bundle-agent-cronjob">1.108 bundle agent cronjob(commands,user,hours,mins)</a>
+<li><a href="#bundle-edit_005fline-append_005fgroups_005fstarting">1.109 bundle edit_line append_groups_starting(v)</a>
+<li><a href="#bundle-edit_005fline-append_005fif_005fno_005fline">1.110 bundle edit_line append_if_no_line(str)</a>
+<li><a href="#bundle-edit_005fline-append_005fif_005fno_005flines">1.111 bundle edit_line append_if_no_lines(list)</a>
+<li><a href="#bundle-edit_005fline-append_005fto_005fline_005fend">1.112 bundle edit_line append_to_line_end(start,end)</a>
+<li><a href="#bundle-edit_005fline-append_005fuser_005ffield">1.113 bundle edit_line append_user_field(group,field,allusers)</a>
+<li><a href="#bundle-edit_005fline-append_005fusers_005fstarting">1.114 bundle edit_line append_users_starting(v)</a>
+<li><a href="#bundle-edit_005fline-comment_005flines_005fcontaining">1.115 bundle edit_line comment_lines_containing(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-comment_005flines_005fmatching">1.116 bundle edit_line comment_lines_matching(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-create_005fsolaris_005fadmin_005ffile">1.117 bundle edit_line create_solaris_admin_file</a>
+<li><a href="#bundle-edit_005fline-delete_005flines_005fmatching">1.118 bundle edit_line delete_lines_matching(regex)</a>
+<li><a href="#bundle-edit_005fline-expand_005ftemplate">1.119 bundle edit_line expand_template(templatefile)</a>
+<li><a href="#bundle-edit_005fline-insert_005ffile">1.120 bundle edit_line insert_file(templatefile)</a>
+<li><a href="#bundle-edit_005fline-insert_005flines">1.121 bundle edit_line insert_lines(lines)</a>
+<li><a href="#bundle-edit_005fline-replace_005fline_005fend">1.122 bundle edit_line replace_line_end(start,end)</a>
+<li><a href="#bundle-edit_005fline-replace_005for_005fadd">1.123 bundle edit_line replace_or_add(pattern,line)</a>
+<li><a href="#bundle-edit_005fline-resolvconf">1.124 bundle edit_line resolvconf(search,list)</a>
+<li><a href="#bundle-edit_005fline-set_005fconfig_005fvalues">1.125 bundle edit_line set_config_values(v)</a>
+<li><a href="#bundle-edit_005fline-set_005fuser_005ffield">1.126 bundle edit_line set_user_field(user,field,val)</a>
+<li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues">1.127 bundle edit_line set_variable_values(v)</a>
+<li><a href="#bundle-edit_005fline-set_005fvariable_005fvalues2">1.128 bundle edit_line set_variable_values2(file,v)</a>
+<li><a href="#bundle-edit_005fline-uncomment_005flines_005fcontaining">1.129 bundle edit_line uncomment_lines_containing(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-uncomment_005flines_005fmatching">1.130 bundle edit_line uncomment_lines_matching(regex,comment)</a>
+<li><a href="#bundle-edit_005fline-warn_005flines_005fmatching">1.131 bundle edit_line warn_lines_matching(regex)</a>
 </li></ul>
 </li></ul>
 </div>

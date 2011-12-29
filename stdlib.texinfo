@@ -42,7 +42,7 @@ Copyright @copyright{} 2009 Cfengine AS
 @end direntry
 @end ifinfo
 @ifnottex
-@node Top, The Purpose Of This Handbook, (dir), (dir)
+@node Top, Basic company information and procedures, (dir), (dir)
 @top Cfengine-Open-Promise-Body-Library
 @end ifnottex
 @ifhtml
@@ -54,11 +54,7 @@ Copyright @copyright{} 2009 Cfengine AS
 @iftex
 @contents
 @end iftex
-@menu
-* The Purpose Of This Handbook::  
-@end menu
-
-@node The Purpose Of This Handbook,  , Top, Top
+@node The Purpose Of This Handbook
 @chapter The Purpose Of This Handbook
 
 @sp 1
@@ -100,137 +96,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 
 
 
-@menu
-* body acl access_generic::     
-* body acl ntfs::               
-* body acl strict::             
-* body action bg::              
-* body action if_elapsed::      
-* body action ifwin_bg::        
-* body action immediate::       
-* body action log_repaired::    
-* body action log_verbose::     
-* body action measure_performance::  
-* body action policy::          
-* body action sample_rate::     
-* body action warn_only::       
-* body changes detect_all_change::  
-* body changes detect_content::  
-* body changes diff::           
-* body changes diff_noupdate::  
-* body changes noupdate::       
-* body classes cf2_if_else::    
-* body classes cmd_repair::     
-* body classes enumerate::      
-* body classes if_else::        
-* body classes if_notkept::     
-* body classes if_ok::          
-* body classes if_repaired::    
-* body classes state_repaired::  
-* body contain in_dir::         
-* body contain in_dir_shell::   
-* body contain in_shell::       
-* body contain in_shell_and_silent::  
-* body contain in_shell_bg::    
-* body contain jail::           
-* body contain setuid::         
-* body contain setuid_sh::      
-* body contain setuidgid_sh::   
-* body contain silent::         
-* body contain silent_in_dir::  
-* body copy_from local_cp::     
-* body copy_from local_dcp::    
-* body copy_from no_backup_cp::  
-* body copy_from no_backup_dcp::  
-* body copy_from no_backup_rcp::  
-* body copy_from perms_cp::     
-* body copy_from remote_cp::    
-* body copy_from remote_dcp::   
-* body copy_from secure_cp::    
-* body copy_from seed_cp::      
-* body copy_from sync_cp::      
-* body delete tidy::            
-* body depth_search include_base::  
-* body depth_search recurse::   
-* body depth_search recurse_ignore::  
-* body edit_defaults empty::    
-* body edit_defaults no_backup::  
-* body edit_defaults std_defs::  
-* body edit_field col::         
-* body edit_field line::        
-* body edit_field quoted_var::  
-* body file_select by_name::    
-* body file_select days_old::   
-* body file_select dirs::       
-* body file_select ex_list::    
-* body file_select exclude::    
-* body file_select name_age::   
-* body file_select plain::      
-* body file_select size_range::  
-* body link_from linkchildren::  
-* body link_from ln_s::         
-* body location after::         
-* body location start::         
-* body match_value scan_changing_file::  
-* body match_value scan_log::   
-* body mount nfs::              
-* body mount nfs_p::            
-* body mount unmount::          
-* body package_method apt::     
-* body package_method dpkg_version::  
-* body package_method freebsd::  
-* body package_method generic::  
-* body package_method msi_explicit::  
-* body package_method msi_implicit::  
-* body package_method rpm_version::  
-* body package_method solaris ::  
-* body package_method yum::     
-* body package_method yum_rpm::  
-* body package_method zypper::  
-* body perms m::                
-* body perms mo::               
-* body perms mog::              
-* body perms og::               
-* body perms owner::            
-* body process_count any_count::  
-* body process_count check_range::  
-* body process_select days_older_than::  
-* body process_select exclude_procs::  
-* body rename disable::         
-* body rename rotate::          
-* body rename to::              
-* body replace_with comment::   
-* body replace_with uncomment::  
-* body replace_with value::     
-* body select_region INI_section::  
-* body service_method bootstart::  
-* body service_method force_deps::  
-* body volume min_free_space::  
-* bundle agent cronjob::        
-* bundle edit_line append_groups_starting::  
-* bundle edit_line append_if_no_line::  
-* bundle edit_line append_if_no_lines::  
-* bundle edit_line append_to_line_end::  
-* bundle edit_line append_user_field::  
-* bundle edit_line append_users_starting::  
-* bundle edit_line comment_lines_containing::  
-* bundle edit_line comment_lines_matching::  
-* bundle edit_line create_solaris_admin_file::  
-* bundle edit_line delete_lines_matching::  
-* bundle edit_line expand_template::  
-* bundle edit_line insert_file::  
-* bundle edit_line insert_lines::  
-* bundle edit_line replace_line_end::  
-* bundle edit_line resolvconf::  
-* bundle edit_line set_user_field::  
-* bundle edit_line set_variable_values::  
-* bundle edit_line set_variable_values2::  
-* bundle edit_line uncomment_lines_containing::  
-* bundle edit_line uncomment_lines_matching::  
-* bundle edit_line warn_lines_matching::  
-@end menu
-
-@node body acl access_generic, body acl ntfs, The Purpose Of This Handbook, The Purpose Of This Handbook
+@node body acl access_generic
 @section body acl access_generic(acl)
 
 @verbatim
@@ -251,7 +117,7 @@ acl_type => "posix";
 
 @end verbatim
 
-@node body acl ntfs, body acl strict, body acl access_generic, The Purpose Of This Handbook
+@node body acl ntfs
 @section body acl ntfs(acl)
 
 @verbatim
@@ -265,7 +131,7 @@ aces => { "@(acl)" };
 
 @end verbatim
 
-@node body acl strict, body action bg, body acl ntfs, The Purpose Of This Handbook
+@node body acl strict
 @section body acl strict
 
 @verbatim
@@ -284,7 +150,7 @@ aces => { "user:root:rwx" };
 
 @end verbatim
 
-@node body action bg, body action if_elapsed, body acl strict, The Purpose Of This Handbook
+@node body action bg
 @section body action bg(elapsed,expire)
 
 @verbatim
@@ -298,7 +164,7 @@ background  => "true";
 
 @end verbatim
 
-@node body action if_elapsed, body action ifwin_bg, body action bg, The Purpose Of This Handbook
+@node body action if_elapsed
 @section body action if_elapsed(x)
 
 @verbatim
@@ -311,7 +177,7 @@ expireafter => "$(x)";
 
 @end verbatim
 
-@node body action ifwin_bg, body action immediate, body action if_elapsed, The Purpose Of This Handbook
+@node body action ifwin_bg
 @section body action ifwin_bg
 
 @verbatim
@@ -324,7 +190,7 @@ background => "true";
 
 @end verbatim
 
-@node body action immediate, body action log_repaired, body action ifwin_bg, The Purpose Of This Handbook
+@node body action immediate
 @section body action immediate
 
 @verbatim
@@ -336,7 +202,7 @@ ifelapsed => "0";
 
 @end verbatim
 
-@node body action log_repaired, body action log_verbose, body action immediate, The Purpose Of This Handbook
+@node body action log_repaired
 @section body action log_repaired(log,message)
 
 @verbatim
@@ -349,7 +215,7 @@ log_repaired => "$(log)";
 
 @end verbatim
 
-@node body action log_verbose, body action measure_performance, body action log_repaired, The Purpose Of This Handbook
+@node body action log_verbose
 @section body action log_verbose
 
 @verbatim
@@ -361,7 +227,7 @@ log_level => "verbose";
 
 @end verbatim
 
-@node body action measure_performance, body action policy, body action log_verbose, The Purpose Of This Handbook
+@node body action measure_performance
 @section body action measure_performance(x)
 
 @verbatim
@@ -375,7 +241,7 @@ expireafter => "$(x)";
 
 @end verbatim
 
-@node body action policy, body action sample_rate, body action measure_performance, The Purpose Of This Handbook
+@node body action policy
 @section body action policy(p)
 
 @verbatim
@@ -389,7 +255,7 @@ action_policy => "$(p)";
 
 @end verbatim
 
-@node body action sample_rate, body action warn_only, body action policy, The Purpose Of This Handbook
+@node body action sample_rate
 @section body action sample_rate(x)
 
 @verbatim
@@ -400,7 +266,7 @@ expireafter => "10";
 }
 @end verbatim
 
-@node body action warn_only, body changes detect_all_change, body action sample_rate, The Purpose Of This Handbook
+@node body action warn_only
 @section body action warn_only
 
 @verbatim
@@ -413,7 +279,7 @@ ifelapsed => "60";
 
 @end verbatim
 
-@node body changes detect_all_change, body changes detect_content, body action warn_only, The Purpose Of This Handbook
+@node body changes detect_all_change
 @section body changes detect_all_change
 
 @verbatim
@@ -430,7 +296,7 @@ update_hashes  => "yes";
 
 @end verbatim
 
-@node body changes detect_content, body changes diff, body changes detect_all_change, The Purpose Of This Handbook
+@node body changes detect_content
 @section body changes detect_content
 
 @verbatim
@@ -447,7 +313,7 @@ update_hashes  => "yes";
 
 @end verbatim
 
-@node body changes diff, body changes diff_noupdate, body changes detect_content, The Purpose Of This Handbook
+@node body changes diff
 @section body changes diff
 
 @verbatim
@@ -463,7 +329,7 @@ update_hashes  => "yes";
 
 @end verbatim
 
-@node body changes diff_noupdate, body changes noupdate, body changes diff, The Purpose Of This Handbook
+@node body changes diff_noupdate
 @section body changes diff_noupdate
 
 @verbatim
@@ -478,7 +344,7 @@ update_hashes  => "no";
 
 @end verbatim
 
-@node body changes noupdate, body classes cf2_if_else, body changes diff_noupdate, The Purpose Of This Handbook
+@node body changes noupdate
 @section body changes noupdate
 
 @verbatim
@@ -493,7 +359,30 @@ update_hashes  => "no";
 
 @end verbatim
 
-@node body classes cf2_if_else, body classes cmd_repair, body changes noupdate, The Purpose Of This Handbook
+@node body classes always
+@section body classes always(x)
+
+@verbatim
+body classes always(x)
+
+# Define a class no matter what the outcome of the promise is
+
+{
+  promise_repaired => { "$(x)" };
+  promise_kept => { "$(x)" };
+  repair_failed => { "$(x)" };
+  repair_denied => { "$(x)" };
+  repair_timeout => { "$(x)" };
+}
+
+# agent bundles
+
+
+
+
+@end verbatim
+
+@node body classes cf2_if_else
 @section body classes cf2_if_else(yes,no)
 
 @verbatim
@@ -511,7 +400,7 @@ repair_timeout   => { "$(no)" };
 
 @end verbatim
 
-@node body classes cmd_repair, body classes enumerate, body classes cf2_if_else, The Purpose Of This Handbook
+@node body classes cmd_repair
 @section body classes cmd_repair(code,cl)
 
 @verbatim
@@ -524,7 +413,7 @@ promise_repaired => { "$(cl)" };
 
 @end verbatim
 
-@node body classes enumerate, body classes if_else, body classes cmd_repair, The Purpose Of This Handbook
+@node body classes enumerate
 @section body classes enumerate(x)
 
 @verbatim
@@ -541,14 +430,10 @@ promise_kept => { "mXC_$(x)" };
 persist_time => "15";
 }
 
-# agent bundles
-
-
-
 
 @end verbatim
 
-@node body classes if_else, body classes if_notkept, body classes enumerate, The Purpose Of This Handbook
+@node body classes if_else
 @section body classes if_else(yes,no)
 
 @verbatim
@@ -565,7 +450,7 @@ repair_timeout   => { "$(no)" };
 
 @end verbatim
 
-@node body classes if_notkept, body classes if_ok, body classes if_else, The Purpose Of This Handbook
+@node body classes if_notkept
 @section body classes if_notkept(x)
 
 @verbatim
@@ -579,7 +464,7 @@ repair_timeout  => { "$(x)" };
 
 @end verbatim
 
-@node body classes if_ok, body classes if_repaired, body classes if_notkept, The Purpose Of This Handbook
+@node body classes if_ok
 @section body classes if_ok(x)
 
 @verbatim
@@ -592,7 +477,7 @@ promise_kept => { "$(x)" };
 
 @end verbatim
 
-@node body classes if_repaired, body classes state_repaired, body classes if_ok, The Purpose Of This Handbook
+@node body classes if_repaired
 @section body classes if_repaired(x)
 
 @verbatim
@@ -604,7 +489,7 @@ promise_repaired => { "$(x)" };
 
 @end verbatim
 
-@node body classes state_repaired, body contain in_dir, body classes if_repaired, The Purpose Of This Handbook
+@node body classes state_repaired
 @section body classes state_repaired(x)
 
 @verbatim
@@ -617,7 +502,7 @@ persist_time => "10";
 
 @end verbatim
 
-@node body contain in_dir, body contain in_dir_shell, body classes state_repaired, The Purpose Of This Handbook
+@node body contain in_dir
 @section body contain in_dir(s)
 
 @verbatim
@@ -629,7 +514,7 @@ chdir => "$(s)";
 
 @end verbatim
 
-@node body contain in_dir_shell, body contain in_shell, body contain in_dir, The Purpose Of This Handbook
+@node body contain in_dir_shell
 @section body contain in_dir_shell(s)
 
 @verbatim
@@ -642,7 +527,7 @@ useshell => "true";
 
 @end verbatim
 
-@node body contain in_shell, body contain in_shell_and_silent, body contain in_dir_shell, The Purpose Of This Handbook
+@node body contain in_shell
 @section body contain in_shell
 
 @verbatim
@@ -654,7 +539,7 @@ useshell => "true";
 
 @end verbatim
 
-@node body contain in_shell_and_silent, body contain in_shell_bg, body contain in_shell, The Purpose Of This Handbook
+@node body contain in_shell_and_silent
 @section body contain in_shell_and_silent
 
 @verbatim
@@ -667,7 +552,7 @@ no_output => "true";
 
 @end verbatim
 
-@node body contain in_shell_bg, body contain jail, body contain in_shell_and_silent, The Purpose Of This Handbook
+@node body contain in_shell_bg
 @section body contain in_shell_bg
 
 @verbatim
@@ -680,7 +565,7 @@ background => "true";
 
 @end verbatim
 
-@node body contain jail, body contain setuid, body contain in_shell_bg, The Purpose Of This Handbook
+@node body contain jail
 @section body contain jail(owner,root,dir)
 
 @verbatim
@@ -697,7 +582,7 @@ chroot => "$(root)";
 
 @end verbatim
 
-@node body contain setuid, body contain setuid_sh, body contain jail, The Purpose Of This Handbook
+@node body contain setuid
 @section body contain setuid(x)
 
 @verbatim
@@ -710,7 +595,7 @@ useshell => "false";
 
 @end verbatim
 
-@node body contain setuid_sh, body contain setuidgid_sh, body contain setuid, The Purpose Of This Handbook
+@node body contain setuid_sh
 @section body contain setuid_sh(x)
 
 @verbatim
@@ -723,7 +608,7 @@ useshell => "true";
 
 @end verbatim
 
-@node body contain setuidgid_sh, body contain silent, body contain setuid_sh, The Purpose Of This Handbook
+@node body contain setuidgid_sh
 @section body contain setuidgid_sh(owner,group)
 
 @verbatim
@@ -737,7 +622,7 @@ useshell => "true";
 
 @end verbatim
 
-@node body contain silent, body contain silent_in_dir, body contain setuidgid_sh, The Purpose Of This Handbook
+@node body contain silent
 @section body contain silent
 
 @verbatim
@@ -749,7 +634,7 @@ no_output => "true";
 
 @end verbatim
 
-@node body contain silent_in_dir, body copy_from local_cp, body contain silent, The Purpose Of This Handbook
+@node body contain silent_in_dir
 @section body contain silent_in_dir(s)
 
 @verbatim
@@ -762,7 +647,23 @@ no_output => "true";
 
 @end verbatim
 
-@node body copy_from local_cp, body copy_from local_dcp, body contain silent_in_dir, The Purpose Of This Handbook
+@node body copy_from backup_local_cp
+@section body copy_from backup_local_cp(from)
+
+@verbatim
+body copy_from backup_local_cp(from)
+# Local copy, keeping a backup of old versions
+{
+  source      => "$(from)";
+  copy_backup => "timestamp";
+}
+
+
+# Copy only if the file does not already exist, i.e. seed the placement
+
+@end verbatim
+
+@node body copy_from local_cp
 @section body copy_from local_cp(from)
 
 @verbatim
@@ -774,7 +675,7 @@ source      => "$(from)";
 
 @end verbatim
 
-@node body copy_from local_dcp, body copy_from no_backup_cp, body copy_from local_cp, The Purpose Of This Handbook
+@node body copy_from local_dcp
 @section body copy_from local_dcp(from)
 
 @verbatim
@@ -787,7 +688,7 @@ compare     => "digest";
 
 @end verbatim
 
-@node body copy_from no_backup_cp, body copy_from no_backup_dcp, body copy_from local_dcp, The Purpose Of This Handbook
+@node body copy_from no_backup_cp
 @section body copy_from no_backup_cp(from)
 
 @verbatim
@@ -800,7 +701,7 @@ copy_backup => "false";
 
 @end verbatim
 
-@node body copy_from no_backup_dcp, body copy_from no_backup_rcp, body copy_from no_backup_cp, The Purpose Of This Handbook
+@node body copy_from no_backup_dcp
 @section body copy_from no_backup_dcp(from)
 
 @verbatim
@@ -814,7 +715,7 @@ compare     => "digest";
 
 @end verbatim
 
-@node body copy_from no_backup_rcp, body copy_from perms_cp, body copy_from no_backup_dcp, The Purpose Of This Handbook
+@node body copy_from no_backup_rcp
 @section body copy_from no_backup_rcp(from,server)
 
 @verbatim
@@ -829,7 +730,7 @@ copy_backup => "false";
 
 @end verbatim
 
-@node body copy_from perms_cp, body copy_from remote_cp, body copy_from no_backup_rcp, The Purpose Of This Handbook
+@node body copy_from perms_cp
 @section body copy_from perms_cp(from)
 
 @verbatim
@@ -839,12 +740,9 @@ source      => "$(from)";
 preserve    => "true";
 }
 
-
-# Copy only if the file does not already exist, i.e. seed the placement
-
 @end verbatim
 
-@node body copy_from remote_cp, body copy_from remote_dcp, body copy_from perms_cp, The Purpose Of This Handbook
+@node body copy_from remote_cp
 @section body copy_from remote_cp(from,server)
 
 @verbatim
@@ -858,7 +756,7 @@ compare     => "mtime";
 
 @end verbatim
 
-@node body copy_from remote_dcp, body copy_from secure_cp, body copy_from remote_cp, The Purpose Of This Handbook
+@node body copy_from remote_dcp
 @section body copy_from remote_dcp(from,server)
 
 @verbatim
@@ -872,7 +770,7 @@ compare     => "digest";
 
 @end verbatim
 
-@node body copy_from secure_cp, body copy_from seed_cp, body copy_from remote_dcp, The Purpose Of This Handbook
+@node body copy_from secure_cp
 @section body copy_from secure_cp(from,server)
 
 @verbatim
@@ -888,7 +786,7 @@ verify      => "true";
 
 @end verbatim
 
-@node body copy_from seed_cp, body copy_from sync_cp, body copy_from secure_cp, The Purpose Of This Handbook
+@node body copy_from seed_cp
 @section body copy_from seed_cp(from)
 
 @verbatim
@@ -901,7 +799,7 @@ compare     => "exists";
 
 @end verbatim
 
-@node body copy_from sync_cp, body delete tidy, body copy_from seed_cp, The Purpose Of This Handbook
+@node body copy_from sync_cp
 @section body copy_from sync_cp(from,server)
 
 @verbatim
@@ -917,7 +815,7 @@ type_check  => "false";
 
 @end verbatim
 
-@node body delete tidy, body depth_search include_base, body copy_from sync_cp, The Purpose Of This Handbook
+@node body delete tidy
 @section body delete tidy
 
 @verbatim
@@ -931,7 +829,7 @@ rmdirs   => "true";
 
 @end verbatim
 
-@node body depth_search include_base, body depth_search recurse, body delete tidy, The Purpose Of This Handbook
+@node body depth_search include_base
 @section body depth_search include_base
 
 @verbatim
@@ -943,7 +841,7 @@ include_basedir => "true";
 
 @end verbatim
 
-@node body depth_search recurse, body depth_search recurse_ignore, body depth_search include_base, The Purpose Of This Handbook
+@node body depth_search recurse
 @section body depth_search recurse(d)
 
 @verbatim
@@ -957,7 +855,7 @@ xdev  => "true";
 
 @end verbatim
 
-@node body depth_search recurse_ignore, body edit_defaults empty, body depth_search recurse, The Purpose Of This Handbook
+@node body depth_search recurse_ignore
 @section body depth_search recurse_ignore(d,list)
 
 @verbatim
@@ -970,7 +868,7 @@ exclude_dirs => { @(list) };
 
 @end verbatim
 
-@node body edit_defaults empty, body edit_defaults no_backup, body depth_search recurse_ignore, The Purpose Of This Handbook
+@node body edit_defaults empty
 @section body edit_defaults empty
 
 @verbatim
@@ -984,7 +882,7 @@ max_file_size => "300000";
 
 @end verbatim
 
-@node body edit_defaults no_backup, body edit_defaults std_defs, body edit_defaults empty, The Purpose Of This Handbook
+@node body edit_defaults no_backup
 @section body edit_defaults no_backup
 
 @verbatim
@@ -996,7 +894,7 @@ edit_backup => "false";
 
 @end verbatim
 
-@node body edit_defaults std_defs, body edit_field col, body edit_defaults no_backup, The Purpose Of This Handbook
+@node body edit_defaults std_defs
 @section body edit_defaults std_defs
 
 @verbatim
@@ -1010,7 +908,7 @@ max_file_size => "300000";
 
 @end verbatim
 
-@node body edit_field col, body edit_field line, body edit_defaults std_defs, The Purpose Of This Handbook
+@node body edit_field col
 @section body edit_field col(split,col,newval,method)
 
 @verbatim
@@ -1028,7 +926,7 @@ allow_blank_fields => "true";
 
 @end verbatim
 
-@node body edit_field line, body edit_field quoted_var, body edit_field col, The Purpose Of This Handbook
+@node body edit_field line
 @section body edit_field line(split,col,newval,method)
 
 @verbatim
@@ -1046,7 +944,7 @@ allow_blank_fields => "true";
 
 @end verbatim
 
-@node body edit_field quoted_var, body file_select by_name, body edit_field line, The Purpose Of This Handbook
+@node body edit_field quoted_var
 @section body edit_field quoted_var(newval,method)
 
 @verbatim
@@ -1064,7 +962,7 @@ allow_blank_fields => "true";
 
 @end verbatim
 
-@node body file_select by_name, body file_select days_old, body edit_field quoted_var, The Purpose Of This Handbook
+@node body file_select by_name
 @section body file_select by_name(names)
 
 @verbatim
@@ -1077,7 +975,7 @@ file_result => "leaf_name";
 
 @end verbatim
 
-@node body file_select days_old, body file_select dirs, body file_select by_name, The Purpose Of This Handbook
+@node body file_select days_old
 @section body file_select days_old(days)
 
 @verbatim
@@ -1090,7 +988,7 @@ file_result => "mtime";
 
 @end verbatim
 
-@node body file_select dirs, body file_select ex_list, body file_select days_old, The Purpose Of This Handbook
+@node body file_select dirs
 @section body file_select dirs
 
 @verbatim
@@ -1103,7 +1001,7 @@ file_result => "file_types";
 
 @end verbatim
 
-@node body file_select ex_list, body file_select exclude, body file_select dirs, The Purpose Of This Handbook
+@node body file_select ex_list
 @section body file_select ex_list(names)
 
 @verbatim
@@ -1116,7 +1014,7 @@ file_result => "!leaf_name";
 
 @end verbatim
 
-@node body file_select exclude, body file_select name_age, body file_select ex_list, The Purpose Of This Handbook
+@node body file_select exclude
 @section body file_select exclude(name)
 
 @verbatim
@@ -1129,7 +1027,7 @@ file_result => "!leaf_name";
 
 @end verbatim
 
-@node body file_select name_age, body file_select plain, body file_select exclude, The Purpose Of This Handbook
+@node body file_select name_age
 @section body file_select name_age(name,days)
 
 @verbatim
@@ -1143,7 +1041,7 @@ file_result => "mtime.leaf_name";
 
 @end verbatim
 
-@node body file_select plain, body file_select size_range, body file_select name_age, The Purpose Of This Handbook
+@node body file_select plain
 @section body file_select plain
 
 @verbatim
@@ -1155,7 +1053,7 @@ file_result => "file_types";
 
 @end verbatim
 
-@node body file_select size_range, body link_from linkchildren, body file_select plain, The Purpose Of This Handbook
+@node body file_select size_range
 @section body file_select size_range(from,to)
 
 @verbatim
@@ -1168,7 +1066,7 @@ file_result => "size";
 
 @end verbatim
 
-@node body link_from linkchildren, body link_from ln_s, body file_select size_range, The Purpose Of This Handbook
+@node body link_from linkchildren
 @section body link_from linkchildren(tofile)
 
 @verbatim
@@ -1184,7 +1082,7 @@ when_linking_children => "if_no_such_file"; # "override_file";
 
 @end verbatim
 
-@node body link_from ln_s, body location after, body link_from linkchildren, The Purpose Of This Handbook
+@node body link_from ln_s
 @section body link_from ln_s(x)
 
 @verbatim
@@ -1198,7 +1096,7 @@ when_no_source => "force";
 
 @end verbatim
 
-@node body location after, body location start, body link_from ln_s, The Purpose Of This Handbook
+@node body location after
 @section body location after(str)
 
 @verbatim
@@ -1212,7 +1110,7 @@ select_line_matching => "$(str)";
 
 @end verbatim
 
-@node body location start, body match_value scan_changing_file, body location after, The Purpose Of This Handbook
+@node body location start
 @section body location start
 
 @verbatim
@@ -1224,7 +1122,7 @@ before_after => "before";
 
 @end verbatim
 
-@node body match_value scan_changing_file, body match_value scan_log, body location start, The Purpose Of This Handbook
+@node body match_value scan_changing_file
 @section body match_value scan_changing_file(line)
 
 @verbatim
@@ -1237,7 +1135,7 @@ track_growing_file => "false";
 
 @end verbatim
 
-@node body match_value scan_log, body mount nfs, body match_value scan_changing_file, The Purpose Of This Handbook
+@node body match_value scan_log
 @section body match_value scan_log(line)
 
 @verbatim
@@ -1250,7 +1148,7 @@ track_growing_file => "true";
 
 @end verbatim
 
-@node body mount nfs, body mount nfs_p, body match_value scan_log, The Purpose Of This Handbook
+@node body mount nfs
 @section body mount nfs(server,source)
 
 @verbatim
@@ -1266,7 +1164,7 @@ edit_fstab => "true";
 
 @end verbatim
 
-@node body mount nfs_p, body mount unmount, body mount nfs, The Purpose Of This Handbook
+@node body mount nfs_p
 @section body mount nfs_p(server,source,perm)
 
 @verbatim
@@ -1282,7 +1180,7 @@ edit_fstab => "true";
 
 @end verbatim
 
-@node body mount unmount, body package_method apt, body mount nfs_p, The Purpose Of This Handbook
+@node body mount unmount
 @section body mount unmount
 
 @verbatim
@@ -1296,7 +1194,7 @@ unmount => "true";
 
 @end verbatim
 
-@node body package_method apt, body package_method dpkg_version, body mount unmount, The Purpose Of This Handbook
+@node body package_method apt
 @section body package_method apt
 
 @verbatim
@@ -1313,18 +1211,18 @@ package_name_convention => "$(name)";
 package_list_update_ifelapsed => "240";
 
 have_aptitude::
-   package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes install";
    package_list_update_command => "/usr/bin/aptitude update";
-   package_delete_command => "/usr/bin/aptitude --assume-yes remove";
-   package_update_command =>  "/usr/bin/aptitude --assume-yes install";
+   package_delete_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes -q remove";
+   package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes install";
    package_verify_command =>  "/usr/bin/aptitude show";
    package_noverify_regex => "(State: not installed|E: Unable to locate package .*)";
 
 !have_aptitude::
-   package_add_command => "/usr/bin/apt-get --yes install";
+   package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_list_update_command => "/usr/bin/apt-get update";
-   package_delete_command => "/usr/bin/apt-get --yes remove";
-   package_update_command =>  "/usr/bin/apt-get --yes install";
+   package_delete_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes -q remove";
+   package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_verify_command => "/usr/bin/dpkg -s";
    package_noverify_returncode => "1";
 }
@@ -1332,7 +1230,7 @@ have_aptitude::
 
 @end verbatim
 
-@node body package_method dpkg_version, body package_method freebsd, body package_method apt, The Purpose Of This Handbook
+@node body package_method dpkg_version
 @section body package_method dpkg_version(repo)
 
 @verbatim
@@ -1366,7 +1264,7 @@ debian::
 
 @end verbatim
 
-@node body package_method freebsd, body package_method generic, body package_method dpkg_version, The Purpose Of This Handbook
+@node body package_method freebsd
 @section body package_method freebsd
 
 @verbatim
@@ -1399,7 +1297,7 @@ package_delete_command => "/usr/sbin/pkg_delete";
 
 @end verbatim
 
-@node body package_method generic, body package_method msi_explicit, body package_method freebsd, The Purpose Of This Handbook
+@node body package_method generic
 @section body package_method generic
 
 @verbatim
@@ -1451,18 +1349,18 @@ debian::
  package_list_update_ifelapsed => "240";		# 4 hours
 
 debian.have_aptitude::
-   package_add_command => "/usr/bin/aptitude --assume-yes install";
+   package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes install";
    package_list_update_command => "/usr/bin/aptitude update";
-   package_delete_command => "/usr/bin/aptitude --assume-yes remove";
-   package_update_command =>  "/usr/bin/aptitude --assume-yes install";
+   package_delete_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes remove";
+   package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/aptitude -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --assume-yes install";
    package_verify_command =>  "/usr/bin/aptitude show";
    package_noverify_regex => "(State: not installed|E: Unable to locate package .*)";
 
 debian.!have_aptitude::
-   package_add_command => "/usr/bin/apt-get --yes install";
+   package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_list_update_command => "/usr/bin/apt-get update";
-   package_delete_command => "/usr/bin/apt-get --yes remove";
-   package_update_command =>  "/usr/bin/apt-get --yes install";
+   package_delete_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes remove";
+   package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_verify_command => "/usr/bin/dpkg -s";
    package_noverify_returncode => "1";
 
@@ -1480,9 +1378,10 @@ freebsd::
 }
 
 
+
 @end verbatim
 
-@node body package_method msi_explicit, body package_method msi_implicit, body package_method generic, The Purpose Of This Handbook
+@node body package_method msi_explicit
 @section body package_method msi_explicit(repo)
 
 @verbatim
@@ -1506,7 +1405,7 @@ package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
 
 @end verbatim
 
-@node body package_method msi_implicit, body package_method rpm_version, body package_method msi_explicit, The Purpose Of This Handbook
+@node body package_method msi_implicit
 @section body package_method msi_implicit(repo)
 
 @verbatim
@@ -1534,7 +1433,7 @@ package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
 
 @end verbatim
 
-@node body package_method rpm_version, body package_method solaris , body package_method msi_implicit, The Purpose Of This Handbook
+@node body package_method rpm_version
 @section body package_method rpm_version(repo)
 
 @verbatim
@@ -1566,7 +1465,7 @@ package_noverify_regex => ".*[^\s].*";
 
 @end verbatim
 
-@node body package_method solaris , body package_method yum, body package_method rpm_version, The Purpose Of This Handbook
+@node body package_method solaris 
 @section body package_method solaris (pkgname, spoolfile, adminfile)
 
 @verbatim
@@ -1591,7 +1490,7 @@ package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 
 @end verbatim
 
-@node body package_method yum, body package_method yum_rpm, body package_method solaris , The Purpose Of This Handbook
+@node body package_method yum
 @section body package_method yum
 
 @verbatim
@@ -1627,7 +1526,7 @@ package_verify_command => "/bin/rpm -V";
 
 @end verbatim
 
-@node body package_method yum_rpm, body package_method zypper, body package_method yum, The Purpose Of This Handbook
+@node body package_method yum_rpm
 @section body package_method yum_rpm
 
 @verbatim
@@ -1670,7 +1569,7 @@ body package_method yum_rpm
 
 @end verbatim
 
-@node body package_method zypper, body perms m, body package_method yum_rpm, The Purpose Of This Handbook
+@node body package_method zypper
 @section body package_method zypper
 
 @verbatim
@@ -1706,7 +1605,7 @@ package_verify_command => "/usr/bin/zypper --non-interactive verify$";
 
 @end verbatim
 
-@node body perms m, body perms mo, body package_method zypper, The Purpose Of This Handbook
+@node body perms m
 @section body perms m(mode)
 
 @verbatim
@@ -1718,7 +1617,7 @@ mode   => "$(mode)";
 
 @end verbatim
 
-@node body perms mo, body perms mog, body perms m, The Purpose Of This Handbook
+@node body perms mo
 @section body perms mo(mode,user)
 
 @verbatim
@@ -1731,7 +1630,7 @@ mode   => "$(mode)";
 
 @end verbatim
 
-@node body perms mog, body perms og, body perms mo, The Purpose Of This Handbook
+@node body perms mog
 @section body perms mog(mode,user,group)
 
 @verbatim
@@ -1745,7 +1644,7 @@ mode   => "$(mode)";
 
 @end verbatim
 
-@node body perms og, body perms owner, body perms mog, The Purpose Of This Handbook
+@node body perms og
 @section body perms og(u,g)
 
 @verbatim
@@ -1758,7 +1657,7 @@ groups => { "$(g)" };
 
 @end verbatim
 
-@node body perms owner, body process_count any_count, body perms og, The Purpose Of This Handbook
+@node body perms owner
 @section body perms owner(user)
 
 @verbatim
@@ -1770,7 +1669,7 @@ owners => { "$(user)" };
 
 @end verbatim
 
-@node body process_count any_count, body process_count check_range, body perms owner, The Purpose Of This Handbook
+@node body process_count any_count
 @section body process_count any_count(cl)
 
 @verbatim
@@ -1784,7 +1683,7 @@ out_of_range_define => { "$(cl)" };
 
 @end verbatim
 
-@node body process_count check_range, body process_select days_older_than, body process_count any_count, The Purpose Of This Handbook
+@node body process_count check_range
 @section body process_count check_range(name,lower,upper)
 
 @verbatim
@@ -1797,7 +1696,7 @@ out_of_range_define => { "$(name)_out_of_range" };
 
 @end verbatim
 
-@node body process_select days_older_than, body process_select exclude_procs, body process_count check_range, The Purpose Of This Handbook
+@node body process_select days_older_than
 @section body process_select days_older_than(d)
 
 @verbatim
@@ -1810,7 +1709,7 @@ process_result => "stime";
 
 @end verbatim
 
-@node body process_select exclude_procs, body rename disable, body process_select days_older_than, The Purpose Of This Handbook
+@node body process_select exclude_procs
 @section body process_select exclude_procs(x)
 
 @verbatim
@@ -1823,7 +1722,7 @@ process_result => "!command";
 
 @end verbatim
 
-@node body rename disable, body rename rotate, body process_select exclude_procs, The Purpose Of This Handbook
+@node body rename disable
 @section body rename disable
 
 @verbatim
@@ -1835,7 +1734,7 @@ disable => "true";
 
 @end verbatim
 
-@node body rename rotate, body rename to, body rename disable, The Purpose Of This Handbook
+@node body rename rotate
 @section body rename rotate(level)
 
 @verbatim
@@ -1847,7 +1746,7 @@ rotate => "$(level)";
 
 @end verbatim
 
-@node body rename to, body replace_with comment, body rename rotate, The Purpose Of This Handbook
+@node body rename to
 @section body rename to(file)
 
 @verbatim
@@ -1859,7 +1758,7 @@ newname => "$(file)";
 
 @end verbatim
 
-@node body replace_with comment, body replace_with uncomment, body rename to, The Purpose Of This Handbook
+@node body replace_with comment
 @section body replace_with comment(c)
 
 @verbatim
@@ -1872,7 +1771,7 @@ occurrences => "all";
 
 @end verbatim
 
-@node body replace_with uncomment, body replace_with value, body replace_with comment, The Purpose Of This Handbook
+@node body replace_with uncomment
 @section body replace_with uncomment
 
 @verbatim
@@ -1886,7 +1785,7 @@ occurrences => "all";
 
 @end verbatim
 
-@node body replace_with value, body select_region INI_section, body replace_with uncomment, The Purpose Of This Handbook
+@node body replace_with value
 @section body replace_with value(x)
 
 @verbatim
@@ -1899,7 +1798,7 @@ occurrences => "all";
 
 @end verbatim
 
-@node body select_region INI_section, body service_method bootstart, body replace_with value, The Purpose Of This Handbook
+@node body select_region INI_section
 @section body select_region INI_section(x)
 
 @verbatim
@@ -1912,7 +1811,7 @@ select_end => "\[.*\]\s*";
 
 @end verbatim
 
-@node body service_method bootstart, body service_method force_deps, body select_region INI_section, The Purpose Of This Handbook
+@node body service_method bootstart
 @section body service_method bootstart
 
 @verbatim
@@ -1927,7 +1826,7 @@ windows::
 
 @end verbatim
 
-@node body service_method force_deps, body volume min_free_space, body service_method bootstart, The Purpose Of This Handbook
+@node body service_method force_deps
 @section body service_method force_deps
 
 @verbatim
@@ -1941,7 +1840,7 @@ windows::
 
 @end verbatim
 
-@node body volume min_free_space, bundle agent cronjob, body service_method force_deps, The Purpose Of This Handbook
+@node body volume min_free_space
 @section body volume min_free_space(free)
 
 @verbatim
@@ -1956,7 +1855,7 @@ sensible_count => "2";
 
 @end verbatim
 
-@node bundle agent cronjob, bundle edit_line append_groups_starting, body volume min_free_space, The Purpose Of This Handbook
+@node bundle agent cronjob
 @section bundle agent cronjob(commands,user,hours,mins)
 
 @verbatim
@@ -2000,7 +1899,7 @@ changed_crontab::
 
 @end verbatim
 
-@node bundle edit_line append_groups_starting, bundle edit_line append_if_no_line, bundle agent cronjob, The Purpose Of This Handbook
+@node bundle edit_line append_groups_starting
 @section bundle edit_line append_groups_starting(v)
 
 @verbatim
@@ -2030,7 +1929,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line append_if_no_line, bundle edit_line append_if_no_lines, bundle edit_line append_groups_starting, The Purpose Of This Handbook
+@node bundle edit_line append_if_no_line
 @section bundle edit_line append_if_no_line(str)
 
 @verbatim
@@ -2046,7 +1945,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line append_if_no_lines, bundle edit_line append_to_line_end, bundle edit_line append_if_no_line, The Purpose Of This Handbook
+@node bundle edit_line append_if_no_lines
 @section bundle edit_line append_if_no_lines(list)
 
 @verbatim
@@ -2062,7 +1961,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line append_to_line_end, bundle edit_line append_user_field, bundle edit_line append_if_no_lines, The Purpose Of This Handbook
+@node bundle edit_line append_to_line_end
 @section bundle edit_line append_to_line_end(start,end)
 
 @verbatim
@@ -2087,7 +1986,7 @@ field_edits:
 
 @end verbatim
 
-@node bundle edit_line append_user_field, bundle edit_line append_users_starting, bundle edit_line append_to_line_end, The Purpose Of This Handbook
+@node bundle edit_line append_user_field
 @section bundle edit_line append_user_field(group,field,allusers)
 
 @verbatim
@@ -2112,7 +2011,7 @@ field_edits:
 
 @end verbatim
 
-@node bundle edit_line append_users_starting, bundle edit_line comment_lines_containing, bundle edit_line append_user_field, The Purpose Of This Handbook
+@node bundle edit_line append_users_starting
 @section bundle edit_line append_users_starting(v)
 
 @verbatim
@@ -2141,7 +2040,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line comment_lines_containing, bundle edit_line comment_lines_matching, bundle edit_line append_users_starting, The Purpose Of This Handbook
+@node bundle edit_line comment_lines_containing
 @section bundle edit_line comment_lines_containing(regex,comment)
 
 @verbatim
@@ -2161,7 +2060,7 @@ replace_patterns:
 	 
 @end verbatim
 
-@node bundle edit_line comment_lines_matching, bundle edit_line create_solaris_admin_file, bundle edit_line comment_lines_containing, The Purpose Of This Handbook
+@node bundle edit_line comment_lines_matching
 @section bundle edit_line comment_lines_matching(regex,comment)
 
 @verbatim
@@ -2181,7 +2080,7 @@ replace_patterns:
 	 
 @end verbatim
 
-@node bundle edit_line create_solaris_admin_file, bundle edit_line delete_lines_matching, bundle edit_line comment_lines_matching, The Purpose Of This Handbook
+@node bundle edit_line create_solaris_admin_file
 @section bundle edit_line create_solaris_admin_file
 
 @verbatim
@@ -2210,7 +2109,7 @@ basedir=default";
 
 @end verbatim
 
-@node bundle edit_line delete_lines_matching, bundle edit_line expand_template, bundle edit_line create_solaris_admin_file, The Purpose Of This Handbook
+@node bundle edit_line delete_lines_matching
 @section bundle edit_line delete_lines_matching(regex)
 
 @verbatim
@@ -2226,7 +2125,7 @@ delete_lines:
 
 @end verbatim
 
-@node bundle edit_line expand_template, bundle edit_line insert_file, bundle edit_line delete_lines_matching, The Purpose Of This Handbook
+@node bundle edit_line expand_template
 @section bundle edit_line expand_template(templatefile)
 
 @verbatim
@@ -2245,10 +2144,9 @@ insert_lines:
      expand_scalars => "true";
 }
 
-
 @end verbatim
 
-@node bundle edit_line insert_file, bundle edit_line insert_lines, bundle edit_line expand_template, The Purpose Of This Handbook
+@node bundle edit_line insert_file
 @section bundle edit_line insert_file(templatefile)
 
 @verbatim
@@ -2264,13 +2162,13 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line insert_lines, bundle edit_line replace_line_end, bundle edit_line insert_file, The Purpose Of This Handbook
+@node bundle edit_line insert_lines
 @section bundle edit_line insert_lines(lines)
 
 @verbatim
 @end verbatim
 
-@node bundle edit_line replace_line_end, bundle edit_line resolvconf, bundle edit_line insert_lines, The Purpose Of This Handbook
+@node bundle edit_line replace_line_end
 @section bundle edit_line replace_line_end(start,end)
 
 @verbatim
@@ -2292,7 +2190,36 @@ field_edits:
 
 @end verbatim
 
-@node bundle edit_line resolvconf, bundle edit_line set_user_field, bundle edit_line replace_line_end, The Purpose Of This Handbook
+@node bundle edit_line replace_or_add
+@section bundle edit_line replace_or_add(pattern,line)
+
+@verbatim
+bundle edit_line replace_or_add(pattern,line)
+
+ # Replace a pattern in a file with a single line.
+ # If the pattern is not found, add the line to the file.
+ # The pattern must match the whole line (it is automatically
+ # anchored to the start and end of the line) to avoid
+ # ambiguity.
+
+{
+vars:
+  "cline" string => canonify("$(line)");
+
+replace_patterns:
+  "^(?!$(line))$(pattern)$"
+  replace_with => value("$(line)"),
+  classes => always("replace_done_$(cline)");
+
+insert_lines:
+  "$(line)"
+    ifvarclass => "replace_done_$(cline)";
+}
+
+
+@end verbatim
+
+@node bundle edit_line resolvconf
 @section bundle edit_line resolvconf(search,list)
 
 @verbatim
@@ -2316,7 +2243,42 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line set_user_field, bundle edit_line set_variable_values, bundle edit_line resolvconf, The Purpose Of This Handbook
+@node bundle edit_line set_config_values
+@section bundle edit_line set_config_values(v)
+
+@verbatim
+bundle edit_line set_config_values(v)
+
+ # Sets the RHS of configuration items in the file of the form
+ #   LHS RHS
+ # If the line is commented out with #, it gets uncommented first.
+ # Adds a new line if none exists.
+ # The argument is the fully-qualified name of an associative array containing v[LHS]="rhs"
+
+{
+vars:
+  "index" slist => getindices("$(v)");
+
+  # Be careful if the index string contains funny chars
+  "cindex[$(index)]" string => canonify("$(index)");
+
+replace_patterns:
+  # If the line is there, maybe commented out, uncomment and replace with
+  # the correct value
+  "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+    replace_with => value("$(index) $($(v)[$(index)])"),
+    classes => always("replace_attempted_$(cindex[$(index)])");
+
+insert_lines:
+  "$(index) $($(v)[$(index)])"
+    ifvarclass => "replace_attempted_$(cindex[$(index)])";
+
+}
+
+
+@end verbatim
+
+@node bundle edit_line set_user_field
 @section bundle edit_line set_user_field(user,field,val)
 
 @verbatim
@@ -2337,7 +2299,7 @@ field_edits:
 
 @end verbatim
 
-@node bundle edit_line set_variable_values, bundle edit_line set_variable_values2, bundle edit_line set_user_field, The Purpose Of This Handbook
+@node bundle edit_line set_variable_values
 @section bundle edit_line set_variable_values(v)
 
 @verbatim
@@ -2381,10 +2343,9 @@ insert_lines:
       ifvarclass => "!$(cindex[$(index)])_in_file";
 }
 
-
 @end verbatim
 
-@node bundle edit_line set_variable_values2, bundle edit_line uncomment_lines_containing, bundle edit_line set_variable_values, The Purpose Of This Handbook
+@node bundle edit_line set_variable_values2
 @section bundle edit_line set_variable_values2(file,v)
 
 @verbatim
@@ -2427,7 +2388,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line uncomment_lines_containing, bundle edit_line uncomment_lines_matching, bundle edit_line set_variable_values2, The Purpose Of This Handbook
+@node bundle edit_line uncomment_lines_containing
 @section bundle edit_line uncomment_lines_containing(regex,comment)
 
 @verbatim
@@ -2448,7 +2409,7 @@ replace_patterns:
 
 @end verbatim
 
-@node bundle edit_line uncomment_lines_matching, bundle edit_line warn_lines_matching, bundle edit_line uncomment_lines_containing, The Purpose Of This Handbook
+@node bundle edit_line uncomment_lines_matching
 @section bundle edit_line uncomment_lines_matching(regex,comment)
 
 @verbatim
@@ -2469,7 +2430,7 @@ replace_patterns:
 
 @end verbatim
 
-@node bundle edit_line warn_lines_matching,  , bundle edit_line uncomment_lines_matching, The Purpose Of This Handbook
+@node bundle edit_line warn_lines_matching
 @section bundle edit_line warn_lines_matching(regex)
 
 @verbatim
