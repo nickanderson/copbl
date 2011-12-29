@@ -275,6 +275,34 @@ insert_lines:
       ifvarclass => "!$(cindex[$(index)])_in_file";
 }
 
+bundle edit_line set_config_values(v)
+
+ # Sets the RHS of configuration items in the file of the form
+ #   LHS RHS
+ # If the line is commented out with #, it gets uncommented first.
+ # Adds a new line if none exists.
+ # The argument is the fully-qualified name of an associative array containing v[LHS]="rhs"
+
+{
+vars:
+  "index" slist => getindices("$(v)");
+
+  # Be careful if the index string contains funny chars
+  "cindex[$(index)]" string => canonify("$(index)");
+
+replace_patterns:
+  # If the line is there, maybe commented out, uncomment and replace with
+  # the correct value
+  "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+    replace_with => value("$(index) $($(v)[$(index)])"),
+    classes => always("replace_attempted_$(cindex[$(index)])");
+
+insert_lines:
+  "$(index) $($(v)[$(index)])"
+    ifvarclass => "replace_attempted_$(cindex[$(index)])";
+
+}
+
 ##
 
 bundle edit_line set_variable_values2(file,v)
