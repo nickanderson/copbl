@@ -19,8 +19,8 @@
 
 @titlepage
 @title Community Open Promise Body Library
-@subtitle A Cfengine Standard
-@author Cfengine AS
+@subtitle A CFEngine Standard
+@author CFEngine AS
 
 @c @smallbook
 
@@ -28,14 +28,14 @@
 
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 2009 Cfengine AS
+Copyright @copyright{} 2012 CFEngine AS
 @end titlepage
 @c *************************** File begins here ************************
 @ifinfo
-@dircategory Cfengine Training
+@dircategory CFEngine Training
 @direntry
 * cfengine Reference:
-                        Cfengine is a language based framework
+                        CFEngine is a language based framework
                         designed for configuring and maintaining
                         Unix-like operating systems attached
                         to a TCP/IP network.
@@ -43,7 +43,7 @@ Copyright @copyright{} 2009 Cfengine AS
 @end ifinfo
 @ifnottex
 @node Top, Basic company information and procedures, (dir), (dir)
-@top Cfengine-Open-Promise-Body-Library
+@top CFEngine-Open-Promise-Body-Library
 @end ifnottex
 @ifhtml
 @html
@@ -59,7 +59,7 @@ Copyright @copyright{} 2009 Cfengine AS
 
 @sp 1
 
-Cfengine is built on promises. Promises were chosen as the model for Cfengine's
+CFEngine is built on promises. Promises were chosen as the model for CFEngine's
 configuration language, because they represent an expression of intention.
 
 If you are using custom scripts to manage your systems, you are using
@@ -87,7 +87,7 @@ basic skills and names. This collection should be comprehensive but
 parsimonious. Basics are only basics if they are few and carefully
 thought out. This is a work in progress and your experience is welcome.
 
-This library will be moderated by Cfengine, and contributions and discussions
+This library will be moderated by CFEngine, and contributions and discussions
 ca n be made to the help-cfengine@@cfengine.org mailing list.
 
 @end cartouche
