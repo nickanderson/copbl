@@ -226,6 +226,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * bundle edit_line replace_or_add::  
 * bundle edit_line resolvconf::  
 * bundle edit_line set_config_values::  
+* bundle edit_line set_config_values_matching::  
 * bundle edit_line set_user_field::  
 * bundle edit_line set_variable_values::  
 * bundle edit_line set_variable_values2::  
@@ -2399,7 +2400,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line set_config_values, bundle edit_line set_user_field, bundle edit_line resolvconf, The Purpose Of This Handbook
+@node bundle edit_line set_config_values, bundle edit_line set_config_values_matching, bundle edit_line resolvconf, The Purpose Of This Handbook
 @section bundle edit_line set_config_values(v)
 
 @verbatim
@@ -2431,10 +2432,46 @@ insert_lines:
 
 }
 
+@end verbatim
+
+@node bundle edit_line set_config_values_matching, bundle edit_line set_user_field, bundle edit_line set_config_values, The Purpose Of This Handbook
+@section bundle edit_line set_config_values_matching(v,pat)
+
+@verbatim
+bundle edit_line set_config_values_matching(v,pat)
+
+ # Sets the RHS of configuration items in the file of the form
+ #   LHS RHS
+ # If the line is commented out with #, it gets uncommented first.
+ # Adds a new line if none exists.
+ # Only elements of "v" that match the regex "pat" are used
+ # The argument is the fully-qualified name of an associative array containing v[LHS]="rhs"
+
+{
+vars:
+  "allparams" slist => getindices("$(v)");
+  "index"     slist => grep("$(pat)", "allparams");
+
+  # Be careful if the index string contains funny chars
+  "cindex[$(index)]" string => canonify("$(index)");
+
+replace_patterns:
+    # If the line is there, maybe commented out, uncomment and replace with
+    # the correct value
+    "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+      replace_with => value("$(index) $($(v)[$(index)])"),
+      classes => always("replace_attempted_$(cindex[$(index)])");
+
+insert_lines:
+  "$(index) $($(v)[$(index)])"
+    ifvarclass => "replace_attempted_$(cindex[$(index)])";
+
+}
+
 
 @end verbatim
 
-@node bundle edit_line set_user_field, bundle edit_line set_variable_values, bundle edit_line set_config_values, The Purpose Of This Handbook
+@node bundle edit_line set_user_field, bundle edit_line set_variable_values, bundle edit_line set_config_values_matching, The Purpose Of This Handbook
 @section bundle edit_line set_user_field(user,field,val)
 
 @verbatim
