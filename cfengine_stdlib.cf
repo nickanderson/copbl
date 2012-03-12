@@ -422,6 +422,22 @@ insert_lines:
 
 ##
 
+bundle edit_line set_colon_field(key,field,val)
+
+ # Set the value of field number "field" of the
+ # line whose first field is "key", in a colon-separated file.
+
+{
+field_edits:
+
+  "$(key):.*"
+
+       comment => "Edit a colon-separated file, using the first field as a key",
+     edit_field => col(":","$(field)","$(val)","set");
+}
+
+##
+
 bundle edit_line set_user_field(user,field,val)
 
  # Set the value of field number "field" in
