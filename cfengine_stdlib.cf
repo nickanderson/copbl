@@ -335,44 +335,6 @@ insert_lines:
 
 ##
 
-bundle edit_line set_variable_values2(file,v)
-#
-# Another implementation of set_variable_values.
-# The input and output should be exactly the same (except the file name), 
-# but in some Cfengine versions there are bugs, 
-# so this bundle can be used as a workaround.
-#
-{
-vars:
-
-  "index" slist => getindices("$(v)");
-
-  # Be careful if the index string contains funny chars
-
-  "cindex[$(index)]" string => canonify("$(index)");
-
-  "fieldc_$(cindex[$(index)])" int => getfields("$(index).*","$(file)","=","FIELD_$(cindex[$(index)])");
-
-classes:
-  "$(cindex[$(index)])_in_file" expression => strcmp("$(index)=$($(v)[$(index)])", "$(FIELD_$(index)[1])=$(FIELD_$(index)[2])");
-
-
-delete_lines:  # delete any lhs when no match
-  "$(index)=.*",
-    ifvarclass => "!$(cindex[$(index)])_in_file";
-
-
-insert_lines:
-
-  "$(index)=$($(v)[$(index)])",
-
-         comment => "Insert a variable definition",
-      ifvarclass => "!$(cindex[$(index)])_in_file";
-
-}
-
-##
-
 bundle edit_line append_users_starting(v)
 
  # For adding to /etc/passwd or etc/shadow, needs
@@ -418,6 +380,22 @@ insert_lines:
          comment => "Append users into a group file format",
       ifvarclass => "add_$(index)";
 
+}
+
+##
+
+bundle edit_line set_colon_field(key,field,val)
+
+ # Set the value of field number "field" of the
+ # line whose first field is "key", in a colon-separated file.
+
+{
+field_edits:
+
+  "$(key):.*"
+
+       comment => "Edit a colon-separated file, using the first field as a key",
+     edit_field => col(":","$(field)","$(val)","set");
 }
 
 ##
@@ -486,7 +464,7 @@ vars:
   "cline" string => canonify("$(line)");
 
 replace_patterns:
-  "^(?!$(line))$(pattern)$"
+  "^(?!$(line)$)$(pattern)$"
   replace_with => value("$(line)"),
   classes => always("replace_done_$(cline)");
 

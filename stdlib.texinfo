@@ -225,11 +225,11 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * bundle edit_line replace_line_end::  
 * bundle edit_line replace_or_add::  
 * bundle edit_line resolvconf::  
+* bundle edit_line set_colon_field::  
 * bundle edit_line set_config_values::  
 * bundle edit_line set_config_values_matching::  
 * bundle edit_line set_user_field::  
 * bundle edit_line set_variable_values::  
-* bundle edit_line set_variable_values2::  
 * bundle edit_line uncomment_lines_containing::  
 * bundle edit_line uncomment_lines_matching::  
 * bundle edit_line warn_lines_matching::  
@@ -2364,7 +2364,7 @@ vars:
   "cline" string => canonify("$(line)");
 
 replace_patterns:
-  "^(?!$(line))$(pattern)$"
+  "^(?!$(line)$)$(pattern)$"
   replace_with => value("$(line)"),
   classes => always("replace_done_$(cline)");
 
@@ -2376,7 +2376,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line resolvconf, bundle edit_line set_config_values, bundle edit_line replace_or_add, The Purpose Of This Handbook
+@node bundle edit_line resolvconf, bundle edit_line set_colon_field, bundle edit_line replace_or_add, The Purpose Of This Handbook
 @section bundle edit_line resolvconf(search,list)
 
 @verbatim
@@ -2400,7 +2400,28 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line set_config_values, bundle edit_line set_config_values_matching, bundle edit_line resolvconf, The Purpose Of This Handbook
+@node bundle edit_line set_colon_field, bundle edit_line set_config_values, bundle edit_line resolvconf, The Purpose Of This Handbook
+@section bundle edit_line set_colon_field(key,field,val)
+
+@verbatim
+bundle edit_line set_colon_field(key,field,val)
+
+ # Set the value of field number "field" of the
+ # line whose first field is "key", in a colon-separated file.
+
+{
+field_edits:
+
+  "$(key):.*"
+
+       comment => "Edit a colon-separated file, using the first field as a key",
+     edit_field => col(":","$(field)","$(val)","set");
+}
+
+
+@end verbatim
+
+@node bundle edit_line set_config_values, bundle edit_line set_config_values_matching, bundle edit_line set_colon_field, The Purpose Of This Handbook
 @section bundle edit_line set_config_values(v)
 
 @verbatim
@@ -2492,7 +2513,7 @@ field_edits:
 
 @end verbatim
 
-@node bundle edit_line set_variable_values, bundle edit_line set_variable_values2, bundle edit_line set_user_field, The Purpose Of This Handbook
+@node bundle edit_line set_variable_values, bundle edit_line uncomment_lines_containing, bundle edit_line set_user_field, The Purpose Of This Handbook
 @section bundle edit_line set_variable_values(v)
 
 @verbatim
@@ -2538,50 +2559,7 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line set_variable_values2, bundle edit_line uncomment_lines_containing, bundle edit_line set_variable_values, The Purpose Of This Handbook
-@section bundle edit_line set_variable_values2(file,v)
-
-@verbatim
-bundle edit_line set_variable_values2(file,v)
-#
-# Another implementation of set_variable_values.
-# The input and output should be exactly the same (except the file name), 
-# but in some CFEngine versions there are bugs, 
-# so this bundle can be used as a workaround.
-#
-{
-vars:
-
-  "index" slist => getindices("$(v)");
-
-  # Be careful if the index string contains funny chars
-
-  "cindex[$(index)]" string => canonify("$(index)");
-
-  "fieldc_$(cindex[$(index)])" int => getfields("$(index).*","$(file)","=","FIELD_$(cindex[$(index)])");
-
-classes:
-  "$(cindex[$(index)])_in_file" expression => strcmp("$(index)=$($(v)[$(index)])", "$(FIELD_$(index)[1])=$(FIELD_$(index)[2])");
-
-
-delete_lines:  # delete any lhs when no match
-  "$(index)=.*",
-    ifvarclass => "!$(cindex[$(index)])_in_file";
-
-
-insert_lines:
-
-  "$(index)=$($(v)[$(index)])",
-
-         comment => "Insert a variable definition",
-      ifvarclass => "!$(cindex[$(index)])_in_file";
-
-}
-
-
-@end verbatim
-
-@node bundle edit_line uncomment_lines_containing, bundle edit_line uncomment_lines_matching, bundle edit_line set_variable_values2, The Purpose Of This Handbook
+@node bundle edit_line uncomment_lines_containing, bundle edit_line uncomment_lines_matching, bundle edit_line set_variable_values, The Purpose Of This Handbook
 @section bundle edit_line uncomment_lines_containing(regex,comment)
 
 @verbatim
