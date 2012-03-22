@@ -614,6 +614,15 @@ select_line_matching => "$(str)";
 }
 
 ##
+
+body location before(str)
+{
+before_after => "before";
+select_line_matching => "$(str)";
+}
+
+
+##
 ## replace_with
 ##
 
