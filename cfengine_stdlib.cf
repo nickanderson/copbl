@@ -658,6 +658,14 @@ expireafter => "$(x)";
 
 ##
 
+body action if_elapsed_day
+{
+ifelapsed => "1440";    # 60 x 24
+expireafter => "1400";
+}
+
+##
+
 body action measure_performance(x)
 {
 measurement_class => "Detect changes in $(this.promiser)";
