@@ -786,6 +786,15 @@ no_output => "true";
 
 ##
 
+body contain in_dir_shell_and_silent(dir)
+{
+useshell => "true";
+no_output => "true";
+chdir => "$(dir)";
+}
+
+##
+
 body contain setuid(x)
 {
 exec_owner => "$(x)";
