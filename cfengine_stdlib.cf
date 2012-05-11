@@ -1924,6 +1924,22 @@ track_growing_file => "false";
 
 ##
 
+body match_value single_value(regex)
+{
+select_line_matching => "$(regex)";
+extraction_regex => "($(regex))";
+}
+
+##
+
+body match_value line_match_value(x,y)
+{
+select_line_matching => "$(x)";
+extraction_regex => "$(y)";
+}
+
+##
+
 body action sample_rate(x)
 {
 ifelapsed => "$(x)";
