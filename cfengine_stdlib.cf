@@ -1932,10 +1932,10 @@ extraction_regex => "($(regex))";
 
 ##
 
-body match_value line_match_value(x,y)
+body match_value line_match_value(line_match, extract_regex)
 {
-select_line_matching => "$(x)";
-extraction_regex => "$(y)";
+select_line_matching => "$(line_match)";
+extraction_regex => "$(extract_regex)";
 }
 
 ##
