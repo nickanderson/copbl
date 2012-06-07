@@ -874,6 +874,14 @@ promise_kept => { "$(x)" };
 
 ##
 
+body classes if_ok_cancel(x)
+{
+cancel_repaired => { "$(x)" };
+cancel_kept => { "$(x)" };
+}
+
+##
+
 body classes cmd_repair(code,cl)
 {
 repaired_returncodes => { "$(code)" };
