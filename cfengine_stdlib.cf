@@ -1370,8 +1370,8 @@ body package_method apt
 {
 package_changes => "bulk";
 package_list_command => "/usr/bin/dpkg -l";
-package_list_name_regex    => "ii\s+([^\s]+).*";
-package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
+package_list_name_regex    => ".i\s+([^\s]+).*";
+package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
 package_installed_regex => ".*"; # all reported are installed
 package_name_convention => "$(name)";
 
@@ -1405,8 +1405,8 @@ package_list_command => "/usr/bin/dpkg -l";
 # set it to "0" to avoid caching of list during upgrade
 package_list_update_ifelapsed => "240";
 
-package_list_name_regex    => "ii\s+([^\s]+).*";
-package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
+package_list_name_regex    => ".i\s+([^\s]+).*";
+package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
 
 package_installed_regex => ".*"; # all reported are installed
 
@@ -1713,8 +1713,8 @@ redhat::
 debian::
  package_changes => "bulk";
  package_list_command => "/usr/bin/dpkg -l";
- package_list_name_regex    => "ii\s+([^\s]+).*";
- package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
+ package_list_name_regex    => ".i\s+([^\s]+).*";
+ package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
  package_installed_regex => ".*"; # all reported are installed
  package_name_convention => "$(name)";
  package_list_update_ifelapsed => "240";		# 4 hours
