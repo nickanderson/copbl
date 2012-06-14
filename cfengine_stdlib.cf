@@ -577,7 +577,7 @@ body edit_defaults std_defs
 {
 empty_file_before_editing => "false";
 edit_backup => "false";
-max_file_size => "300000";
+#max_file_size => "300000";
 }
 
 ##
@@ -586,7 +586,7 @@ body edit_defaults empty
 {
 empty_file_before_editing => "true";
 edit_backup => "false";
-max_file_size => "300000";
+#max_file_size => "300000";
 }
 
 ##
