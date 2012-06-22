@@ -1372,7 +1372,7 @@ package_changes => "bulk";
 package_list_command => "/usr/bin/dpkg -l";
 package_list_name_regex    => ".i\s+([^\s]+).*";
 package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
-package_installed_regex => ".*"; # all reported are installed
+package_installed_regex => ".i.*"; # packages that have been uninstalled may be listed
 package_name_convention => "$(name)";
 
 # set it to "0" to avoid caching of list during upgrade
@@ -1408,7 +1408,7 @@ package_list_update_ifelapsed => "240";
 package_list_name_regex    => ".i\s+([^\s]+).*";
 package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
 
-package_installed_regex => ".*"; # all reported are installed
+package_installed_regex => ".i.*"; # packages that have been uninstalled may be listed
 
 package_file_repositories => { "$(repo)" };
 
@@ -1715,7 +1715,7 @@ debian::
  package_list_command => "/usr/bin/dpkg -l";
  package_list_name_regex    => ".i\s+([^\s]+).*";
  package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
- package_installed_regex => ".*"; # all reported are installed
+ package_installed_regex => ".i.*"; # packages that have been uninstalled may be listed
  package_name_convention => "$(name)";
  package_list_update_ifelapsed => "240";		# 4 hours
 
