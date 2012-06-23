@@ -307,6 +307,72 @@ bundle edit_line manage_variable_values_ini(tab, sectionName) {
 
 ##
 
+bundle edit_line set_variable_values_ini(tab, sectionName) {
+ # Sets the RHS of configuration items in the file of the form
+ # LHS=RHS
+ # If the line is commented out with #, it gets uncommented first.
+ # Adds a new line if none exists.
+ # The argument is an associative array containing tab[SectionName][LHS]="RHS"
+ # don't change value when the RHS is dontchange
+
+ # Based on set_variable_values from cfengine_stdlib.cf, modified to
+ # use section to define were to write, and to handle commented-out lines.
+
+ # CAUTION : for it to work nicely, you should use Cfengine with the commit n°3229
+ # otherwise you may risk a segfault
+
+ #
+ # If you are running 3.2.1 or earlier or more specifically git commit # or
+ # earlier you can use this to work around the segfault bug.
+ # vars:
+ #     "$(file)"
+ #         edit_line => append_if_no_line("[#EOF#]"),
+ #         create => "true",
+ #         comment => "Work around bug<bug#here> where eof did not mean end
+ #                     of section and thus cannot select a region. This promise
+ #                     should be placed before your call to this bundle";
+ #      "$(file)"
+ #         edit_line   => set_variable_values_ini("context.array", "SectionName"),
+ #         create => "true",
+ #         comment     => "Set the variale values only in the specified ini region";
+ # 
+
+    vars:
+        "index" slist => getindices("$(tab)[$(sectionName)]");
+
+    # Be careful if the index string contains funny chars
+        "cindex[$(index)]" string => canonify("$(index)");
+
+    classes:
+        "edit_$(cindex[$(index)])" not => strcmp("$($(tab)[$(sectionName)][$(index)])","dontchange");
+
+    field_edits:
+
+    # If the line is there, but commented out, first uncomment it
+        "#+$(index)\s*=.*"
+            select_region => INI_section("$(sectionName)"),
+            edit_field => col("=","1","$(index)","set"),
+            ifvarclass => "edit_$(cindex[$(index)])";
+
+    # match a line starting like the key something
+        "$(index)\s*=.*"
+            edit_field => col("=","2","$($(tab)[$(sectionName)][$(index)])","set"),
+            select_region => INI_section("$(sectionName)"),
+            classes => if_ok("set_variable_values_ini_not_$(cindex[$(index)])"),
+            ifvarclass => "edit_$(cindex[$(index)])";
+
+    insert_lines:
+        "[$(sectionName)]"
+                location => start;
+
+        "$(index)=$($(tab)[$(sectionName)][$(index)])",
+                select_region => INI_section("$(sectionName)"),
+                ifvarclass => "!set_variable_values_ini_not_$(cindex[$(index)]).edit_$(cindex[$(index)])";
+
+}
+
+##
+
 bundle edit_line set_variable_values(v)
 
  # Sets the RHS of variables in the file of the form
