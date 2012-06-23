@@ -1578,7 +1578,29 @@ body package_method yum_rpm
 
 ##
 
-# The solaris package system is poorly designed, with too many different
+# OpenSolaris based systems (Solaris 11, Illumos, etc) use the much better
+# Image Package System.
+
+body package_method ips {
+  package_changes => "bulk";
+  package_list_command => "/usr/bin/pkg list -v --no-refresh";
+  package_list_name_regex    => "pkg://.+?/([^\s]+)@.*$";
+  package_list_version_regex => "[^\s]+@([^\s]+).*";
+  package_installed_regex => ".*(i..)"; # all reported are installed
+
+  # set it to "0" to avoid caching of list during upgrade
+  package_list_update_ifelapsed => "240";
+
+  package_add_command => "/usr/bin/pkg install --accept ";
+  package_list_update_command => "/usr/bin/pkg refresh --full";
+  package_delete_command => "/usr/bin/pkg uninstall";
+  package_update_command =>  "/usr/bin/pkg install --accept";
+  package_verify_command =>  "/usr/bin/pkg list -a -v --no-refresh";
+  package_noverify_regex => "(.*---|pkg list: no packages matching .* installed)";
+}
+
+
+# The older solaris package system is poorly designed, with too many different
 # names to track. See the example in tests/units/unit_package_solaris.cf
 # to see how to use this
 
