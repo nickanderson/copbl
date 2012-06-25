@@ -191,6 +191,7 @@ bundle edit_line replace_line_end(start,end)
 field_edits:
 
    "\s*$(start)\s.*"
+         comment => "Replace lines with $(this.start) and $(this.end)",
       edit_field => line("(^|\s)$(start)\s*", "2", "$(end)","set");
 }
 
@@ -211,6 +212,7 @@ bundle edit_line append_to_line_end(start,end)
 field_edits:
 
    "\s*$(start)\s.*"
+         comment => "Append lines with $(this.start) and $(this.end)",
       edit_field => line("(^|\s)$(start)\s*", "2", "$(end)","append");
 }
 
@@ -273,7 +275,8 @@ bundle edit_line manage_variable_values_ini(tab, sectionName) {
         "cindex[$(index)]" string => canonify("$(index)");
 
     classes:
-        "edit_$(cindex[$(index)])" not => strcmp("$($(tab)[$(sectionName)][$(index)])","dontchange");
+        "edit_$(cindex[$(index)])"     not => strcmp("$($(tab)[$(sectionName)][$(index)])","dontchange"),
+                                   comment => "Create conditions to make changes"; 
 
     field_edits:
 
@@ -297,7 +300,8 @@ bundle edit_line manage_variable_values_ini(tab, sectionName) {
 
     insert_lines:
         "[$(sectionName)]"
-                location => start;
+                location => start,
+                 comment => "Insert lines";
 
         "$(index)=$($(tab)[$(sectionName)][$(index)])",
                 select_region => INI_section("$(sectionName)"),
@@ -344,7 +348,8 @@ bundle edit_line set_variable_values_ini(tab, sectionName) {
         "cindex[$(index)]" string => canonify("$(index)");
 
     classes:
-        "edit_$(cindex[$(index)])" not => strcmp("$($(tab)[$(sectionName)][$(index)])","dontchange");
+        "edit_$(cindex[$(index)])"     not => strcmp("$($(tab)[$(sectionName)][$(index)])","dontchange"),
+                                   comment => "Create conditions to make changes";
 
     field_edits:
 
@@ -363,7 +368,8 @@ bundle edit_line set_variable_values_ini(tab, sectionName) {
 
     insert_lines:
         "[$(sectionName)]"
-                location => start;
+                location => start,
+                 comment => "Insert lines";
 
         "$(index)=$($(tab)[$(sectionName)][$(index)])",
                 select_region => INI_section("$(sectionName)"),
@@ -432,8 +438,9 @@ replace_patterns:
   # If the line is there, maybe commented out, uncomment and replace with
   # the correct value
   "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+         comment => "Correct the value",
     replace_with => value("$(index) $($(v)[$(index)])"),
-    classes => always("replace_attempted_$(cindex[$(index)])");
+         classes => always("replace_attempted_$(cindex[$(index)])");
 
 insert_lines:
   "$(index) $($(v)[$(index)])"
@@ -462,8 +469,9 @@ replace_patterns:
     # If the line is there, maybe commented out, uncomment and replace with
     # the correct value
     "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+           comment => "Correct the value",
       replace_with => value("$(index) $($(v)[$(index)])"),
-      classes => always("replace_attempted_$(cindex[$(index)])");
+           classes => always("replace_attempted_$(cindex[$(index)])");
 
 insert_lines:
   "$(index) $($(v)[$(index)])"
@@ -485,7 +493,8 @@ vars:
 
 classes:
 
-  "add_$(index)" not => userexists("$(index)");
+  "add_$(index)"     not => userexists("$(index)"),
+                 comment => "Class created if user does not exist";
 
 insert_lines:
 
@@ -509,7 +518,8 @@ vars:
 
 classes:
 
-  "add_$(index)" not => groupexists("$(index)");
+  "add_$(index)"     not => groupexists("$(index)"),
+                 comment => "Class created if group does not exist";
 
 insert_lines:
 
@@ -603,8 +613,9 @@ vars:
 
 replace_patterns:
   "^(?!$(line)$)$(pattern)$"
-  replace_with => value("$(line)"),
-  classes => always("replace_done_$(cline)");
+          comment => "Replace a pattern here",
+     replace_with => value("$(line)"),
+          classes => always("replace_done_$(cline)");
 
 insert_lines:
   "$(line)"
@@ -1790,7 +1801,8 @@ networkretries=3
 authentication=quit
 keystore=/var/sadm/security
 proxy=
-basedir=default";
+basedir=default",
+      comment => "Insert contents of Solaris admin file (automatically install packages)";
 }
 
 ##
@@ -2066,8 +2078,10 @@ vars:
 
 classes:
 
-  "start" expression => strcmp("start","$(state)");
-  "stop"  expression => strcmp("stop","$(state)");
+  "start" expression => strcmp("start","$(state)"),
+             comment => "Check if to start a service";
+  "stop"  expression => strcmp("stop","$(state)"),
+             comment => "Check if to stop a service";
 
 # Do we want to include the packages here too?
 
