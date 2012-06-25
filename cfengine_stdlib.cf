@@ -1835,8 +1835,29 @@ body package_method freebsd
  package_name_convention => "$(name)-$(version)";
 
 
-package_add_command => "/usr/sbin/pkg_add -r";
-package_delete_command => "/usr/sbin/pkg_delete";
+ package_add_command => "/usr/sbin/pkg_add -r";
+ package_delete_command => "/usr/sbin/pkg_delete";
+}
+
+##
+
+body package_method emerge
+{
+ package_changes => "individual";
+ package_list_command => "/bin/sh -c '/bin/ls -d /var/db/pkg/*/* | cut -c 13-'";
+ package_list_name_regex => ".*/([^\s]+)-\d.*";
+ package_list_version_regex => ".*/[^\s]+-(\d.*)";
+ package_installed_regex => ".*";                          # all reported are installed
+ package_name_convention => "$(name)";
+ package_list_update_command => "/bin/true";               # I prefer manual syncing
+ #package_list_update_command => "/usr/bin/emerge --sync"; # if you like automatic
+ package_list_update_ifelapsed => "240";                   # should happen every 4 hours
+    
+ package_add_command => "/usr/bin/emerge -q --quiet-build";
+ package_delete_command => "/usr/bin/emerge --depclean";
+ package_update_command => "/usr/bin/emerge --update";
+ package_verify_command => "/usr/bin/emerge -s";
+ package_noverify_regex => ".*(Not Installed|Applications found : 0).*";
 }
 
 ##
@@ -1935,6 +1956,23 @@ freebsd::
  package_name_convention => "$(name)-$(version)";
  package_add_command => "/usr/sbin/pkg_add -r";
  package_delete_command => "/usr/sbin/pkg_delete";
+
+gentoo::
+ package_changes => "individual";
+ package_list_command => "/bin/sh -c '/bin/ls -d /var/db/pkg/*/* | cut -c 13-'";
+ package_list_name_regex => ".*/([^\s]+)-\d.*";
+ package_list_version_regex => ".*/[^\s]+-(\d.*)";
+ package_installed_regex => ".*";                          # all reported are installed
+ package_name_convention => "$(name)";
+ package_list_update_command => "/bin/true";               # I prefer manual syncing
+ #package_list_update_command => "/usr/bin/emerge --sync"; # if you like automatic
+ package_list_update_ifelapsed => "240";                   # should happen every 4 hours
+    
+ package_add_command => "/usr/bin/emerge -q --quiet-build";
+ package_delete_command => "/usr/bin/emerge --depclean";
+ package_update_command => "/usr/bin/emerge --update";
+ package_verify_command => "/usr/bin/emerge -s";
+ package_noverify_regex => ".*(Not Installed|Applications found : 0).*";
 }
 
 ##
