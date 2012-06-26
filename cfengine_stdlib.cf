@@ -481,6 +481,38 @@ insert_lines:
 
 ##
 
+bundle edit_line maintain_key_values(v,sep)
+{
+  vars:
+    "index" slist => getindices("$(v)");
+    # Be careful if the index string contains funny chars
+    "cindex[$(index)]" string => canonify("$(index)");
+    # Matching pattern for line (basically key-and-separator)
+    "keypat[$(index)]" string => "\s*$(index)\s*$(sep)\s*";
+
+    # Values may contain regexps. Escape them for replace_pattern matching.
+    "ve[$(index)]" string => escape("$($(v)[$(index)])");
+
+  classes:
+    "$(cindex[$(index)])_key_in_file"
+       comment => "Dynamic Class created if patterns matching",
+       expression => regline("^$(keypat[$(index)]).*", "$(edit.filename)");
+
+  replace_patterns:
+    # For convergence need to use negative lookahead on value:
+    # "key sep (?!value).*"
+    "^($(keypat[$(index)]))(?!$(ve[$(index)])).*"
+      comment => "Replace definition of $(index)",
+      replace_with => value("$(match.1)$($(v)[$(index)])");
+
+  insert_lines:
+    "$(index)$(sep)$($(v)[$(index)])",
+      comment => "Insert definition of $(index)",
+      ifvarclass => "!$(cindex[$(index)])_key_in_file";
+}
+
+##
+
 bundle edit_line append_users_starting(v)
 
  # For adding to /etc/passwd or etc/shadow, needs
