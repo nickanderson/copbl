@@ -437,7 +437,7 @@ vars:
 replace_patterns:
   # If the line is there, maybe commented out, uncomment and replace with
   # the correct value
-  "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+  "^\s*($(index)\s+(?!$($(v)[$(index)])$).*|# ?$(index)\s+.*)$"
          comment => "Correct the value",
     replace_with => value("$(index) $($(v)[$(index)])"),
          classes => always("replace_attempted_$(cindex[$(index)])");
