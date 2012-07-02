@@ -78,20 +78,20 @@ bundle edit_line comment_lines_matching(regex,comment)
 
 {
 replace_patterns:
-	 
+
  "^($(regex))$" 
 
      replace_with => comment("$(comment)"),
           comment => "Search and replace string";
 }
-	 
+
 ##
-	 
+
 bundle edit_line uncomment_lines_matching(regex,comment)
-	 
+
  # Uncomment lines of a file where the regex matches
  # the text after the comment string
-	 
+
 {
 replace_patterns:
  
@@ -100,7 +100,7 @@ replace_patterns:
        replace_with => uncomment,
             comment => "Uncomment lines matching a regular expression";
 }
-	 
+
 ##
 
 bundle edit_line comment_lines_containing(regex,comment)
@@ -115,14 +115,14 @@ replace_patterns:
      replace_with => comment("$(comment)"),
           comment => "Comment out lines in a file";
 }
-	 
+
 ##
-	 
+
 bundle edit_line uncomment_lines_containing(regex,comment)
-	 
+
  # Uncomment lines of a file where the regex matches
  # the text after the comment string
-	 
+
 {
 replace_patterns:
  
@@ -1881,7 +1881,7 @@ package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 bundle edit_line create_solaris_admin_file
 {
 insert_lines:
-		
+
   "mail=
 instance=unique
 partial=nocheck
