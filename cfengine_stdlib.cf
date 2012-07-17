@@ -781,6 +781,15 @@ body edit_defaults no_backup
 edit_backup => "false";
 }
 
+##
+
+body edit_defaults backup_timestamp
+{
+empty_file_before_editing => "false";
+edit_backup => "timestamp";
+#max_file_size => "300000";
+}
+
 ##-------------------------------------------------------
 ## location
 ##-------------------------------------------------------
