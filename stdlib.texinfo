@@ -106,6 +106,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body acl strict::             
 * body action bg::              
 * body action if_elapsed::      
+* body action if_elapsed_day::  
 * body action ifwin_bg::        
 * body action immediate::       
 * body action log_repaired::    
@@ -126,10 +127,12 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body classes if_else::        
 * body classes if_notkept::     
 * body classes if_ok::          
+* body classes if_ok_cancel::   
 * body classes if_repaired::    
 * body classes state_repaired::  
 * body contain in_dir::         
 * body contain in_dir_shell::   
+* body contain in_dir_shell_and_silent::  
 * body contain in_shell::       
 * body contain in_shell_and_silent::  
 * body contain in_shell_bg::    
@@ -151,16 +154,21 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body copy_from secure_cp::    
 * body copy_from seed_cp::      
 * body copy_from sync_cp::      
+* body database_server local_mysql::  
+* body database_server local_postgresql::  
 * body delete tidy::            
 * body depth_search include_base::  
 * body depth_search recurse::   
 * body depth_search recurse_ignore::  
+* body edit_defaults backup_timestamp::  
 * body edit_defaults empty::    
 * body edit_defaults no_backup::  
 * body edit_defaults std_defs::  
 * body edit_field col::         
 * body edit_field line::        
 * body edit_field quoted_var::  
+* body environment_resources kvm::  
+* body file_select all::        
 * body file_select by_name::    
 * body file_select days_old::   
 * body file_select dirs::       
@@ -172,20 +180,27 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body link_from linkchildren::  
 * body link_from ln_s::         
 * body location after::         
+* body location before::        
 * body location start::         
+* body match_value line_match_value::  
 * body match_value scan_changing_file::  
 * body match_value scan_log::   
+* body match_value single_value::  
 * body mount nfs::              
 * body mount nfs_p::            
 * body mount unmount::          
 * body package_method apt::     
 * body package_method dpkg_version::  
+* body package_method emerge::  
 * body package_method freebsd::  
 * body package_method generic::  
+* body package_method ips {::   
 * body package_method msi_explicit::  
 * body package_method msi_implicit::  
+* body package_method rpm_filebased::  
 * body package_method rpm_version::  
 * body package_method solaris ::  
+* body package_method windows_feature::  
 * body package_method yum::     
 * body package_method yum_rpm::  
 * body package_method zypper::  
@@ -209,6 +224,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * body service_method force_deps::  
 * body volume min_free_space::  
 * bundle agent cronjob::        
+* bundle agent standard_services::  
 * bundle edit_line append_groups_starting::  
 * bundle edit_line append_if_no_line::  
 * bundle edit_line append_if_no_lines::  
@@ -222,6 +238,8 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * bundle edit_line expand_template::  
 * bundle edit_line insert_file::  
 * bundle edit_line insert_lines::  
+* bundle edit_line maintain_key_values::  
+* bundle edit_line manage_variable_values_ini::  
 * bundle edit_line replace_line_end::  
 * bundle edit_line replace_or_add::  
 * bundle edit_line resolvconf::  
@@ -230,6 +248,7 @@ ca n be made to the help-cfengine@@cfengine.org mailing list.
 * bundle edit_line set_config_values_matching::  
 * bundle edit_line set_user_field::  
 * bundle edit_line set_variable_values::  
+* bundle edit_line set_variable_values_ini::  
 * bundle edit_line uncomment_lines_containing::  
 * bundle edit_line uncomment_lines_matching::  
 * bundle edit_line warn_lines_matching::  
@@ -303,7 +322,7 @@ background  => "true";
 
 @end verbatim
 
-@node body action if_elapsed, body action ifwin_bg, body action bg, The Purpose Of This Handbook
+@node body action if_elapsed, body action if_elapsed_day, body action bg, The Purpose Of This Handbook
 @section body action if_elapsed(x)
 
 @verbatim
@@ -316,7 +335,20 @@ expireafter => "$(x)";
 
 @end verbatim
 
-@node body action ifwin_bg, body action immediate, body action if_elapsed, The Purpose Of This Handbook
+@node body action if_elapsed_day, body action ifwin_bg, body action if_elapsed, The Purpose Of This Handbook
+@section body action if_elapsed_day
+
+@verbatim
+body action if_elapsed_day
+{
+ifelapsed => "1440";    # 60 x 24
+expireafter => "1400";
+}
+
+
+@end verbatim
+
+@node body action ifwin_bg, body action immediate, body action if_elapsed_day, The Purpose Of This Handbook
 @section body action ifwin_bg
 
 @verbatim
@@ -603,7 +635,7 @@ repair_timeout  => { "$(x)" };
 
 @end verbatim
 
-@node body classes if_ok, body classes if_repaired, body classes if_notkept, The Purpose Of This Handbook
+@node body classes if_ok, body classes if_ok_cancel, body classes if_notkept, The Purpose Of This Handbook
 @section body classes if_ok(x)
 
 @verbatim
@@ -616,7 +648,20 @@ promise_kept => { "$(x)" };
 
 @end verbatim
 
-@node body classes if_repaired, body classes state_repaired, body classes if_ok, The Purpose Of This Handbook
+@node body classes if_ok_cancel, body classes if_repaired, body classes if_ok, The Purpose Of This Handbook
+@section body classes if_ok_cancel(x)
+
+@verbatim
+body classes if_ok_cancel(x)
+{
+cancel_repaired => { "$(x)" };
+cancel_kept => { "$(x)" };
+}
+
+
+@end verbatim
+
+@node body classes if_repaired, body classes state_repaired, body classes if_ok_cancel, The Purpose Of This Handbook
 @section body classes if_repaired(x)
 
 @verbatim
@@ -653,7 +698,7 @@ chdir => "$(s)";
 
 @end verbatim
 
-@node body contain in_dir_shell, body contain in_shell, body contain in_dir, The Purpose Of This Handbook
+@node body contain in_dir_shell, body contain in_dir_shell_and_silent, body contain in_dir, The Purpose Of This Handbook
 @section body contain in_dir_shell(s)
 
 @verbatim
@@ -666,7 +711,21 @@ useshell => "true";
 
 @end verbatim
 
-@node body contain in_shell, body contain in_shell_and_silent, body contain in_dir_shell, The Purpose Of This Handbook
+@node body contain in_dir_shell_and_silent, body contain in_shell, body contain in_dir_shell, The Purpose Of This Handbook
+@section body contain in_dir_shell_and_silent(dir)
+
+@verbatim
+body contain in_dir_shell_and_silent(dir)
+{
+useshell => "true";
+no_output => "true";
+chdir => "$(dir)";
+}
+
+
+@end verbatim
+
+@node body contain in_shell, body contain in_shell_and_silent, body contain in_dir_shell_and_silent, The Purpose Of This Handbook
 @section body contain in_shell
 
 @verbatim
@@ -938,7 +997,7 @@ compare     => "exists";
 
 @end verbatim
 
-@node body copy_from sync_cp, body delete tidy, body copy_from seed_cp, The Purpose Of This Handbook
+@node body copy_from sync_cp, body database_server local_mysql, body copy_from seed_cp, The Purpose Of This Handbook
 @section body copy_from sync_cp(from,server)
 
 @verbatim
@@ -954,7 +1013,39 @@ type_check  => "false";
 
 @end verbatim
 
-@node body delete tidy, body depth_search include_base, body copy_from sync_cp, The Purpose Of This Handbook
+@node body database_server local_mysql, body database_server local_postgresql, body copy_from sync_cp, The Purpose Of This Handbook
+@section body database_server local_mysql(username, password)
+
+@verbatim
+body database_server local_mysql(username, password)
+{
+db_server_owner => "$(username)";
+db_server_password => "$(password)";
+db_server_host => "localhost";
+db_server_type => "mysql";
+db_server_connection_db => "mysql";
+}
+
+
+@end verbatim
+
+@node body database_server local_postgresql, body delete tidy, body database_server local_mysql, The Purpose Of This Handbook
+@section body database_server local_postgresql(username, password)
+
+@verbatim
+body database_server local_postgresql(username, password)
+{
+db_server_owner => "$(username)";
+db_server_password => "$(password)";
+db_server_host => "localhost";
+db_server_type => "postgres";
+db_server_connection_db => "postgres";
+}
+
+
+@end verbatim
+
+@node body delete tidy, body depth_search include_base, body database_server local_postgresql, The Purpose Of This Handbook
 @section body delete tidy
 
 @verbatim
@@ -994,7 +1085,7 @@ xdev  => "true";
 
 @end verbatim
 
-@node body depth_search recurse_ignore, body edit_defaults empty, body depth_search recurse, The Purpose Of This Handbook
+@node body depth_search recurse_ignore, body edit_defaults backup_timestamp, body depth_search recurse, The Purpose Of This Handbook
 @section body depth_search recurse_ignore(d,list)
 
 @verbatim
@@ -1007,7 +1098,21 @@ exclude_dirs => { @(list) };
 
 @end verbatim
 
-@node body edit_defaults empty, body edit_defaults no_backup, body depth_search recurse_ignore, The Purpose Of This Handbook
+@node body edit_defaults backup_timestamp, body edit_defaults empty, body depth_search recurse_ignore, The Purpose Of This Handbook
+@section body edit_defaults backup_timestamp
+
+@verbatim
+body edit_defaults backup_timestamp
+{
+empty_file_before_editing => "false";
+edit_backup => "timestamp";
+#max_file_size => "300000";
+}
+
+
+@end verbatim
+
+@node body edit_defaults empty, body edit_defaults no_backup, body edit_defaults backup_timestamp, The Purpose Of This Handbook
 @section body edit_defaults empty
 
 @verbatim
@@ -1015,7 +1120,7 @@ body edit_defaults empty
 {
 empty_file_before_editing => "true";
 edit_backup => "false";
-max_file_size => "300000";
+#max_file_size => "300000";
 }
 
 
@@ -1041,7 +1146,7 @@ body edit_defaults std_defs
 {
 empty_file_before_editing => "false";
 edit_backup => "false";
-max_file_size => "300000";
+#max_file_size => "300000";
 }
 
 
@@ -1083,7 +1188,7 @@ allow_blank_fields => "true";
 
 @end verbatim
 
-@node body edit_field quoted_var, body file_select by_name, body edit_field line, The Purpose Of This Handbook
+@node body edit_field quoted_var, body environment_resources kvm, body edit_field line, The Purpose Of This Handbook
 @section body edit_field quoted_var(newval,method)
 
 @verbatim
@@ -1101,7 +1206,62 @@ allow_blank_fields => "true";
 
 @end verbatim
 
-@node body file_select by_name, body file_select days_old, body edit_field quoted_var, The Purpose Of This Handbook
+@node body environment_resources kvm, body file_select all, body edit_field quoted_var, The Purpose Of This Handbook
+@section body environment_resources kvm(name, arch, cpu_count, mem_kb, disk_file)
+
+@verbatim
+body environment_resources kvm(name, arch, cpu_count, mem_kb, disk_file)
+{
+env_spec =>
+"<domain type='kvm'>
+  <name>$(name)</name>
+  <memory>$(mem_kb)</memory>
+  <currentMemory>$(mem_kb)</currentMemory>
+  <vcpu>$(cpu_count)</vcpu>
+  <os>
+    <type arch='$(arch)'>hvm</type>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+    <pae/>
+  </features>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <devices>
+    <emulator>/usr/bin/kvm</emulator>
+    <disk type='file' device='disk'>
+      <source file='$(disk_file)'/>
+      <target dev='vda' bus='virtio'/>
+    </disk>
+    <interface type='network'>
+      <source network='default'/>
+    </interface>
+    <input type='mouse' bus='ps2'/>
+    <graphics type='vnc' port='-1' autoport='yes'/>
+  </devices>
+</domain>";
+}
+
+
+
+@end verbatim
+
+@node body file_select all, body file_select by_name, body environment_resources kvm, The Purpose Of This Handbook
+@section body file_select all
+
+@verbatim
+body file_select all
+{
+leaf_name => { ".*" };
+file_result => "leaf_name";
+}
+
+
+@end verbatim
+
+@node body file_select by_name, body file_select days_old, body file_select all, The Purpose Of This Handbook
 @section body file_select by_name(names)
 
 @verbatim
@@ -1235,7 +1395,7 @@ when_no_source => "force";
 
 @end verbatim
 
-@node body location after, body location start, body link_from ln_s, The Purpose Of This Handbook
+@node body location after, body location before, body link_from ln_s, The Purpose Of This Handbook
 @section body location after(str)
 
 @verbatim
@@ -1246,10 +1406,24 @@ select_line_matching => "$(str)";
 }
 
 
+@end verbatim
+
+@node body location before, body location start, body location after, The Purpose Of This Handbook
+@section body location before(str)
+
+@verbatim
+body location before(str)
+{
+before_after => "before";
+select_line_matching => "$(str)";
+}
+
+
+
 
 @end verbatim
 
-@node body location start, body match_value scan_changing_file, body location after, The Purpose Of This Handbook
+@node body location start, body match_value line_match_value, body location before, The Purpose Of This Handbook
 @section body location start
 
 @verbatim
@@ -1261,7 +1435,20 @@ before_after => "before";
 
 @end verbatim
 
-@node body match_value scan_changing_file, body match_value scan_log, body location start, The Purpose Of This Handbook
+@node body match_value line_match_value, body match_value scan_changing_file, body location start, The Purpose Of This Handbook
+@section body match_value line_match_value(line_match, extract_regex)
+
+@verbatim
+body match_value line_match_value(line_match, extract_regex)
+{
+select_line_matching => "$(line_match)";
+extraction_regex => "$(extract_regex)";
+}
+
+
+@end verbatim
+
+@node body match_value scan_changing_file, body match_value scan_log, body match_value line_match_value, The Purpose Of This Handbook
 @section body match_value scan_changing_file(line)
 
 @verbatim
@@ -1274,7 +1461,7 @@ track_growing_file => "false";
 
 @end verbatim
 
-@node body match_value scan_log, body mount nfs, body match_value scan_changing_file, The Purpose Of This Handbook
+@node body match_value scan_log, body match_value single_value, body match_value scan_changing_file, The Purpose Of This Handbook
 @section body match_value scan_log(line)
 
 @verbatim
@@ -1287,7 +1474,20 @@ track_growing_file => "true";
 
 @end verbatim
 
-@node body mount nfs, body mount nfs_p, body match_value scan_log, The Purpose Of This Handbook
+@node body match_value single_value, body mount nfs, body match_value scan_log, The Purpose Of This Handbook
+@section body match_value single_value(regex)
+
+@verbatim
+body match_value single_value(regex)
+{
+select_line_matching => "$(regex)";
+extraction_regex => "($(regex))";
+}
+
+
+@end verbatim
+
+@node body mount nfs, body mount nfs_p, body match_value single_value, The Purpose Of This Handbook
 @section body mount nfs(server,source)
 
 @verbatim
@@ -1341,9 +1541,9 @@ body package_method apt
 {
 package_changes => "bulk";
 package_list_command => "/usr/bin/dpkg -l";
-package_list_name_regex    => "ii\s+([^\s]+).*";
-package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
-package_installed_regex => ".*"; # all reported are installed
+package_list_name_regex    => ".i\s+([^\s]+).*";
+package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
+package_installed_regex => ".i.*"; # packages that have been uninstalled may be listed
 package_name_convention => "$(name)";
 
 # set it to "0" to avoid caching of list during upgrade
@@ -1369,7 +1569,7 @@ have_aptitude::
 
 @end verbatim
 
-@node body package_method dpkg_version, body package_method freebsd, body package_method apt, The Purpose Of This Handbook
+@node body package_method dpkg_version, body package_method emerge, body package_method apt, The Purpose Of This Handbook
 @section body package_method dpkg_version(repo)
 
 @verbatim
@@ -1381,10 +1581,10 @@ package_list_command => "/usr/bin/dpkg -l";
 # set it to "0" to avoid caching of list during upgrade
 package_list_update_ifelapsed => "240";
 
-package_list_name_regex    => "ii\s+([^\s]+).*";
-package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
+package_list_name_regex    => ".i\s+([^\s]+).*";
+package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
 
-package_installed_regex => ".*"; # all reported are installed
+package_installed_regex => ".i.*"; # packages that have been uninstalled may be listed
 
 package_file_repositories => { "$(repo)" };
 
@@ -1403,7 +1603,35 @@ debian::
 
 @end verbatim
 
-@node body package_method freebsd, body package_method generic, body package_method dpkg_version, The Purpose Of This Handbook
+@node body package_method emerge, body package_method freebsd, body package_method dpkg_version, The Purpose Of This Handbook
+@section body package_method emerge
+
+@verbatim
+body package_method emerge
+{
+ package_changes => "individual";
+ package_list_command => "/bin/sh -c '/bin/ls -d /var/db/pkg/*/* | cut -c 13-'";
+ package_list_name_regex => ".*/([^\s]+)-\d.*";
+ package_list_version_regex => ".*/[^\s]+-(\d.*)";
+ package_installed_regex => ".*";                          # all reported are installed
+ package_name_convention => "$(name)";
+ package_list_update_command => "/bin/true";               # I prefer manual syncing
+ #package_list_update_command => "/usr/bin/emerge --sync"; # if you like automatic
+ package_list_update_ifelapsed => "240";                   # should happen every 4 hours
+    
+ package_add_command => "/usr/bin/emerge -q --quiet-build";
+ package_delete_command => "/usr/bin/emerge --depclean";
+ package_update_command => "/usr/bin/emerge --update";
+ package_verify_command => "/usr/bin/emerge -s";
+ package_noverify_regex => ".*(Not Installed|Applications found : 0).*";
+}
+
+
+ # Single bundle for all the similar managers simplifies promises
+
+@end verbatim
+
+@node body package_method freebsd, body package_method generic, body package_method emerge, The Purpose Of This Handbook
 @section body package_method freebsd
 
 @verbatim
@@ -1427,16 +1655,14 @@ body package_method freebsd
  package_name_convention => "$(name)-$(version)";
 
 
-package_add_command => "/usr/sbin/pkg_add -r";
-package_delete_command => "/usr/sbin/pkg_delete";
+ package_add_command => "/usr/sbin/pkg_add -r";
+ package_delete_command => "/usr/sbin/pkg_delete";
 }
 
 
- # Single bundle for all the similar managers simplifies promises
-
 @end verbatim
 
-@node body package_method generic, body package_method msi_explicit, body package_method freebsd, The Purpose Of This Handbook
+@node body package_method generic, body package_method ips {, body package_method freebsd, The Purpose Of This Handbook
 @section body package_method generic
 
 @verbatim
@@ -1470,7 +1696,7 @@ redhat::
  package_installed_regex => ".*";
  package_name_convention => "$(name)";
  package_list_update_ifelapsed => "0";     # sometimes, caching is pretty disturbing
- package_patch_installed_regex => "^\s.*";
+ package_patch_installed_regex => "^[^*]\s.*";
  package_patch_name_regex    => "([^.]+).*";
  package_patch_version_regex => "[^\s]\s+([^\s]+).*";
  package_patch_arch_regex    => "[^.]+\.([^\s]+).*";
@@ -1488,7 +1714,7 @@ redhat::
 # package_installed_regex => ".*(installed|\s+@).*";
 # package_name_convention => "$(name).$(arch)";
 # package_list_update_ifelapsed => "240";
-# package_patch_installed_regex => "^\s.*";
+# package_patch_installed_regex => "^[^*]\s.*";
 # package_patch_name_regex    => "([^.]+).*";
 # package_patch_version_regex => "[^\s]\s+([^\s]+).*";
 # package_patch_arch_regex    => "[^.]+\.([^\s]+).*";
@@ -1499,9 +1725,9 @@ redhat::
 debian::
  package_changes => "bulk";
  package_list_command => "/usr/bin/dpkg -l";
- package_list_name_regex    => "ii\s+([^\s]+).*";
- package_list_version_regex => "ii\s+[^\s]+\s+([^\s]+).*";
- package_installed_regex => ".*"; # all reported are installed
+ package_list_name_regex    => ".i\s+([^\s]+).*";
+ package_list_version_regex => ".i\s+[^\s]+\s+([^\s]+).*";
+ package_installed_regex => ".i.*"; # packages that have been uninstalled may be listed
  package_name_convention => "$(name)";
  package_list_update_ifelapsed => "240";		# 4 hours
 
@@ -1532,13 +1758,59 @@ freebsd::
  package_name_convention => "$(name)-$(version)";
  package_add_command => "/usr/sbin/pkg_add -r";
  package_delete_command => "/usr/sbin/pkg_delete";
+
+gentoo::
+ package_changes => "individual";
+ package_list_command => "/bin/sh -c '/bin/ls -d /var/db/pkg/*/* | cut -c 13-'";
+ package_list_name_regex => ".*/([^\s]+)-\d.*";
+ package_list_version_regex => ".*/[^\s]+-(\d.*)";
+ package_installed_regex => ".*";                          # all reported are installed
+ package_name_convention => "$(name)";
+ package_list_update_command => "/bin/true";               # I prefer manual syncing
+ #package_list_update_command => "/usr/bin/emerge --sync"; # if you like automatic
+ package_list_update_ifelapsed => "240";                   # should happen every 4 hours
+    
+ package_add_command => "/usr/bin/emerge -q --quiet-build";
+ package_delete_command => "/usr/bin/emerge --depclean";
+ package_update_command => "/usr/bin/emerge --update";
+ package_verify_command => "/usr/bin/emerge -s";
+ package_noverify_regex => ".*(Not Installed|Applications found : 0).*";
 }
 
 
 
 @end verbatim
 
-@node body package_method msi_explicit, body package_method msi_implicit, body package_method generic, The Purpose Of This Handbook
+@node body package_method ips {, body package_method msi_explicit, body package_method generic, The Purpose Of This Handbook
+@section body package_method ips {
+
+@verbatim
+body package_method ips {
+  package_changes => "bulk";
+  package_list_command => "/usr/bin/pkg list -v --no-refresh";
+  package_list_name_regex    => "pkg://.+?/([^\s]+)@.*$";
+  package_list_version_regex => "[^\s]+@([^\s]+).*";
+  package_installed_regex => ".*(i..)"; # all reported are installed
+
+  # set it to "0" to avoid caching of list during upgrade
+  package_list_update_ifelapsed => "240";
+
+  package_add_command => "/usr/bin/pkg install --accept ";
+  package_list_update_command => "/usr/bin/pkg refresh --full";
+  package_delete_command => "/usr/bin/pkg uninstall";
+  package_update_command =>  "/usr/bin/pkg install --accept";
+  package_verify_command =>  "/usr/bin/pkg list -a -v --no-refresh";
+  package_noverify_regex => "(.*---|pkg list: no packages matching .* installed)";
+}
+
+
+# The older solaris package system is poorly designed, with too many different
+# names to track. See the example in tests/units/unit_package_solaris.cf
+# to see how to use this
+
+@end verbatim
+
+@node body package_method msi_explicit, body package_method msi_implicit, body package_method ips {, The Purpose Of This Handbook
 @section body package_method msi_explicit(repo)
 
 @verbatim
@@ -1562,7 +1834,7 @@ package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
 
 @end verbatim
 
-@node body package_method msi_implicit, body package_method rpm_version, body package_method msi_explicit, The Purpose Of This Handbook
+@node body package_method msi_implicit, body package_method rpm_filebased, body package_method msi_explicit, The Purpose Of This Handbook
 @section body package_method msi_implicit(repo)
 
 @verbatim
@@ -1590,7 +1862,65 @@ package_delete_command => "\"$(sys.winsysdir)\msiexec.exe\" /qn /x";
 
 @end verbatim
 
-@node body package_method rpm_version, body package_method solaris , body package_method msi_implicit, The Purpose Of This Handbook
+@node body package_method rpm_filebased, body package_method rpm_version, body package_method msi_implicit, The Purpose Of This Handbook
+@section body package_method rpm_filebased(path)
+
+@verbatim
+body package_method rpm_filebased(path)
+
+# Contributed by Aleksey Tsalolikhin. Written on 29-Feb-2012.
+# Based on yum_rpm body in COPBL by Trond Hasle Amundsen.
+# Purpose: install packages from local filesystem-based package repository.
+# Note: Specify the path to the local package repository in the argument.
+  
+# Example of how to use it:
+#
+# {{{
+# packages:
+# "epel-release"
+# package_policy => "add",
+# package_version => "5-4",
+# package_architectures => { "noarch" },
+# package_method => rpm_filebased("/repo/RPMs");
+# }}}
+
+{
+  package_file_repositories => { "$(path)" };
+  # the above is an addition to Trond's yum_rpm body
+  
+  package_add_command => "/bin/rpm -ihv ";
+  # The above is a change from Trond's yum_rpm body, this makes the commands rpm only.
+  # The reason I changed the install command from yum to rpm is yum will be default
+  # refuse to install the epel-release RPM as it does not have the EPEL GPG key,
+  # but rpm goes ahead and installs the epel-release RPM and the EPEL GPG key.
+  
+  package_name_convention => "$(name)-$(version).$(arch).rpm";
+  # The above is a change from Tron's yum_rpm body. When package_file_repositories is in play,
+  # package_name_convention has to match the file name, not the package name, per the
+  # CFEngine 3 Reference Manual
+  
+  # The rest is unchanged from Trond's yum_rpm body
+  package_changes => "bulk";
+  package_list_command => "/bin/rpm -qa --qf '%{name} %{version}-%{release} %{arch}\n'";
+  
+  package_list_name_regex => "^(\S+?)\s\S+?\s\S+$";
+  package_list_version_regex => "^\S+?\s(\S+?)\s\S+$";
+  package_list_arch_regex => "^\S+?\s\S+?\s(\S+)$";
+  
+  package_installed_regex => ".*";
+  
+
+  package_delete_command => "/bin/rpm -e --allmatches";
+  package_verify_command => "/bin/rpm -V";
+}
+
+
+# OpenSolaris based systems (Solaris 11, Illumos, etc) use the much better
+# Image Package System.
+
+@end verbatim
+
+@node body package_method rpm_version, body package_method solaris , body package_method rpm_filebased, The Purpose Of This Handbook
 @section body package_method rpm_version(repo)
 
 @verbatim
@@ -1622,7 +1952,7 @@ package_noverify_regex => ".*[^\s].*";
 
 @end verbatim
 
-@node body package_method solaris , body package_method yum, body package_method rpm_version, The Purpose Of This Handbook
+@node body package_method solaris , body package_method windows_feature, body package_method rpm_version, The Purpose Of This Handbook
 @section body package_method solaris (pkgname, spoolfile, adminfile)
 
 @verbatim
@@ -1647,7 +1977,30 @@ package_delete_command => "/usr/sbin/pkgrm -n -a /tmp/$(adminfile)";
 
 @end verbatim
 
-@node body package_method yum, body package_method yum_rpm, body package_method solaris , The Purpose Of This Handbook
+@node body package_method windows_feature, body package_method yum, body package_method solaris , The Purpose Of This Handbook
+@section body package_method windows_feature
+
+@verbatim
+body package_method windows_feature
+{
+package_changes => "individual";
+
+package_name_convention   => "$(name)";
+package_delete_convention => "$(name)";
+
+package_installed_regex => ".*";
+package_list_name_regex => "(.*)";
+package_list_version_regex => "(.*)";  # FIXME: the listing does not give version, so takes name for version too now
+
+package_add_command    => "$(sys.winsysdir)\\WindowsPowerShell\\v1.0\\powershell.exe -Command \"Import-Module ServerManager; Add-WindowsFeature -Name\"";
+package_delete_command => "$(sys.winsysdir)\\WindowsPowerShell\\v1.0\\powershell.exe -Command \"Import-Module ServerManager; Remove-WindowsFeature -confirm:$false -Name\"";
+package_list_command   => "$(sys.winsysdir)\\WindowsPowerShell\\v1.0\\powershell.exe -Command \"Import-Module ServerManager; Get-WindowsFeature | where {$_.installed -eq $True} |foreach {$_.Name}\"";
+}
+
+
+@end verbatim
+
+@node body package_method yum, body package_method yum_rpm, body package_method windows_feature, The Purpose Of This Handbook
 @section body package_method yum
 
 @verbatim
@@ -1669,7 +2022,7 @@ package_name_convention => "$(name).$(arch)";
 # set it to "0" to avoid caching of list during upgrade
 package_list_update_ifelapsed => "240";
 
-package_patch_installed_regex => "^\s.*";
+package_patch_installed_regex => "^[^*]\s.*";
 package_patch_name_regex    => "([^.]+).*";
 package_patch_version_regex => "[^\s]\s+([^\s]+).*";
 package_patch_arch_regex    => "[^.]+\.([^\s]+).*";
@@ -1688,6 +2041,7 @@ package_verify_command => "/bin/rpm -V";
 
 @verbatim
 body package_method yum_rpm
+
 # Contributed by Trond Hasle Amundsen
 
 # More efficient package method for RedHat - uses rpm to list instead of yum
@@ -1696,6 +2050,7 @@ body package_method yum_rpm
 #   causes uninstallation to fail.
 # - using allmatches to remove for all architectures
 #
+
 {
   package_changes => "bulk";
   package_list_command => "/bin/rpm -qa --qf '%{name} %{version}-%{release} %{arch}\n'";
@@ -1708,7 +2063,10 @@ body package_method yum_rpm
   package_installed_regex => ".*";
   package_name_convention => "$(name)";
 
-  package_patch_installed_regex => "^\s.*";
+  # set it to "0" to avoid caching of list during upgrade
+  package_list_update_ifelapsed => "240";
+
+  package_patch_installed_regex => "^[^*]\s.*";
   package_patch_name_regex    => "([^.]+).*";
   package_patch_version_regex => "[^\s]\s+([^\s]+).*";
   package_patch_arch_regex    => "[^.]+\.([^\s]+).*";
@@ -1719,10 +2077,6 @@ body package_method yum_rpm
   package_verify_command => "/bin/rpm -V";
 }
 
-
-# The solaris package system is poorly designed, with too many different
-# names to track. See the example in tests/units/unit_package_solaris.cf
-# to see how to use this
 
 @end verbatim
 
@@ -2012,7 +2366,7 @@ sensible_count => "2";
 
 @end verbatim
 
-@node bundle agent cronjob, bundle edit_line append_groups_starting, body volume min_free_space, The Purpose Of This Handbook
+@node bundle agent cronjob, bundle agent standard_services, body volume min_free_space, The Purpose Of This Handbook
 @section bundle agent cronjob(commands,user,hours,mins)
 
 @verbatim
@@ -2056,7 +2410,94 @@ changed_crontab::
 
 @end verbatim
 
-@node bundle edit_line append_groups_starting, bundle edit_line append_if_no_line, bundle agent cronjob, The Purpose Of This Handbook
+@node bundle agent standard_services, bundle edit_line append_groups_starting, bundle agent cronjob, The Purpose Of This Handbook
+@section bundle agent standard_services(service,state)
+
+@verbatim
+bundle agent standard_services(service,state)
+{
+ # DATA, 
+
+vars:
+
+ linux::
+
+  "startcommand[varnish]" string => "/etc/init.d/varnish start";
+  "stopcommand[varnish]"  string => "/etc/init.d/varnish stop";
+  "pattern[varnish]"      string => ".*varnish.*";
+
+ suse|redhat::
+
+  "startcommand[www]" string => "/etc/init.d/apache2 start";
+  "stopcommand[www]"  string => "/etc/init.d/apache2 stop";
+  "pattern[www]"      string => ".*httpd.*";
+
+  "startcommand[mysql]" string => "/etc/init.d/mysqld start";
+  "stopcommand[mysql]"  string => "/etc/init.d/mysqld stop";
+  "pattern[mysql]"      string => ".*mysqld.*";
+
+  "startcommand[tomcat]" string => "/etc/init.d/tomcat5 start";
+  "stopcommand[tomcat]"  string => "/etc/init.d/tomcat5 stop";
+  "pattern[tomcat]"      string => ".*tomcat5.*";
+
+ debian|ubuntu::
+
+  "startcommand[www]"     string => "/etc/init.d/httpd stop";
+  "stopcommand[www]"      string => "/etc/init.d/httpd stop";
+  "pattern[www]"          string => ".*apache2.*";
+
+  "startcommand[mysql]" string => "/etc/init.d/mysql start";
+  "stopcommand[mysql]"  string => "/etc/init.d/mysql stop";
+  "pattern[mysql]"      string => ".*mysqld.*";
+
+  "startcommand[tomcat]" string => "/etc/init.d/tomcat6 start";
+  "stopcommand[tomcat]"  string => "/etc/init.d/tomcat6 stop";
+  "pattern[tomcat]"      string => ".*tomcat6.*";
+
+
+
+ # METHODS that implement these ............................................
+
+classes:
+
+  "start" expression => strcmp("start","$(state)"),
+             comment => "Check if to start a service";
+  "stop"  expression => strcmp("stop","$(state)"),
+             comment => "Check if to stop a service";
+
+# Do we want to include the packages here too?
+
+processes:
+
+  start::
+
+    "$(pattern)"
+
+             comment => "Verify that the service appears in the process table",
+       restart_class => "restart_$(service)";
+
+  stop::
+
+    "$(pattern)"
+
+            comment => "Verify that the service does not appear in the process",
+       process_stop => "$(stopcommand[$(service)])",
+            signals => { "term", "kill"};
+
+  commands:
+
+   "$(startcommand[$(service)])"
+
+            comment => "Execute command to restart the $(service) service",
+         ifvarclass => "restart_$(service)";
+
+}
+
+
+
+@end verbatim
+
+@node bundle edit_line append_groups_starting, bundle edit_line append_if_no_line, bundle agent standard_services, The Purpose Of This Handbook
 @section bundle edit_line append_groups_starting(v)
 
 @verbatim
@@ -2072,7 +2513,8 @@ vars:
 
 classes:
 
-  "add_$(index)" not => groupexists("$(index)");
+  "add_$(index)"     not => groupexists("$(index)"),
+                 comment => "Class created if group does not exist";
 
 insert_lines:
 
@@ -2137,6 +2579,7 @@ bundle edit_line append_to_line_end(start,end)
 field_edits:
 
    "\s*$(start)\s.*"
+         comment => "Append lines with $(this.start) and $(this.end)",
       edit_field => line("(^|\s)$(start)\s*", "2", "$(end)","append");
 }
 
@@ -2184,7 +2627,8 @@ vars:
 
 classes:
 
-  "add_$(index)" not => userexists("$(index)");
+  "add_$(index)"     not => userexists("$(index)"),
+                 comment => "Class created if user does not exist";
 
 insert_lines:
 
@@ -2213,8 +2657,8 @@ replace_patterns:
      replace_with => comment("$(comment)"),
           comment => "Comment out lines in a file";
 }
-	 
-	 
+
+
 @end verbatim
 
 @node bundle edit_line comment_lines_matching, bundle edit_line create_solaris_admin_file, bundle edit_line comment_lines_containing, The Purpose Of This Handbook
@@ -2227,14 +2671,14 @@ bundle edit_line comment_lines_matching(regex,comment)
 
 {
 replace_patterns:
-	 
+
  "^($(regex))$" 
 
      replace_with => comment("$(comment)"),
           comment => "Search and replace string";
 }
-	 
-	 
+
+
 @end verbatim
 
 @node bundle edit_line create_solaris_admin_file, bundle edit_line delete_lines_matching, bundle edit_line comment_lines_matching, The Purpose Of This Handbook
@@ -2244,7 +2688,7 @@ replace_patterns:
 bundle edit_line create_solaris_admin_file
 {
 insert_lines:
-		
+
   "mail=
 instance=unique
 partial=nocheck
@@ -2260,7 +2704,8 @@ networkretries=3
 authentication=quit
 keystore=/var/sadm/security
 proxy=
-basedir=default";
+basedir=default",
+      comment => "Insert contents of Solaris admin file (automatically install packages)";
 }
 
 
@@ -2319,13 +2764,133 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line insert_lines, bundle edit_line replace_line_end, bundle edit_line insert_file, The Purpose Of This Handbook
+@node bundle edit_line insert_lines, bundle edit_line maintain_key_values, bundle edit_line insert_file, The Purpose Of This Handbook
 @section bundle edit_line insert_lines(lines)
 
 @verbatim
 @end verbatim
 
-@node bundle edit_line replace_line_end, bundle edit_line replace_or_add, bundle edit_line insert_lines, The Purpose Of This Handbook
+@node bundle edit_line maintain_key_values, bundle edit_line manage_variable_values_ini, bundle edit_line insert_lines, The Purpose Of This Handbook
+@section bundle edit_line maintain_key_values(v,sep)
+
+@verbatim
+bundle edit_line maintain_key_values(v,sep)
+
+ # Contributed by David Lee
+ # Purpose: Sets the RHS of configuration items with an giving separator
+
+{
+  vars:
+    "index" slist => getindices("$(v)");
+    # Be careful if the index string contains funny chars
+    "cindex[$(index)]" string => canonify("$(index)");
+    # Matching pattern for line (basically key-and-separator)
+    "keypat[$(index)]" string => "\s*$(index)\s*$(sep)\s*";
+
+    # Values may contain regexps. Escape them for replace_pattern matching.
+    "ve[$(index)]" string => escape("$($(v)[$(index)])");
+
+  classes:
+    "$(cindex[$(index)])_key_in_file"
+       comment => "Dynamic Class created if patterns matching",
+       expression => regline("^$(keypat[$(index)]).*", "$(edit.filename)");
+
+  replace_patterns:
+    # For convergence need to use negative lookahead on value:
+    # "key sep (?!value).*"
+    "^($(keypat[$(index)]))(?!$(ve[$(index)])).*"
+      comment => "Replace definition of $(index)",
+      replace_with => value("$(match.1)$($(v)[$(index)])");
+
+  insert_lines:
+    "$(index)$(sep)$($(v)[$(index)])",
+      comment => "Insert definition of $(index)",
+      ifvarclass => "!$(cindex[$(index)])_key_in_file";
+}
+
+
+@end verbatim
+
+@node bundle edit_line manage_variable_values_ini, bundle edit_line replace_line_end, bundle edit_line maintain_key_values, The Purpose Of This Handbook
+@section bundle edit_line manage_variable_values_ini(tab, sectionName) {
+
+@verbatim
+bundle edit_line manage_variable_values_ini(tab, sectionName) {
+ # Sets the RHS of configuration items in the file of the form
+ # LHS=RHS
+ # If the line is commented out with #, it gets uncommented first.
+ # Adds a new line if none exists.
+ # Removes any variable value pairs not defined for the ini section
+ # The argument is an associative array containing tab[SectionName][LHS]="RHS"
+ # don't change value when the RHS is dontchange
+
+ # Based on set_variable_values_ini 
+ # Added delete lines section to empty out undefined variable values for INI section
+
+ # CAUTION : for it to work nicely, you should use Cfengine with the commit n°3229
+ # otherwise you may risk a segfault
+
+ #
+ # If you are running 3.2.1 or earlier or more specifically git commit # or
+ # earlier you can use this to work around the segfault bug.
+ # vars:
+ #     "$(file)"
+ #         edit_line => append_if_no_line("[#EOF#]"),
+ #         create => "true",
+ #         comment => "Work around bug<bug#here> where eof did not mean end
+ #                     of section and thus cannot select a region. This promise
+ #                     should be placed before your call to this bundle";
+ #      "$(file)"
+ #         edit_line   => manage_variable_values_ini("context.array", "SectionName"),
+ #         create => "true",
+ #         comment     => "Set the variale values only in the specified ini region";
+ # 
+
+    vars:
+        "index" slist => getindices("$(tab)[$(sectionName)]");
+
+    # Be careful if the index string contains funny chars
+        "cindex[$(index)]" string => canonify("$(index)");
+
+    classes:
+        "edit_$(cindex[$(index)])"     not => strcmp("$($(tab)[$(sectionName)][$(index)])","dontchange"),
+                                   comment => "Create conditions to make changes"; 
+
+    field_edits:
+
+    # If the line is there, but commented out, first uncomment it
+        "#+$(index)\s*=.*"
+            select_region => INI_section("$(sectionName)"),
+            edit_field => col("=","1","$(index)","set"),
+            ifvarclass => "edit_$(cindex[$(index)])";
+
+    # match a line starting like the key something
+        "$(index)\s*=.*"
+            edit_field => col("=","2","$($(tab)[$(sectionName)][$(index)])","set"),
+            select_region => INI_section("$(sectionName)"),
+            classes => if_ok("manage_variable_values_ini_not_$(cindex[$(index)])"),
+            ifvarclass => "edit_$(cindex[$(index)])";
+
+    delete_lines:
+        ".*"
+            select_region => INI_section("$(sectionName)"),
+            comment       => "Remove all entries in the region so there are no extra entries";
+
+    insert_lines:
+        "[$(sectionName)]"
+                location => start,
+                 comment => "Insert lines";
+
+        "$(index)=$($(tab)[$(sectionName)][$(index)])",
+                select_region => INI_section("$(sectionName)"),
+                ifvarclass => "!manage_variable_values_ini_not_$(cindex[$(index)]).edit_$(cindex[$(index)])";
+
+}
+
+
+@end verbatim
+
+@node bundle edit_line replace_line_end, bundle edit_line replace_or_add, bundle edit_line manage_variable_values_ini, The Purpose Of This Handbook
 @section bundle edit_line replace_line_end(start,end)
 
 @verbatim
@@ -2341,6 +2906,7 @@ bundle edit_line replace_line_end(start,end)
 field_edits:
 
    "\s*$(start)\s.*"
+         comment => "Replace lines with $(this.start) and $(this.end)",
       edit_field => line("(^|\s)$(start)\s*", "2", "$(end)","set");
 }
 
@@ -2365,8 +2931,9 @@ vars:
 
 replace_patterns:
   "^(?!$(line)$)$(pattern)$"
-  replace_with => value("$(line)"),
-  classes => always("replace_done_$(cline)");
+          comment => "Replace a pattern here",
+     replace_with => value("$(line)"),
+          classes => always("replace_done_$(cline)");
 
 insert_lines:
   "$(line)"
@@ -2443,9 +3010,10 @@ vars:
 replace_patterns:
   # If the line is there, maybe commented out, uncomment and replace with
   # the correct value
-  "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+  "^\s*($(index)\s+(?!$($(v)[$(index)])$).*|# ?$(index)\s+.*)$"
+         comment => "Correct the value",
     replace_with => value("$(index) $($(v)[$(index)])"),
-    classes => always("replace_attempted_$(cindex[$(index)])");
+         classes => always("replace_attempted_$(cindex[$(index)])");
 
 insert_lines:
   "$(index) $($(v)[$(index)])"
@@ -2480,8 +3048,9 @@ replace_patterns:
     # If the line is there, maybe commented out, uncomment and replace with
     # the correct value
     "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+           comment => "Correct the value",
       replace_with => value("$(index) $($(v)[$(index)])"),
-      classes => always("replace_attempted_$(cindex[$(index)])");
+           classes => always("replace_attempted_$(cindex[$(index)])");
 
 insert_lines:
   "$(index) $($(v)[$(index)])"
@@ -2513,7 +3082,7 @@ field_edits:
 
 @end verbatim
 
-@node bundle edit_line set_variable_values, bundle edit_line uncomment_lines_containing, bundle edit_line set_user_field, The Purpose Of This Handbook
+@node bundle edit_line set_variable_values, bundle edit_line set_variable_values_ini, bundle edit_line set_user_field, The Purpose Of This Handbook
 @section bundle edit_line set_variable_values(v)
 
 @verbatim
@@ -2559,15 +3128,88 @@ insert_lines:
 
 @end verbatim
 
-@node bundle edit_line uncomment_lines_containing, bundle edit_line uncomment_lines_matching, bundle edit_line set_variable_values, The Purpose Of This Handbook
+@node bundle edit_line set_variable_values_ini, bundle edit_line uncomment_lines_containing, bundle edit_line set_variable_values, The Purpose Of This Handbook
+@section bundle edit_line set_variable_values_ini(tab, sectionName) {
+
+@verbatim
+bundle edit_line set_variable_values_ini(tab, sectionName) {
+ # Sets the RHS of configuration items in the file of the form
+ # LHS=RHS
+ # If the line is commented out with #, it gets uncommented first.
+ # Adds a new line if none exists.
+ # The argument is an associative array containing tab[SectionName][LHS]="RHS"
+ # don't change value when the RHS is dontchange
+
+ # Based on set_variable_values from cfengine_stdlib.cf, modified to
+ # use section to define were to write, and to handle commented-out lines.
+
+ # CAUTION : for it to work nicely, you should use Cfengine with the commit n°3229
+ # otherwise you may risk a segfault
+
+ #
+ # If you are running 3.2.1 or earlier or more specifically git commit # or
+ # earlier you can use this to work around the segfault bug.
+ # vars:
+ #     "$(file)"
+ #         edit_line => append_if_no_line("[#EOF#]"),
+ #         create => "true",
+ #         comment => "Work around bug<bug#here> where eof did not mean end
+ #                     of section and thus cannot select a region. This promise
+ #                     should be placed before your call to this bundle";
+ #      "$(file)"
+ #         edit_line   => set_variable_values_ini("context.array", "SectionName"),
+ #         create => "true",
+ #         comment     => "Set the variale values only in the specified ini region";
+ # 
+
+    vars:
+        "index" slist => getindices("$(tab)[$(sectionName)]");
+
+    # Be careful if the index string contains funny chars
+        "cindex[$(index)]" string => canonify("$(index)");
+
+    classes:
+        "edit_$(cindex[$(index)])"     not => strcmp("$($(tab)[$(sectionName)][$(index)])","dontchange"),
+                                   comment => "Create conditions to make changes";
+
+    field_edits:
+
+    # If the line is there, but commented out, first uncomment it
+        "#+$(index)\s*=.*"
+            select_region => INI_section("$(sectionName)"),
+            edit_field => col("=","1","$(index)","set"),
+            ifvarclass => "edit_$(cindex[$(index)])";
+
+    # match a line starting like the key something
+        "$(index)\s*=.*"
+            edit_field => col("=","2","$($(tab)[$(sectionName)][$(index)])","set"),
+            select_region => INI_section("$(sectionName)"),
+            classes => if_ok("set_variable_values_ini_not_$(cindex[$(index)])"),
+            ifvarclass => "edit_$(cindex[$(index)])";
+
+    insert_lines:
+        "[$(sectionName)]"
+                location => start,
+                 comment => "Insert lines";
+
+        "$(index)=$($(tab)[$(sectionName)][$(index)])",
+                select_region => INI_section("$(sectionName)"),
+                ifvarclass => "!set_variable_values_ini_not_$(cindex[$(index)]).edit_$(cindex[$(index)])";
+
+}
+
+
+@end verbatim
+
+@node bundle edit_line uncomment_lines_containing, bundle edit_line uncomment_lines_matching, bundle edit_line set_variable_values_ini, The Purpose Of This Handbook
 @section bundle edit_line uncomment_lines_containing(regex,comment)
 
 @verbatim
 bundle edit_line uncomment_lines_containing(regex,comment)
-	 
+
  # Uncomment lines of a file where the regex matches
  # the text after the comment string
-	 
+
 {
 replace_patterns:
  
@@ -2585,10 +3227,10 @@ replace_patterns:
 
 @verbatim
 bundle edit_line uncomment_lines_matching(regex,comment)
-	 
+
  # Uncomment lines of a file where the regex matches
  # the text after the comment string
-	 
+
 {
 replace_patterns:
  
@@ -2597,7 +3239,7 @@ replace_patterns:
        replace_with => uncomment,
             comment => "Uncomment lines matching a regular expression";
 }
-	 
+
 
 @end verbatim
 
