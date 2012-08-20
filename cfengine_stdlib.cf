@@ -1597,6 +1597,10 @@ have_aptitude::
    package_verify_command =>  "/usr/bin/aptitude show";
    package_noverify_regex => "(State: not installed|E: Unable to locate package .*)";
 
+   package_patch_list_command => "/usr/bin/aptitude --assume-yes --simulate --verbose full-upgrade";
+   package_patch_name_regex => "^Inst\s+(\S+)\s+.*";
+   package_patch_version_regex => "^Inst\s+\S+\s+\[?\(?([^\],\s]+).*"; 
+
 !have_aptitude::
    package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_list_update_command => "/usr/bin/apt-get update";
@@ -1604,6 +1608,11 @@ have_aptitude::
    package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_verify_command => "/usr/bin/dpkg -s";
    package_noverify_returncode => "1";
+
+   package_patch_list_command => "/usr/bin/apt-get --just-print dist-upgrade";
+   package_patch_name_regex => "^Inst\s+(\S+)\s+.*";
+   package_patch_version_regex => "^Inst\s+\S+\s+\[?\(?([^\],\s]+).*";
+
 }
 
 ##
@@ -1628,6 +1637,15 @@ debian.x86_64::
 
 debian.i686::
    package_name_convention => "$(name)_$(version)_i386.deb";
+
+have_aptitude::
+   package_patch_list_command => "/usr/bin/aptitude --assume-yes --simulate --verbose full-upgrade";
+   package_patch_name_regex => "^Inst\s+(\S+)\s+.*";
+   package_patch_version_regex => "^Inst\s+\S+\s+\[?\(?([^\],\s]+).*"; 
+!have_aptitude::
+   package_patch_list_command => "/usr/bin/apt-get --just-print dist-upgrade";
+   package_patch_name_regex => "^Inst\s+(\S+)\s+.*";
+   package_patch_version_regex => "^Inst\s+\S+\s+\[?\(?([^\],\s]+).*";
 
 debian::
    package_add_command => "/usr/bin/dpkg --install";
@@ -2037,6 +2055,10 @@ debian.have_aptitude::
    package_verify_command =>  "/usr/bin/aptitude show";
    package_noverify_regex => "(State: not installed|E: Unable to locate package .*)";
 
+   package_patch_list_command => "/usr/bin/aptitude --assume-yes --simulate --verbose full-upgrade";
+   package_patch_name_regex => "^Inst\s+(\S+)\s+.*";
+   package_patch_version_regex => "^Inst\s+\S+\s+\[?\(?([^\],\s]+).*";
+
 debian.!have_aptitude::
    package_add_command => "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_list_update_command => "/usr/bin/apt-get update";
@@ -2044,6 +2066,10 @@ debian.!have_aptitude::
    package_update_command =>  "/usr/bin/env DEBIAN_FRONTEND=noninteractive LC_ALL=C /usr/bin/apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef --yes install";
    package_verify_command => "/usr/bin/dpkg -s";
    package_noverify_returncode => "1";
+
+   package_patch_list_command => "/usr/bin/apt-get --just-print dist-upgrade";
+   package_patch_name_regex => "^Inst\s+(\S+)\s+.*";
+   package_patch_version_regex => "^Inst\s+\S+\s+\[?\(?([^\],\s]+).*";
 
 freebsd::
  package_changes => "individual";
